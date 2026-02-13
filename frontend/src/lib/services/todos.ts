@@ -11,6 +11,17 @@ import type {
   TodoAttachment,
 } from '../types/todos';
 
+// Re-export types from todos for convenience
+export type {
+  Todo,
+  CreateTodoInput,
+  UpdateTodoInput,
+  TodoFilters,
+  TodoSortOptions,
+  RecurringInstance,
+  TodoAttachment,
+} from '../types/todos';
+
 export interface TodoShare {
   id: string;
   todo_id: string;
@@ -45,6 +56,14 @@ export class TodoService {
 
     if (error) throw new Error(error);
     return data || [];
+  }
+
+  /**
+   * Get all todos across all user's lists
+   * Used for Today/Overdue/Calendar views
+   */
+  async getAllUserTodos(): Promise<Todo[]> {
+    return this.getTodos(); // Fetch all todos (no listId filter)
   }
 
   async getTodoById(id: string): Promise<Todo | null> {
@@ -159,13 +178,11 @@ export class TodoService {
     if (filters.priority) where.priority = filters.priority;
     if (filters.hasLocation !== undefined) {
       if (filters.hasLocation) {
-        // @ts-expect-error - Backend will understand this filter
         where.location_name = { _is_null: false };
       }
     }
     if (filters.isRecurring !== undefined) {
       if (filters.isRecurring) {
-        // @ts-expect-error - Backend will understand this filter
         where.recurrence_rule = { _is_null: false };
       }
     }

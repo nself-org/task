@@ -1,48 +1,22 @@
 'use client';
 
 import { useLists } from '@/hooks/use-lists';
+import { useAuth } from '@/lib/providers/auth-provider';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Skeleton } from '@/components/ui/skeleton';
-import { Users, Eye, Edit, Crown } from 'lucide-react';
+import { Users } from 'lucide-react';
 import Link from 'next/link';
 import { format } from 'date-fns';
 
 export default function SharedListsPage() {
   const { lists, loading } = useLists();
+  const { user } = useAuth();
 
   // Filter for lists shared with me (not owned by me)
   const sharedLists = lists.filter((list) => {
-    // In a real implementation, you'd check if the current user is the owner
-    // For now, we'll show all lists - update this when auth context has user ID
-    return true;
+    return list.user_id !== user?.id;
   });
-
-  const getPermissionIcon = (permission: string) => {
-    switch (permission) {
-      case 'owner':
-        return <Crown className="h-3 w-3" />;
-      case 'editor':
-        return <Edit className="h-3 w-3" />;
-      case 'viewer':
-        return <Eye className="h-3 w-3" />;
-      default:
-        return null;
-    }
-  };
-
-  const getPermissionColor = (permission: string) => {
-    switch (permission) {
-      case 'owner':
-        return 'bg-yellow-100 text-yellow-700 dark:bg-yellow-900 dark:text-yellow-300';
-      case 'editor':
-        return 'bg-blue-100 text-blue-700 dark:bg-blue-900 dark:text-blue-300';
-      case 'viewer':
-        return 'bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-300';
-      default:
-        return '';
-    }
-  };
 
   return (
     <div className="container max-w-6xl py-8 space-y-8">
@@ -87,10 +61,9 @@ export default function SharedListsPage() {
                       <CardTitle className="text-lg truncate">{list.title}</CardTitle>
                     </div>
 
-                    {/* Permission badge - in real app, get from list_shares */}
-                    <Badge variant="secondary" className={`shrink-0 ${getPermissionColor('viewer')}`}>
-                      {getPermissionIcon('viewer')}
-                      <span className="ml-1">Viewer</span>
+                    <Badge variant="secondary" className="shrink-0">
+                      <Users className="h-3 w-3" />
+                      <span className="ml-1">Shared</span>
                     </Badge>
                   </div>
                   <CardDescription className="line-clamp-2">

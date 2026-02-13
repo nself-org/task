@@ -3,6 +3,7 @@
 import { useEffect, type ReactNode } from 'react';
 import { AppProviders } from '@/lib/providers';
 import { DevModeIndicator } from '@/components/dashboard/dev-mode-indicator';
+import { KeyboardShortcuts } from '@/components/keyboard-shortcuts';
 import { registerServiceWorker } from '@/lib/utils/register-sw';
 
 export function ClientProviders({ children }: { children: ReactNode }) {
@@ -17,6 +18,7 @@ export function ClientProviders({ children }: { children: ReactNode }) {
     <AppProviders>
       {children}
       <DevModeIndicator />
+      <KeyboardShortcuts />
     </AppProviders>
   );
 }

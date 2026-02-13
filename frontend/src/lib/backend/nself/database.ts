@@ -5,12 +5,13 @@ import { Tables } from '@/lib/utils/tables';
 
 /** Table-specific default field sets so queries return full objects, not just { id } */
 const TABLE_FIELDS: Record<string, string> = {
-  [Tables.TODOS]: 'id user_id list_id title completed is_public position due_date priority tags notes reminder_time location_name location_lat location_lng location_radius recurrence_rule parent_todo_id attachments created_at updated_at completed_at',
-  [Tables.PROFILES]: 'id email display_name avatar_url bio created_at updated_at',
+  [Tables.TODOS]: 'id user_id list_id title description completed is_public position due_date priority tags notes reminder_time location_name location_lat location_lng location_radius recurrence_rule recurrence_parent_id attachments requires_approval requires_photo completed_by approved approved_by approved_at completion_photo_url completion_notes rejected_by rejected_at rejection_reason created_at updated_at completed_at',
+  [Tables.PROFILES]: 'id email display_name avatar_url bio time_format auto_hide_completed default_list_id notification_settings theme_preference created_at updated_at',
   [Tables.TODO_SHARES]: 'id todo_id shared_with_email permission created_at',
   [Tables.LISTS]: 'id user_id title description color icon is_default position location_name location_lat location_lng location_radius reminder_on_arrival created_at updated_at',
   [Tables.LIST_SHARES]: 'id list_id shared_with_user_id shared_with_email permission invited_by accepted_at created_at updated_at',
   [Tables.LIST_PRESENCE]: 'id list_id user_id status editing_todo_id last_seen_at created_at',
+  [Tables.LIST_MEMBERS]: 'id list_id user_id role added_by added_at created_at updated_at',
   [Tables.NOTIFICATIONS]: 'id user_id type title body data read action_url created_at',
   [Tables.RECURRING_INSTANCES]: 'id parent_todo_id instance_date completed completed_at created_at',
   [Tables.USER_PREFERENCES]: 'id user_id time_format auto_hide_completed theme_preference default_list_id notification_settings created_at updated_at',

@@ -45,6 +45,7 @@ export const Tables = {
   LISTS: getTableName('lists'),
   LIST_SHARES: getTableName('list_shares'),
   LIST_PRESENCE: getTableName('list_presence'),
+  LIST_MEMBERS: getTableName('list_members'),
   NOTIFICATIONS: getTableName('notifications'),
   RECURRING_INSTANCES: getTableName('recurring_instances'),
   USER_PREFERENCES: getTableName('user_preferences'),

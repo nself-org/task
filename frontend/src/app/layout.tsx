@@ -1,6 +1,6 @@
 import './globals.css';
 import { Inter } from 'next/font/google';
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import { appConfig } from '@/lib/app.config';
 import { ClientProviders } from './client-providers';
 
@@ -13,13 +13,16 @@ export const metadata: Metadata = {
     icon: appConfig.branding.favicon,
     apple: appConfig.branding.appleTouchIcon,
   },
-  themeColor: appConfig.theme.primaryColor,
   manifest: '/manifest.json',
   appleWebApp: {
     capable: true,
     statusBarStyle: 'default',
     title: appConfig.name,
   },
+};
+
+export const viewport: Viewport = {
+  themeColor: appConfig.theme.primaryColor,
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

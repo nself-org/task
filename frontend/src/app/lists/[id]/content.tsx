@@ -1,12 +1,15 @@
 'use client';
 
+import { useState, useEffect } from 'react';
 import { useList } from '@/hooks/use-lists';
 import { ListHeader } from '@/components/lists/list-header';
 import { ListSidebar } from '@/components/lists/list-sidebar';
 import { TodoList } from '@/components/todos/todo-list';
+import { TodoToolbar } from '@/components/todos/todo-toolbar';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { AlertCircle } from 'lucide-react';
+import type { TodoFilters, TodoSortOptions } from '@/lib/types/todos';
 
 interface ListPageContentProps {
   listId: string;
@@ -14,6 +17,19 @@ interface ListPageContentProps {
 
 export function ListPageContent({ listId }: ListPageContentProps) {
   const { list, loading, error } = useList(listId);
+
+  // Search, filter, and sort state
+  const [search, setSearch] = useState('');
+  const [filters, setFilters] = useState<TodoFilters>({ listId });
+  const [sort, setSort] = useState<TodoSortOptions>({
+    field: 'position',
+    ascending: true
+  });
+
+  // Update filters when listId changes
+  useEffect(() => {
+    setFilters({ listId });
+  }, [listId]);
 
   if (loading) {
     return (
@@ -73,9 +89,24 @@ export function ListPageContent({ listId }: ListPageContentProps) {
         {/* Header */}
         <ListHeader list={list} />
 
+        {/* Toolbar with search, filters, sort */}
+        <TodoToolbar
+          search={search}
+          onSearchChange={setSearch}
+          filters={filters}
+          onFiltersChange={setFilters}
+          sort={sort}
+          onSortChange={setSort}
+        />
+
         {/* Todo list */}
         <div className="flex-1 overflow-y-auto p-6">
-          <TodoList listId={listId} />
+          <TodoList
+            listId={listId}
+            search={search}
+            filters={filters}
+            sort={sort}
+          />
         </div>
       </div>
     </div>

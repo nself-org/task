@@ -80,8 +80,8 @@ export default function SettingsPage() {
           due_reminder_minutes_before: parseInt(dueReminderMinutes, 10),
         },
       });
-    } catch (error) {
-      console.error('Failed to save settings:', error);
+    } catch {
+      toast.error('Failed to save settings');
     }
   };
 
@@ -89,7 +89,13 @@ export default function SettingsPage() {
     const granted = await requestPushPermission();
     if (granted) {
       setPushEnabled(true);
-      await handleSave();
+      try {
+        await updatePreferences({
+          notification_settings: { push_enabled: true },
+        });
+      } catch {
+        toast.error('Failed to save push notification setting');
+      }
     }
   };
 
@@ -97,7 +103,13 @@ export default function SettingsPage() {
     const granted = await requestGeoPermission();
     if (granted) {
       setLocationReminders(true);
-      await handleSave();
+      try {
+        await updatePreferences({
+          notification_settings: { location_reminders: true },
+        });
+      } catch {
+        toast.error('Failed to save location setting');
+      }
     }
   };
 

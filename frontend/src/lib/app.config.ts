@@ -11,7 +11,7 @@ export const appConfig = {
     logoAlt: '/logo-dark.svg',
     favicon: '/icon.svg',
     ogImage: '/og-image.svg',
-    appleTouchIcon: '/apple-touch-icon.svg',
+    appleTouchIcon: '/apple-touch-icon.png',
   },
 
   theme: {

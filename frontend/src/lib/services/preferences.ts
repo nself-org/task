@@ -27,8 +27,8 @@ export class PreferencesService {
     const user = await this.backend.auth.getUser();
     if (!user) throw new Error('User not authenticated');
 
-    const { data, error } = await this.backend.db.query<UserPreferences>(Tables.USER_PREFERENCES, {
-      where: { user_id: user.id },
+    const { data, error } = await this.backend.db.query<UserPreferences>(Tables.PROFILES, {
+      where: { id: user.id },
     });
 
     if (error) throw new Error(error);
@@ -45,8 +45,7 @@ export class PreferencesService {
     const user = await this.backend.auth.getUser();
     if (!user) throw new Error('User not authenticated');
 
-    const { data, error } = await this.backend.db.insert<UserPreferences>(Tables.USER_PREFERENCES, {
-      user_id: user.id,
+    const { data, error } = await this.backend.db.update<UserPreferences>(Tables.PROFILES, user.id, {
       time_format: '12h',
       auto_hide_completed: false,
       theme_preference: 'system',
@@ -76,7 +75,7 @@ export class PreferencesService {
     }
 
     const { data, error } = await this.backend.db.update<UserPreferences>(
-      Tables.USER_PREFERENCES,
+      Tables.PROFILES,
       existing.id,
       updateData
     );
@@ -172,7 +171,7 @@ export class PreferencesService {
     const user = this.backend.auth.getUser();
     if (!user) throw new Error('User not authenticated');
 
-    const channelName = `${Tables.USER_PREFERENCES}`;
+    const channelName = `${Tables.PROFILES}`;
     const channel = this.backend.realtime.channel(channelName);
 
     channel

@@ -27,6 +27,7 @@ export interface Todo {
   user_id: string;
   list_id: string;
   title: string;
+  description: string;
   completed: boolean;
   is_public: boolean;
   position: number;
@@ -46,10 +47,23 @@ export interface Todo {
 
   // Recurring
   recurrence_rule: string | null; // "daily", "weekly:monday,wednesday", "monthly:1,15"
-  parent_todo_id: string | null; // If this is a recurring instance
+  recurrence_parent_id: string | null; // If this is a recurring instance
 
   // Attachments
   attachments: TodoAttachment[];
+
+  // Task Approval System
+  requires_approval: boolean;
+  requires_photo: boolean;
+  completed_by: string | null; // user_id who completed the task
+  approved: boolean;
+  approved_by: string | null; // user_id who approved the task
+  approved_at: string | null;
+  completion_photo_url: string | null;
+  completion_notes: string | null;
+  rejected_by: string | null; // user_id who rejected the task
+  rejected_at: string | null;
+  rejection_reason: string | null;
 
   // Timestamps
   created_at: string;
@@ -62,6 +76,27 @@ export interface Todo {
     title: string;
     color: string;
     icon: string;
+  };
+
+  completed_by_user?: {
+    id: string;
+    email: string;
+    display_name: string;
+    avatar_url: string | null;
+  };
+
+  approved_by_user?: {
+    id: string;
+    email: string;
+    display_name: string;
+    avatar_url: string | null;
+  };
+
+  rejected_by_user?: {
+    id: string;
+    email: string;
+    display_name: string;
+    avatar_url: string | null;
   };
 
   recurring_instance?: RecurringInstance;
@@ -91,6 +126,8 @@ export interface CreateTodoInput {
   location_lng?: number | null;
   location_radius?: number | null;
   recurrence_rule?: string | null;
+  requires_approval?: boolean;
+  requires_photo?: boolean;
 }
 
 export interface UpdateTodoInput {
@@ -108,6 +145,14 @@ export interface UpdateTodoInput {
   location_lng?: number | null;
   location_radius?: number | null;
   recurrence_rule?: string | null;
+  requires_approval?: boolean;
+  requires_photo?: boolean;
+  completion_photo_url?: string | null;
+  completion_notes?: string | null;
+  approved?: boolean;
+  approved_by?: string | null;
+  rejected_by?: string | null;
+  rejection_reason?: string | null;
 }
 
 export interface TodoFilters {
