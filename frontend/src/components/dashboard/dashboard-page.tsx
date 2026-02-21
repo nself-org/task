@@ -125,7 +125,7 @@ export function DashboardPage() {
           <SectionCard title="Quick Actions" icon={Bell}>
             <div className="space-y-2">
               <QuickAction label="View system info" href="/" />
-              <QuickAction label="Read documentation" href="https://github.com/acamarata/nself" external />
+              <QuickAction label="Read documentation" href="https://github.com/nself-org/cli" external />
             </div>
           </SectionCard>
         </div>

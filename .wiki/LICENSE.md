@@ -1,6 +1,6 @@
 ɳApp - ɳSelf Boilerplate License
 
-Copyright (c) 2025 Aric Camarata
+Copyright (c) 2025 nself (https://nself.org)
 
 ## License Terms
 
