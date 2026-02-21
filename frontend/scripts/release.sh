@@ -241,7 +241,7 @@ See \`checksums-${RELEASE_NAME}.txt\` for SHA256 hashes of all release files.
 ---
 
 **Project**: ɳDemo - Universal Next.js Boilerplate
-**Repository**: https://github.com/acamarata/nself-demo
+**Repository**: https://github.com/nself-org/demo
 **License**: MIT
 EOF
 

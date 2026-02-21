@@ -2,8 +2,6 @@
 # AI AGENT DIRECTORIES (private — never commit)
 # =============================================================================
 .ai/
-.claude
-.codex
 
 # =============================================================================
 # ROOT-LEVEL PRIVATE FILES
@@ -130,6 +128,7 @@ bin/
 *.tfstate.*
 .terraform/
 .claude/
+.codex/
 
 # Environment files (sensitive)
 .env.secrets

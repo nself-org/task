@@ -501,6 +501,6 @@ docker-compose up -d
 
 **Need Help?**
 
-- [GitHub Issues](https://github.com/acamarata/nself-demo/issues)
+- [GitHub Issues](https://github.com/nself-org/demo/issues)
 - [Documentation](./README.md)
-- [ɳSelf Docs](https://github.com/acamarata/nself)
+- [ɳSelf Docs](https://github.com/nself-org/cli)

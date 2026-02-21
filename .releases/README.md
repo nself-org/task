@@ -331,9 +331,9 @@ https://releases.nself.org/demo/latest/linux/nself-demo-latest.AppImage
 
 Or via GitHub Releases:
 ```
-https://github.com/acamarata/nself-demo/releases/latest
+https://github.com/nself-org/demo/releases/latest
 ```
 
 ---
 
-**Questions?** Open an issue at https://github.com/acamarata/nself-demo/issues
+**Questions?** Open an issue at https://github.com/nself-org/demo/issues

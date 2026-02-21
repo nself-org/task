@@ -11,7 +11,7 @@
 Get up and running in 3 commands:
 
 ```bash
-git clone https://github.com/acamarata/nself-demo.git my-app
+git clone https://github.com/nself-org/demo.git my-app
 cd my-app
 cd backend && make up          # Start self-hosted backend
 cd .. && npm install && npm run dev  # Start frontend
@@ -123,8 +123,8 @@ The boilerplate includes a complete todo application demonstrating:
 ## 🆘 Need Help?
 
 - 📖 **[Documentation](Home)** - You're here!
-- 🐛 **[Issues](https://github.com/acamarata/nself-demo/issues)** - Report bugs or request features
-- 💬 **[Discussions](https://github.com/acamarata/nself-demo/discussions)** - Ask questions
+- 🐛 **[Issues](https://github.com/nself-org/demo/issues)** - Report bugs or request features
+- 💬 **[Discussions](https://github.com/nself-org/demo/discussions)** - Ask questions
 - 📝 **[Changelog](Changelog)** - See what's new
 
 ---

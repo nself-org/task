@@ -266,13 +266,13 @@ pnpm typecheck
 2. ✅ Review [BACKEND.md](BACKEND.md) for backend switching
 3. ✅ Explore the [project structure](README.md#project-structure)
 4. ✅ Check out [hooks documentation](README.md#available-hooks)
-5. ✅ Join discussions on [GitHub](https://github.com/acamarata/nself-demo/discussions)
+5. ✅ Join discussions on [GitHub](https://github.com/nself-org/demo/discussions)
 
 ## Getting Help
 
 - **Documentation**: Check README.md and BACKEND.md
-- **Issues**: https://github.com/acamarata/nself-demo/issues
-- **Discussions**: https://github.com/acamarata/nself-demo/discussions
+- **Issues**: https://github.com/nself-org/demo/issues
+- **Discussions**: https://github.com/nself-org/demo/discussions
 
 ---
 

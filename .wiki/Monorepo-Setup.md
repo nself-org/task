@@ -30,7 +30,7 @@ When adding this boilerplate to a monorepo with multiple apps, each app should u
 ```bash
 # In your monorepo
 cd apps/
-git clone https://github.com/acamarata/nself-demo.git my-app-name
+git clone https://github.com/nself-org/demo.git my-app-name
 cd my-app-name
 ```
 

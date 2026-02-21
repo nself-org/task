@@ -23,7 +23,7 @@ Optional:
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/acamarata/nself-demo.git my-app
+git clone https://github.com/nself-org/demo.git my-app
 cd my-app
 ```
 
@@ -213,6 +213,6 @@ See [Troubleshooting](Troubleshooting) for more help.
 
 ---
 
-**Having trouble?** [Open an issue](https://github.com/acamarata/nself-demo/issues) or check the [Troubleshooting guide](Troubleshooting).
+**Having trouble?** [Open an issue](https://github.com/nself-org/demo/issues) or check the [Troubleshooting guide](Troubleshooting).
 
 **Next:** [Backend Setup →](Backend-Setup)

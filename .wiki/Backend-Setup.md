@@ -224,4 +224,4 @@ Restart your dev server, and the app works with the new backend. No code changes
 
 ---
 
-**Need help?** Check [Troubleshooting](Troubleshooting) or [open an issue](https://github.com/acamarata/nself-demo/issues).
+**Need help?** Check [Troubleshooting](Troubleshooting) or [open an issue](https://github.com/nself-org/demo/issues).

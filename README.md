@@ -74,7 +74,7 @@ The key insight: **your frontend code never imports backend SDKs directly.** Eve
 
 ### Prerequisites
 
-- [ɳSelf CLI](https://github.com/acamarata/nself) installed:
+- [ɳSelf CLI](https://github.com/nself-org/cli) installed:
   ```bash
   curl -sSL https://install.nself.org | bash
   ```
@@ -85,7 +85,7 @@ The key insight: **your frontend code never imports backend SDKs directly.** Eve
 
 ```bash
 # 1. Clone the repo
-git clone https://github.com/acamarata/nself-demo.git my-app
+git clone https://github.com/nself-org/demo.git my-app
 cd my-app
 
 # 2. Start the backend (one command - auto-builds on first run!)
@@ -205,7 +205,7 @@ pnpm install && pnpm dev
 Using Supabase or Nhost? Skip the backend entirely:
 
 ```bash
-git clone https://github.com/acamarata/nself-demo.git my-app
+git clone https://github.com/nself-org/demo.git my-app
 cd my-app/frontend
 
 # Configure your backend
@@ -1149,7 +1149,7 @@ When running ɳSelf locally, the Hasura Console at `http://localhost:8080/consol
 
 Contributions are welcome. Please read [CONTRIBUTING.md](.wiki/Contributing.md) before submitting PRs.
 
-For complete documentation, visit the [Wiki](https://github.com/acamarata/nself-demo/wiki).
+For complete documentation, visit the [Wiki](https://github.com/nself-org/demo/wiki).
 
 1. Fork the repository
 2. Create a feature branch (`git checkout -b feat/my-feature`)
@@ -1171,6 +1171,6 @@ Built by the ɳSelf community.
 
 Part of the **n ecosystem**:
 
-- [ɳSelf](https://github.com/acamarata/nself) - Self-hosted backend stack
-- [ɳDemo](https://github.com/acamarata/nself-demo) - Application boilerplate (this repo)
-- [nChat](https://github.com/acamarata/nself-chat) - Real-time chat application
+- [ɳSelf](https://github.com/nself-org/cli) - Self-hosted backend stack
+- [ɳDemo](https://github.com/nself-org/demo) - Application boilerplate (this repo)
+- [nChat](https://github.com/nself-org/chat) - Real-time chat application
