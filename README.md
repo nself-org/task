@@ -1167,10 +1167,11 @@ MIT License - see [LICENSE](LICENSE) for details.
 
 ## Credits
 
-Built by the ɳSelf community.
+Built by the [nself](https://nself.org) community · [GitHub](https://github.com/nself-org)
 
-Part of the **n ecosystem**:
+Part of the **ɳSelf ecosystem**:
 
-- [ɳSelf](https://github.com/nself-org/cli) - Self-hosted backend stack
+- [ɳSelf CLI](https://github.com/nself-org/cli) - Self-hosted backend platform
 - [ɳDemo](https://github.com/nself-org/demo) - Application boilerplate (this repo)
-- [nChat](https://github.com/nself-org/chat) - Real-time chat application
+- [ɳChat](https://github.com/nself-org/chat) - Real-time chat application
+- [ɳAdmin](https://github.com/nself-org/admin) - Web admin dashboard
