@@ -47,7 +47,7 @@ export async function startGeolocationMonitor() {
     isMonitoring = true;
     console.log('[GeolocationMonitor] Started successfully');
   } catch (error) {
-    console.error('[GeolocationMonitor] Failed to start:', error);
+    console.error('[GeolocationMonitor] Failed to start:', error instanceof Error ? error.message : 'Unknown error');
   }
 }
 
@@ -86,7 +86,7 @@ export async function checkProximityNow() {
 
     return { position, lists, todos };
   } catch (error) {
-    console.error('[GeolocationMonitor] Proximity check failed:', error);
+    console.error('[GeolocationMonitor] Proximity check failed:', error instanceof Error ? error.message : 'Unknown error');
     return null;
   }
 }

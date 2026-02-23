@@ -7,9 +7,12 @@
  * - Background sync
  */
 
+const DEBUG_SW =
+  process.env.NODE_ENV === 'development' && process.env.NEXT_PUBLIC_DEBUG_SW === 'true';
+
 export async function registerServiceWorker() {
   if (typeof window === 'undefined' || !('serviceWorker' in navigator)) {
-    console.log('[SW] Service workers not supported');
+    if (DEBUG_SW) console.log('[SW] Service workers not supported');
     return null;
   }
 
@@ -18,7 +21,7 @@ export async function registerServiceWorker() {
       scope: '/',
     });
 
-    console.log('[SW] Service Worker registered successfully:', registration.scope);
+    if (DEBUG_SW) console.log('[SW] Service Worker registered:', registration.scope);
 
     // Handle updates
     registration.addEventListener('updatefound', () => {
@@ -28,7 +31,7 @@ export async function registerServiceWorker() {
       newWorker.addEventListener('statechange', () => {
         if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
           // New service worker available
-          console.log('[SW] New version available - reload to update');
+          if (DEBUG_SW) console.log('[SW] New version available - reload to update');
 
           // Optionally notify user
           if (confirm('New version available! Reload to update?')) {
@@ -41,13 +44,13 @@ export async function registerServiceWorker() {
 
     // Auto-reload on controlling service worker change
     navigator.serviceWorker.addEventListener('controllerchange', () => {
-      console.log('[SW] Controller changed - reloading');
+      if (DEBUG_SW) console.log('[SW] Controller changed - reloading');
       window.location.reload();
     });
 
     return registration;
   } catch (error) {
-    console.error('[SW] Service Worker registration failed:', error);
+    console.error('[SW] Service Worker registration failed:', error instanceof Error ? error.message : 'Unknown error');
     return null;
   }
 }
@@ -61,7 +64,7 @@ export async function unregisterServiceWorker() {
   const registrations = await navigator.serviceWorker.getRegistrations();
   for (const registration of registrations) {
     await registration.unregister();
-    console.log('[SW] Service Worker unregistered');
+    if (DEBUG_SW) console.log('[SW] Service Worker unregistered');
   }
 }
 

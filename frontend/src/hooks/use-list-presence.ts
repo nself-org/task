@@ -58,7 +58,7 @@ export function useListPresence(listId: string | null) {
       await fetchPresence();
     } catch (err) {
       // Silent fail - presence is non-critical
-      console.error('Failed to join list:', err);
+      console.error('Failed to join list:', err instanceof Error ? err.message : 'Unknown error');
     }
   }, [listId, user, fetchPresence]);
 
@@ -70,7 +70,7 @@ export function useListPresence(listId: string | null) {
       await listService.leaveList(listId);
     } catch (err) {
       // Silent fail - cleanup is best-effort
-      console.error('Failed to leave list:', err);
+      console.error('Failed to leave list:', err instanceof Error ? err.message : 'Unknown error');
     }
   }, [listId, user]);
 
@@ -87,7 +87,7 @@ export function useListPresence(listId: string | null) {
         });
       } catch (err) {
         // Silent fail
-        console.error('Failed to update presence:', err);
+        console.error('Failed to update presence:', err instanceof Error ? err.message : 'Unknown error');
       }
     },
     [listId, user]
@@ -108,7 +108,7 @@ export function useListPresence(listId: string | null) {
           status: 'viewing',
         })
         .catch((err) => {
-          console.error('Heartbeat failed:', err);
+          console.error('Heartbeat failed:', err instanceof Error ? err.message : 'Unknown error');
         });
     }, 30000); // 30 seconds
 

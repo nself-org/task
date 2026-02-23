@@ -76,7 +76,7 @@ async function resetRecurringTodos() {
     lastResetDate = today;
     console.log(`[RecurringReset] Completed - reset ${resetCount} tasks`);
   } catch (error) {
-    console.error('[RecurringReset] Error:', error);
+    console.error('[RecurringReset] Error:', error instanceof Error ? error.message : 'Unknown error');
   }
 }
 

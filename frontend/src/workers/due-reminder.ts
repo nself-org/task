@@ -61,7 +61,7 @@ async function checkDueTodos() {
       }
     }
   } catch (error) {
-    console.error('[DueReminder] Error:', error);
+    console.error('[DueReminder] Error:', error instanceof Error ? error.message : 'Unknown error');
   }
 }
 

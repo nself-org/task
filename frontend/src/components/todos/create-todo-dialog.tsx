@@ -175,7 +175,7 @@ export function CreateTodoDialog({ open, onOpenChange, listId, onCreate }: Creat
       setReminderMinutes('60');
       onOpenChange(false);
     } catch (error) {
-      console.error('Failed to create todo:', error);
+      console.error('Failed to create todo:', error instanceof Error ? error.message : 'Unknown error');
     } finally {
       setIsCreating(false);
     }

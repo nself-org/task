@@ -37,7 +37,7 @@ export function TodoAttachments({
       await onUpload(file);
       e.target.value = ''; // Reset input
     } catch (error) {
-      console.error('Upload failed:', error);
+      console.error('Upload failed:', error instanceof Error ? error.message : 'Unknown error');
     } finally {
       setUploading(false);
     }
@@ -64,7 +64,7 @@ export function TodoAttachments({
     try {
       await onUpload(file);
     } catch (error) {
-      console.error('Upload failed:', error);
+      console.error('Upload failed:', error instanceof Error ? error.message : 'Unknown error');
     } finally {
       setUploading(false);
     }

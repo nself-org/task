@@ -55,7 +55,7 @@ export class GeolocationService {
       await this.getCurrentPosition();
       return true;
     } catch (error) {
-      console.error('Geolocation permission denied:', error);
+      console.error('Geolocation permission denied:', error instanceof Error ? error.message : 'Unknown error');
       return false;
     }
   }
@@ -248,7 +248,7 @@ export class GeolocationService {
         await this.checkProximityToTodos(this.lastPosition.latitude, this.lastPosition.longitude);
       },
       (error) => {
-        console.error('Geolocation watch error:', error);
+        console.error('Geolocation watch error:', error instanceof Error ? error.message : 'Unknown error');
       },
       {
         enableHighAccuracy: false, // Lower accuracy for background monitoring

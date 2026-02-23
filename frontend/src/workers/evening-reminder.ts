@@ -52,7 +52,7 @@ async function checkAndNotify() {
       console.log('[EveningReminder] Notification sent at', now.toISOString());
     }
   } catch (error) {
-    console.error('[EveningReminder] Error:', error);
+    console.error('[EveningReminder] Error:', error instanceof Error ? error.message : 'Unknown error');
   }
 }
 

@@ -133,7 +133,7 @@ export class NotificationService {
 
       return subscription;
     } catch (error) {
-      console.error('Failed to subscribe to push notifications:', error);
+      console.error('Failed to subscribe to push notifications:', error instanceof Error ? error.message : 'Unknown error');
       return null;
     }
   }
@@ -154,7 +154,7 @@ export class NotificationService {
         });
       }
     } catch (error) {
-      console.error('Failed to unsubscribe from push notifications:', error);
+      console.error('Failed to unsubscribe from push notifications:', error instanceof Error ? error.message : 'Unknown error');
     }
   }
 
