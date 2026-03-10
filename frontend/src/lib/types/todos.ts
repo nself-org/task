@@ -154,6 +154,7 @@ export interface UpdateTodoInput {
   approved_by?: string | null;
   rejected_by?: string | null;
   rejection_reason?: string | null;
+  attachments?: TodoAttachment[];
 }
 
 export interface TodoFilters {
