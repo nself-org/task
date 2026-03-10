@@ -5,6 +5,7 @@ import { useTodos } from '@/hooks/use-todos';
 import { usePreferences } from '@/hooks/use-preferences';
 import { useAuth } from '@/lib/providers/auth-provider';
 import { useCanApprove } from '@/hooks/use-list-members';
+import { useListPresence } from '@/hooks/use-list-presence';
 import { TodoItem } from './todo-item';
 import { CreateTodoForm } from './create-todo-form';
 import { QuickAddTodo, QuickAddHelp } from './quick-add-todo';
@@ -43,6 +44,7 @@ export function TodoList({ listId, search = '', filters, sort }: TodoListProps) 
   const { preferences } = usePreferences();
   const { user } = useAuth();
   const { canApprove } = useCanApprove(listId, user?.id);
+  const { updateStatus } = useListPresence(listId ?? null);
 
   // Task detail drawer state
   const [drawerTodo, setDrawerTodo] = useState<Todo | null>(null);
@@ -51,7 +53,15 @@ export function TodoList({ listId, search = '', filters, sort }: TodoListProps) 
   const handleOpenDrawer = useCallback((todo: Todo) => {
     setDrawerTodo(todo);
     setDrawerOpen(true);
-  }, []);
+    updateStatus('editing', todo.id);
+  }, [updateStatus]);
+
+  const handleDrawerOpenChange = useCallback((open: boolean) => {
+    setDrawerOpen(open);
+    if (!open) {
+      updateStatus('viewing', null);
+    }
+  }, [updateStatus]);
 
   // Selection state for bulk operations
   const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());
@@ -398,7 +408,7 @@ export function TodoList({ listId, search = '', filters, sort }: TodoListProps) 
       <TaskDetailDrawer
         todo={drawerTodo}
         open={drawerOpen}
-        onOpenChange={setDrawerOpen}
+        onOpenChange={handleDrawerOpenChange}
         onUpdate={handleUpdateTodo}
       />
     </div>

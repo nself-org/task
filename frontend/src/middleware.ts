@@ -10,7 +10,7 @@ function hasAuthToken(request: NextRequest): boolean {
   const hasSupabaseCookie =
     cookies.has('sb-access-token') ||
     cookies.has('sb-refresh-token') ||
-    Array.from(cookies.getAll()).some(
+    (Array.from(cookies.getAll()) as { name: string }[]).some(
       (c) => c.name.startsWith('sb-') && c.name.endsWith('-auth-token')
     );
 
