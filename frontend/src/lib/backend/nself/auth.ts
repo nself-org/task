@@ -201,5 +201,52 @@ export function createNselfAuth(): AuthAdapter {
         listeners.delete(callback);
       };
     },
+
+    signInWithProvider(provider: string, redirectTo?: string) {
+      const callbackUrl = redirectTo || `${window.location.origin}/auth/callback`;
+      window.location.href = `${config.nself.authUrl}/signin/provider/${provider}?redirectTo=${encodeURIComponent(callbackUrl)}`;
+    },
+
+    async getSessionFromUrl() {
+      if (typeof window === 'undefined') return { session: null, error: null };
+
+      const hash = window.location.hash;
+      const params = new URLSearchParams(hash.replace('#', '?'));
+      const accessToken = params.get('access_token');
+      const refreshToken = params.get('refresh_token');
+      const errorDescription = params.get('error_description');
+
+      if (errorDescription) return { session: null, error: decodeURIComponent(errorDescription) };
+      if (!accessToken) {
+        const searchError = new URLSearchParams(window.location.search).get('error_description');
+        if (searchError) return { session: null, error: decodeURIComponent(searchError) };
+        return { session: null, error: null };
+      }
+
+      try {
+        const res = await fetch(`${config.nself.authUrl}/user`, {
+          headers: { Authorization: `Bearer ${accessToken}` },
+        });
+        if (!res.ok) return { session: null, error: 'Failed to fetch user after OAuth' };
+        const userData = await res.json() as {
+          id: string; email: string; displayName?: string;
+          avatarUrl?: string; metadata?: Record<string, unknown>; createdAt?: string;
+        };
+        const user: User = {
+          id: userData.id,
+          email: userData.email,
+          displayName: userData.displayName,
+          avatarUrl: userData.avatarUrl,
+          metadata: userData.metadata,
+          createdAt: userData.createdAt,
+        };
+        const session: Session = { accessToken, refreshToken: refreshToken || undefined, user };
+        storeSession(session);
+        notifyListeners(user, session);
+        return { session, error: null };
+      } catch (err) {
+        return { session: null, error: (err as Error).message };
+      }
+    },
   };
 }

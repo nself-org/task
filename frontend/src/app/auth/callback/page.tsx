@@ -4,34 +4,22 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { Loader2, AlertTriangle } from 'lucide-react';
 import Link from 'next/link';
+import { useBackend } from '@/lib/providers';
 
 export default function AuthCallbackPage() {
   const router = useRouter();
+  const { auth } = useBackend();
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    const hash = window.location.hash;
-    const params = new URLSearchParams(hash.replace('#', '?'));
-    const accessToken = params.get('access_token');
-    const errorDescription = params.get('error_description');
-
-    if (errorDescription) {
-      setError(decodeURIComponent(errorDescription));
-      return;
-    }
-
-    if (accessToken) {
-      router.replace('/dashboard');
-    } else {
-      const searchParams = new URLSearchParams(window.location.search);
-      const searchError = searchParams.get('error_description');
-      if (searchError) {
-        setError(decodeURIComponent(searchError));
+    auth.getSessionFromUrl().then(({ error: authError }) => {
+      if (authError) {
+        setError(authError);
       } else {
         router.replace('/dashboard');
       }
-    }
-  }, [router]);
+    });
+  }, [auth, router]);
 
   if (error) {
     return (

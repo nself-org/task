@@ -42,6 +42,8 @@ export interface AuthAdapter {
   resetPassword(email: string): Promise<{ error: string | null }>;
   updateUser(data: Partial<User>): Promise<{ user: User | null; error: string | null }>;
   onAuthStateChange(callback: (user: User | null, session: Session | null) => void): () => void;
+  signInWithProvider(provider: string, redirectTo?: string): void;
+  getSessionFromUrl(): Promise<{ session: Session | null; error: string | null }>;
 }
 
 export interface StorageUploadOptions {

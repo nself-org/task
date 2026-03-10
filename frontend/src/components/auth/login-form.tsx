@@ -14,7 +14,7 @@ interface LoginFormProps {
 }
 
 export function LoginForm({ onSuccess, onRegisterClick }: LoginFormProps) {
-  const { signIn } = useAuth();
+  const { signIn, signInWithProvider } = useAuth();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [magicEmail, setMagicEmail] = useState('');
@@ -69,8 +69,8 @@ export function LoginForm({ onSuccess, onRegisterClick }: LoginFormProps) {
     setLoading(false);
   }
 
-  async function handleSocialLogin(method: string) {
-    setGlobalError(`Social login (${method}) is configured but requires backend OAuth setup.`);
+  function handleSocialLogin(method: string) {
+    signInWithProvider(method);
   }
 
   return (

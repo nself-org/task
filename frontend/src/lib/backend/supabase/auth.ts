@@ -96,5 +96,19 @@ export function createSupabaseAuth(): AuthAdapter {
       });
       return () => data.subscription.unsubscribe();
     },
+
+    signInWithProvider(provider: string, redirectTo?: string) {
+      const callbackUrl = redirectTo || `${window.location.origin}/auth/callback`;
+      void client.auth.signInWithOAuth({
+        provider: provider as Parameters<typeof client.auth.signInWithOAuth>[0]['provider'],
+        options: { redirectTo: callbackUrl },
+      });
+    },
+
+    async getSessionFromUrl() {
+      const { data, error } = await client.auth.getSession();
+      if (error) return { session: null, error: error.message };
+      return { session: mapSession(data.session), error: null };
+    },
   };
 }

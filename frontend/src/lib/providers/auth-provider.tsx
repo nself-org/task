@@ -10,6 +10,7 @@ interface AuthContextValue extends AuthState {
   signOut: () => Promise<void>;
   resetPassword: (email: string) => Promise<{ error: string | null }>;
   updateUser: (data: Partial<User>) => Promise<{ error: string | null }>;
+  signInWithProvider: (provider: string, redirectTo?: string) => void;
 }
 
 const AuthContext = createContext<AuthContextValue | null>(null);
@@ -76,8 +77,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     return { error };
   }, [auth]);
 
+  const signInWithProvider = useCallback((provider: string, redirectTo?: string) => {
+    auth.signInWithProvider(provider, redirectTo);
+  }, [auth]);
+
   return (
-    <AuthContext.Provider value={{ ...state, signUp, signIn, signOut, resetPassword, updateUser }}>
+    <AuthContext.Provider value={{ ...state, signUp, signIn, signOut, resetPassword, updateUser, signInWithProvider }}>
       {children}
     </AuthContext.Provider>
   );
