@@ -205,6 +205,7 @@ jobs:
         env:
           NEXT_PUBLIC_BACKEND_PROVIDER: nself
           NEXT_PUBLIC_ENVIRONMENT: production
+          CAPACITOR_BUILD: "true"
 
       - name: Capacitor sync
         working-directory: ./frontend
@@ -244,6 +245,7 @@ jobs:
         env:
           NEXT_PUBLIC_BACKEND_PROVIDER: nself
           NEXT_PUBLIC_ENVIRONMENT: production
+          CAPACITOR_BUILD: "true"
 
       - name: Capacitor sync
         working-directory: ./frontend
