@@ -298,3 +298,11 @@ export interface BulkOperation {
   todo_ids: string[];
   value?: unknown;
 }
+
+export interface TodoShare {
+  id: string;
+  todo_id: string;
+  shared_with_email: string;
+  permission: 'view' | 'edit';
+  created_at: string;
+}

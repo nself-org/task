@@ -12,7 +12,7 @@ interface SortableTodoItemProps {
   onUpdate: (id: string, input: UpdateTodoInput) => Promise<void>;
   onDelete: (id: string) => Promise<void>;
   onTogglePublic: (id: string) => Promise<void>;
-  onShare: (id: string, email: string, permission: string) => Promise<void>;
+  onShare: (id: string, email: string, permission: 'view' | 'edit') => Promise<void>;
   onRemoveShare: (shareId: string) => Promise<void>;
   getShares: (todoId: string) => Promise<TodoShare[]>;
   onApprove?: (todoId: string) => Promise<void>;
