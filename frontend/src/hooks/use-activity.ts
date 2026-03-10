@@ -1,11 +1,12 @@
 'use client';
 
 import { useState, useEffect, useCallback } from 'react';
-import { getBackend } from '@/lib/providers/backend-provider';
+import { useBackend } from '@/lib/providers/backend-provider';
 import { Tables } from '@/lib/utils/tables';
 import type { TodoActivity } from '@/lib/types/todos';
 
 export function useActivity(todoId: string | null) {
+  const backend = useBackend();
   const [activities, setActivities] = useState<TodoActivity[]>([]);
   const [loading, setLoading] = useState(false);
 
@@ -13,10 +14,9 @@ export function useActivity(todoId: string | null) {
     if (!todoId) return;
     setLoading(true);
     try {
-      const backend = getBackend();
-      const { data } = await backend.db.select<TodoActivity>(Tables.ACTIVITY, {
-        filters: [{ column: 'todo_id', operator: 'eq', value: todoId }],
-        orderBy: { column: 'created_at', ascending: false },
+      const { data } = await backend.db.query<TodoActivity>(Tables.ACTIVITY, {
+        where: { todo_id: todoId },
+        orderBy: [{ column: 'created_at', ascending: false }],
         limit: 50,
       });
       setActivities(data ?? []);
@@ -25,7 +25,7 @@ export function useActivity(todoId: string | null) {
     } finally {
       setLoading(false);
     }
-  }, [todoId]);
+  }, [todoId, backend]);
 
   useEffect(() => {
     fetchActivities();
