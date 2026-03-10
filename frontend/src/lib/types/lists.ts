@@ -2,6 +2,30 @@
  * List Types - Todo list containers and collaboration
  */
 
+export interface ListGroup {
+  id: string;
+  user_id: string;
+  title: string;
+  color: string;
+  icon: string;
+  position: number;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface CreateListGroupInput {
+  title: string;
+  color?: string;
+  icon?: string;
+}
+
+export interface UpdateListGroupInput {
+  title?: string;
+  color?: string;
+  icon?: string;
+  position?: number;
+}
+
 export interface List {
   id: string;
   user_id: string;
@@ -20,6 +44,9 @@ export interface List {
   location_lng: number | null;
   location_radius: number | null;
   reminder_on_arrival: boolean;
+
+  // Grouping
+  group_id?: string | null;
 
   // Computed fields (from joins)
   todo_count?: number;
