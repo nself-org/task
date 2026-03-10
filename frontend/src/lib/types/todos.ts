@@ -132,6 +132,7 @@ export interface CreateTodoInput {
 
 export interface UpdateTodoInput {
   title?: string;
+  list_id?: string | null;
   completed?: boolean;
   is_public?: boolean;
   position?: number;

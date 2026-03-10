@@ -9,13 +9,14 @@ import { TodoItem } from './todo-item';
 import { CreateTodoForm } from './create-todo-form';
 import { QuickAddTodo, QuickAddHelp } from './quick-add-todo';
 import { BulkActionsToolbar } from './bulk-actions-toolbar';
+import { TaskDetailDrawer } from './task-detail-drawer';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Button } from '@/components/ui/button';
 import { AlertCircle, CheckSquare } from 'lucide-react';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { toast } from 'sonner';
-import type { CreateTodoInput, UpdateTodoInput, TodoFilters, TodoSortOptions, TodoPriority } from '@/lib/types/todos';
+import type { Todo, CreateTodoInput, UpdateTodoInput, TodoFilters, TodoSortOptions, TodoPriority } from '@/lib/types/todos';
 
 interface TodoListProps {
   listId?: string;
@@ -42,6 +43,15 @@ export function TodoList({ listId, search = '', filters, sort }: TodoListProps) 
   const { preferences } = usePreferences();
   const { user } = useAuth();
   const { canApprove } = useCanApprove(listId, user?.id);
+
+  // Task detail drawer state
+  const [drawerTodo, setDrawerTodo] = useState<Todo | null>(null);
+  const [drawerOpen, setDrawerOpen] = useState(false);
+
+  const handleOpenDrawer = useCallback((todo: Todo) => {
+    setDrawerTodo(todo);
+    setDrawerOpen(true);
+  }, []);
 
   // Selection state for bulk operations
   const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());
@@ -363,6 +373,7 @@ export function TodoList({ listId, search = '', filters, sort }: TodoListProps) 
                   onApprove={handleApprove}
                   onReject={handleReject}
                   canApprove={canApprove}
+                  onDetailOpen={handleOpenDrawer}
                   selected={selectedIds.has(todo.id)}
                   onSelectChange={handleSelectChange}
                   selectionMode={selectionMode}
@@ -381,6 +392,14 @@ export function TodoList({ listId, search = '', filters, sort }: TodoListProps) 
         onBulkComplete={handleBulkComplete}
         onBulkUncomplete={handleBulkUncomplete}
         onBulkDelete={handleBulkDelete}
+      />
+
+      {/* Task detail drawer */}
+      <TaskDetailDrawer
+        todo={drawerTodo}
+        open={drawerOpen}
+        onOpenChange={setDrawerOpen}
+        onUpdate={handleUpdateTodo}
       />
     </div>
   );

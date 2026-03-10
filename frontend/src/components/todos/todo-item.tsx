@@ -52,6 +52,7 @@ interface TodoItemProps {
   onApprove?: (id: string) => Promise<void>;
   onReject?: (id: string, reason?: string) => Promise<void>;
   canApprove?: boolean;
+  onDetailOpen?: (todo: Todo) => void;
   timeFormat?: '12h' | '24h';
   selected?: boolean;
   onSelectChange?: (id: string, selected: boolean) => void;
@@ -77,6 +78,7 @@ export function TodoItem({
   onApprove,
   onReject,
   canApprove = false,
+  onDetailOpen,
   timeFormat = '12h',
   selected = false,
   onSelectChange,
@@ -276,14 +278,17 @@ export function TodoItem({
           <div className="flex-1 min-w-0 space-y-2">
             {/* Title row */}
             <div className="flex items-start gap-2 flex-wrap">
-              <p
+              <button
+                type="button"
+                onClick={() => !selectionMode && onDetailOpen?.(todo)}
                 className={cn(
-                  'text-sm font-medium',
-                  todo.completed && 'line-through text-muted-foreground'
+                  'text-sm font-medium text-left',
+                  todo.completed && 'line-through text-muted-foreground',
+                  onDetailOpen && !selectionMode && 'hover:underline cursor-pointer',
                 )}
               >
                 {todo.title}
-              </p>
+              </button>
 
               {/* Priority badge */}
               {todo.priority !== 'none' && (
