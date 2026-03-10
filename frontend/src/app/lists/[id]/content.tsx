@@ -6,6 +6,7 @@ import { ListHeader } from '@/components/lists/list-header';
 import { ListSidebar } from '@/components/lists/list-sidebar';
 import { TodoList } from '@/components/todos/todo-list';
 import { TodoBoardView } from '@/components/todos/todo-board-view';
+import { TodoCalendarView } from '@/components/todos/todo-calendar-view';
 import { TodoToolbar } from '@/components/todos/todo-toolbar';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
@@ -111,6 +112,12 @@ export function ListPageContent({ listId }: ListPageContentProps) {
               search={search}
               filters={filters}
               sort={sort}
+            />
+          ) : view === 'calendar' ? (
+            <TodoCalendarView
+              listId={listId}
+              search={search}
+              filters={filters}
             />
           ) : (
             <TodoList
