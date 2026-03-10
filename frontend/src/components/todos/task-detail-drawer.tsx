@@ -24,6 +24,8 @@ import { Calendar, Flag, Tag, X, Check, Loader2 } from 'lucide-react';
 import type { Todo, UpdateTodoInput, TodoPriority } from '@/lib/types/todos';
 import { useLists } from '@/hooks/use-lists';
 import { cn } from '@/lib/utils';
+import { TodoAttachments } from './todo-attachments';
+import { useBackend } from '@/lib/providers/backend-provider';
 
 interface TaskDetailDrawerProps {
   todo: Todo | null;
@@ -41,6 +43,7 @@ const PRIORITY_OPTIONS: { value: TodoPriority; label: string; color: string }[] 
 
 export function TaskDetailDrawer({ todo, open, onOpenChange, onUpdate }: TaskDetailDrawerProps) {
   const { lists } = useLists();
+  const backend = useBackend();
 
   const [title, setTitle] = useState('');
   const [notes, setNotes] = useState('');
@@ -67,6 +70,28 @@ export function TaskDetailDrawer({ todo, open, onOpenChange, onUpdate }: TaskDet
   }, [todo]);
 
   if (!todo) return null;
+
+  async function handleAttachmentUpload(file: File) {
+    if (!todo) return;
+    const path = `todos/${todo.id}/${Date.now()}-${file.name}`;
+    const { url, error } = await backend.storage.upload('attachments', path, file);
+    if (error || !url) return;
+    const newAttachment = {
+      id: path,
+      name: file.name,
+      url,
+      size: file.size,
+      mime_type: file.type,
+      uploaded_at: new Date().toISOString(),
+    };
+    await save({ attachments: [...(todo.attachments || []), newAttachment] });
+  }
+
+  async function handleAttachmentDelete(attachmentId: string) {
+    if (!todo) return;
+    await backend.storage.remove('attachments', [attachmentId]);
+    await save({ attachments: (todo.attachments || []).filter((a) => a.id !== attachmentId) });
+  }
 
   async function save(updates: UpdateTodoInput) {
     if (!todo) return;
@@ -275,6 +300,17 @@ export function TaskDetailDrawer({ todo, open, onOpenChange, onUpdate }: TaskDet
             onBlur={handleNotesBlur}
             placeholder="Add notes..."
             className="min-h-[160px] resize-none border-0 px-0 shadow-none focus-visible:ring-0"
+          />
+        </div>
+
+        {/* Attachments */}
+        <Separator />
+        <div className="py-2">
+          <TodoAttachments
+            todoId={todo.id}
+            attachments={todo.attachments || []}
+            onUpload={handleAttachmentUpload}
+            onDelete={handleAttachmentDelete}
           />
         </div>
 
