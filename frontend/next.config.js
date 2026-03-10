@@ -13,7 +13,7 @@ const nextConfig = {
     unoptimized: true,
     domains: ['localhost', 'local.nself.org'],
   },
-  output: process.env.DOCKER_BUILD ? 'standalone' : undefined,
+  output: process.env.DOCKER_BUILD ? 'standalone' : process.env.CAPACITOR_BUILD ? 'export' : undefined,
   trailingSlash: true,
 };
 
