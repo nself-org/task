@@ -195,6 +195,22 @@ jobs:
           distribution: temurin
           java-version: '17'
 
+      - name: Install Android SDK 36
+        # Capacitor 8.x targets compileSdkVersion 36 — install it if missing.
+        run: |
+          SDK_DIR="${ANDROID_SDK_ROOT:-$ANDROID_HOME}"
+          if [ ! -d "$SDK_DIR/platforms/android-36" ]; then
+            echo "Installing Android SDK 36..."
+            yes | "$SDK_DIR/cmdline-tools/latest/bin/sdkmanager" \
+              "platforms;android-36" \
+              "build-tools;36.0.0" 2>/dev/null || \
+            yes | "$SDK_DIR/tools/bin/sdkmanager" \
+              "platforms;android-36" \
+              "build-tools;36.0.0" 2>/dev/null || true
+          else
+            echo "Android SDK 36 already available"
+          fi
+
       - name: Install frontend dependencies
         working-directory: ./frontend
         run: pnpm install --frozen-lockfile
@@ -208,7 +224,7 @@ jobs:
           CAPACITOR_BUILD: "true"
 
       - name: Set Android SDK path
-        run: echo "sdk.dir=$ANDROID_SDK_ROOT" > frontend/android/local.properties
+        run: echo "sdk.dir=${ANDROID_SDK_ROOT:-$ANDROID_HOME}" > frontend/android/local.properties
 
       - name: Capacitor sync
         working-directory: ./frontend
