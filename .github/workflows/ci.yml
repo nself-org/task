@@ -207,6 +207,9 @@ jobs:
           NEXT_PUBLIC_ENVIRONMENT: production
           CAPACITOR_BUILD: "true"
 
+      - name: Set Android SDK path
+        run: echo "sdk.dir=$ANDROID_SDK_ROOT" > frontend/android/local.properties
+
       - name: Capacitor sync
         working-directory: ./frontend
         run: pnpm exec cap sync android
@@ -250,6 +253,17 @@ jobs:
       - name: Capacitor sync
         working-directory: ./frontend
         run: pnpm exec cap sync ios
+
+      - name: Install xcpretty
+        run: gem install xcpretty --no-document
+
+      - name: Cache SPM packages
+        uses: actions/cache@v4
+        with:
+          path: ~/Library/Developer/Xcode/DerivedData
+          key: spm-${{ hashFiles('**/Package.resolved') }}
+          restore-keys: |
+            spm-
 
       - name: Build iOS (simulator, compile verify only)
         working-directory: ./frontend/ios/App
