@@ -1,4 +1,4 @@
-# ɳDemo TV App
+# ɳTasks TV App
 
 **Large-screen family chore board optimized for Android TV, Apple TV, and smart TVs**
 

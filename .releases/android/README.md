@@ -9,7 +9,7 @@
 
 1. **Download the APK**
    ```
-   nself-demo-v0.1.0.apk
+   nself-tasks-v0.1.0.apk
    ```
 
 2. **Enable Unknown Sources**
@@ -25,7 +25,7 @@
      - Internet (for real-time sync)
 
 4. **Launch**
-   - Open ɳDemo from your app drawer
+   - Open ɳTasks from your app drawer
    - Sign in with your account
 
 ## Features
@@ -45,7 +45,7 @@
 - Clear Downloads app cache
 
 **Camera not working**
-- Grant camera permission in Settings → Apps → ɳDemo → Permissions
+- Grant camera permission in Settings → Apps → ɳTasks → Permissions
 - Restart the app
 
 **Sync not working**

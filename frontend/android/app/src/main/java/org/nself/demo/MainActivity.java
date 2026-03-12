@@ -1,4 +1,4 @@
-package org.nself.demo;
+package org.nself.tasks;
 
 import com.getcapacitor.BridgeActivity;
 

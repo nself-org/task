@@ -1,6 +1,6 @@
 # Database Schema
 
-Complete reference for the ɳDemo application database schema with advanced collaborative features.
+Complete reference for the ɳTasks application database schema with advanced collaborative features.
 
 ---
 

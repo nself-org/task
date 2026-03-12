@@ -1,5 +1,5 @@
 [package]
-name = "nself-demo"
+name = "nself-tasks"
 version = "0.1.0"
 description = "Cross-platform nSelf application"
 authors = []

@@ -1,6 +1,6 @@
-// Service Worker for ɳDemo - Offline-first PWA
-const CACHE_NAME = 'nself-demo-v1';
-const RUNTIME_CACHE = 'nself-demo-runtime';
+// Service Worker for ɳTasks - Offline-first PWA
+const CACHE_NAME = 'nself-tasks-v1';
+const RUNTIME_CACHE = 'nself-tasks-runtime';
 
 // Assets to cache on install
 const PRECACHE_URLS = [
@@ -82,7 +82,7 @@ self.addEventListener('push', (event) => {
     badge: '/badge-72.png',
     data: { url: data.url || '/', ...data.data },
   };
-  event.waitUntil(self.registration.showNotification(data.title || 'ɳDemo', options));
+  event.waitUntil(self.registration.showNotification(data.title || 'ɳTasks', options));
 });
 
 // Notification click

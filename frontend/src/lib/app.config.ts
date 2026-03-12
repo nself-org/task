@@ -1,7 +1,7 @@
 export const appConfig = {
-  name: process.env.NEXT_PUBLIC_APP_NAME || 'ɳDemo',
+  name: process.env.NEXT_PUBLIC_APP_NAME || 'ɳTasks',
   tagline: process.env.NEXT_PUBLIC_APP_TAGLINE || 'Your application tagline',
-  description: process.env.NEXT_PUBLIC_APP_DESCRIPTION || 'A production-ready demo showcasing ɳSelf backend platform',
+  description: process.env.NEXT_PUBLIC_APP_DESCRIPTION || 'A production-ready reference app showcasing ɳSelf backend platform',
   url: process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000',
   version: process.env.NEXT_PUBLIC_APP_VERSION || '0.1.0',
 
@@ -44,9 +44,9 @@ export const appConfig = {
   },
 
   seo: {
-    titleTemplate: '%s | ɳDemo',
-    defaultTitle: 'ɳDemo',
-    keywords: ['ɳself', 'ɳdemo', 'demo app', 'nextjs', 'react', 'hasura', 'postgres', 'graphql', 'realtime'],
+    titleTemplate: '%s | ɳTasks',
+    defaultTitle: 'ɳTasks',
+    keywords: ['ɳself', 'ɳtasks', 'task manager', 'nextjs', 'react', 'hasura', 'postgres', 'graphql', 'realtime'],
     author: '',
   },
 } as const;

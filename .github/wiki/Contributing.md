@@ -10,7 +10,7 @@ Be respectful, inclusive, and constructive in all interactions.
 
 ### Reporting Bugs
 
-1. Check if the bug has already been reported in [Issues](https://github.com/nself-org/demo/issues)
+1. Check if the bug has already been reported in [Issues](https://github.com/nself-org/tasks/issues)
 2. If not, create a new issue with:
    - Clear title and description
    - Steps to reproduce
@@ -21,7 +21,7 @@ Be respectful, inclusive, and constructive in all interactions.
 
 ### Suggesting Features
 
-1. Check [Discussions](https://github.com/nself-org/demo/discussions) for existing suggestions
+1. Check [Discussions](https://github.com/nself-org/tasks/discussions) for existing suggestions
 2. Create a new discussion with:
    - Clear use case
    - Proposed implementation (if you have ideas)
@@ -33,8 +33,8 @@ Be respectful, inclusive, and constructive in all interactions.
 1. **Fork the repository**
 
    ```bash
-   git clone https://github.com/nself-org/demo.git
-   cd nself-demo
+   git clone https://github.com/nself-org/tasks.git
+   cd nself-tasks
    ```
 
 2. **Create a feature branch**
@@ -215,8 +215,8 @@ For custom components:
 
 ## Questions?
 
-- Check existing [Issues](https://github.com/nself-org/demo/issues)
-- Join [Discussions](https://github.com/nself-org/demo/discussions)
+- Check existing [Issues](https://github.com/nself-org/tasks/issues)
+- Join [Discussions](https://github.com/nself-org/tasks/discussions)
 - Read [README.md](README.md) and [BACKEND.md](BACKEND.md)
 
 ## License

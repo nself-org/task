@@ -1,6 +1,6 @@
-# ɳDemo Releases
+# ɳTasks Releases
 
-This directory contains all production builds for ɳDemo across all platforms.
+This directory contains all production builds for ɳTasks across all platforms.
 
 ---
 
@@ -40,23 +40,23 @@ This will:
 ```
 .releases/
 ├── web/                    # Static web builds
-│   ├── nself-demo-web-v0.1.0-*.zip
-│   └── nself-demo-web-v0.1.0-*.tar.gz
+│   ├── nself-tasks-web-v0.1.0-*.zip
+│   └── nself-tasks-web-v0.1.0-*.tar.gz
 ├── android/                # Android mobile APKs
-│   └── nself-demo-v0.1.0-*.apk
+│   └── nself-tasks-v0.1.0-*.apk
 ├── ios/                    # iOS mobile IPAs
-│   └── nself-demo-v0.1.0-*.ipa
+│   └── nself-tasks-v0.1.0-*.ipa
 ├── tv/
 │   └── android-tv/         # Android TV APKs
-│       └── nself-demo-tv-v0.1.0-*.apk
+│       └── nself-tasks-tv-v0.1.0-*.apk
 ├── macos/                  # macOS desktop apps
-│   ├── nself-demo-v0.1.0-*.dmg
-│   └── nself-demo-v0.1.0-*.app
+│   ├── nself-tasks-v0.1.0-*.dmg
+│   └── nself-tasks-v0.1.0-*.app
 ├── windows/                # Windows desktop apps
-│   └── nself-demo-v0.1.0-*.msi
+│   └── nself-tasks-v0.1.0-*.msi
 ├── linux/                  # Linux desktop apps
-│   ├── nself-demo-v0.1.0-*.AppImage
-│   └── nself-demo-v0.1.0-*.deb
+│   ├── nself-tasks-v0.1.0-*.AppImage
+│   └── nself-tasks-v0.1.0-*.deb
 ├── checksums-v0.1.0-*.txt  # SHA256 checksums
 └── RELEASE-v0.1.0-*.md     # Release notes
 ```
@@ -227,7 +227,7 @@ Verify download integrity:
 
 ```bash
 # Generate checksums
-shasum -a 256 nself-demo-*.apk
+shasum -a 256 nself-tasks-*.apk
 
 # Compare with checksums-*.txt
 cat checksums-v0.1.0-*.txt
@@ -321,19 +321,19 @@ Ensure CI has all required tools:
 Once released, users can download from:
 
 ```
-https://releases.nself.org/demo/latest/web/nself-demo-web-latest.zip
-https://releases.nself.org/demo/latest/android/nself-demo-latest.apk
-https://releases.nself.org/demo/latest/ios/nself-demo-latest.ipa
-https://releases.nself.org/demo/latest/macos/nself-demo-latest.dmg
-https://releases.nself.org/demo/latest/windows/nself-demo-latest.msi
-https://releases.nself.org/demo/latest/linux/nself-demo-latest.AppImage
+https://releases.nself.org/tasks/latest/web/nself-tasks-web-latest.zip
+https://releases.nself.org/tasks/latest/android/nself-tasks-latest.apk
+https://releases.nself.org/tasks/latest/ios/nself-tasks-latest.ipa
+https://releases.nself.org/tasks/latest/macos/nself-tasks-latest.dmg
+https://releases.nself.org/tasks/latest/windows/nself-tasks-latest.msi
+https://releases.nself.org/tasks/latest/linux/nself-tasks-latest.AppImage
 ```
 
 Or via GitHub Releases:
 ```
-https://github.com/nself-org/demo/releases/latest
+https://github.com/nself-org/tasks/releases/latest
 ```
 
 ---
 
-**Questions?** Open an issue at https://github.com/nself-org/demo/issues
+**Questions?** Open an issue at https://github.com/nself-org/tasks/issues

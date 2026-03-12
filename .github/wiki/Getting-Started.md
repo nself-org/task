@@ -1,6 +1,6 @@
 # Getting Started
 
-Get ɳDemo boilerplate running on your machine in minutes.
+Get ɳTasks boilerplate running on your machine in minutes.
 
 ---
 
@@ -23,7 +23,7 @@ Optional:
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/nself-org/demo.git my-app
+git clone https://github.com/nself-org/tasks.git my-app
 cd my-app
 ```
 
@@ -213,6 +213,6 @@ See [Troubleshooting](Troubleshooting) for more help.
 
 ---
 
-**Having trouble?** [Open an issue](https://github.com/nself-org/demo/issues) or check the [Troubleshooting guide](Troubleshooting).
+**Having trouble?** [Open an issue](https://github.com/nself-org/tasks/issues) or check the [Troubleshooting guide](Troubleshooting).
 
 **Next:** [Backend Setup →](Backend-Setup)

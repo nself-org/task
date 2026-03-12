@@ -1,8 +1,8 @@
-# Welcome to ɳDemo Boilerplate
+# Welcome to ɳTasks
 
 **The production-ready, AI-friendly boilerplate for modern web applications.**
 
-ɳDemo is a complete Next.js boilerplate with multi-backend support, designed to accelerate your development whether you're coding by hand or using AI tools like Bolt.new, Lovable, Cursor, or Copilot.
+ɳTasks is a complete Next.js reference app with multi-backend support, designed to accelerate your development whether you're coding by hand or using AI tools like Bolt.new, Lovable, Cursor, or Copilot.
 
 ---
 
@@ -11,7 +11,7 @@
 Get up and running in 3 commands:
 
 ```bash
-git clone https://github.com/nself-org/demo.git my-app
+git clone https://github.com/nself-org/tasks.git my-app
 cd my-app
 cd backend && make up          # Start self-hosted backend
 cd .. && npm install && npm run dev  # Start frontend
@@ -123,8 +123,8 @@ The boilerplate includes a complete todo application demonstrating:
 ## 🆘 Need Help?
 
 - 📖 **[Documentation](Home)** - You're here!
-- 🐛 **[Issues](https://github.com/nself-org/demo/issues)** - Report bugs or request features
-- 💬 **[Discussions](https://github.com/nself-org/demo/discussions)** - Ask questions
+- 🐛 **[Issues](https://github.com/nself-org/tasks/issues)** - Report bugs or request features
+- 💬 **[Discussions](https://github.com/nself-org/tasks/discussions)** - Ask questions
 - 📝 **[Changelog](Changelog)** - See what's new
 
 ---

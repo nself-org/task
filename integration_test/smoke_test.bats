@@ -1,7 +1,7 @@
 #!/usr/bin/env bats
-# T-0395 — demo/ CI smoke tests
+# T-0395 — tasks/ CI smoke tests
 #
-# nself-demo (nTasks) is a Next.js app with multi-backend support.
+# nself-tasks (ɳTasks) is a Next.js app with multi-backend support.
 # These bats tests cover the static/static CI tier: type-check, build,
 # and env file validation.
 #
@@ -9,8 +9,8 @@
 # (Variable name preserved for CI matrix compatibility with sibling repos.)
 #
 # Prerequisites: pnpm installed, node_modules present (pnpm install in frontend/)
-# Run: bats demo/integration_test/smoke_test.bats
-# CI:  SKIP_FLUTTER_TESTS=1 bats demo/integration_test/smoke_test.bats
+# Run: bats tasks/integration_test/smoke_test.bats
+# CI:  SKIP_FLUTTER_TESTS=1 bats tasks/integration_test/smoke_test.bats
 
 REPO_ROOT="$(cd "$(dirname "$BATS_TEST_FILENAME")/../.." && pwd)"
 FRONTEND="$REPO_ROOT/frontend"
@@ -18,7 +18,7 @@ ENV_EXAMPLE="$FRONTEND/env/.env.example"
 
 setup() {
   if [ "${SKIP_FLUTTER_TESTS:-1}" = "1" ]; then
-    skip "SKIP_FLUTTER_TESTS=1 — set to 0 to run demo CI smoke tests"
+    skip "SKIP_FLUTTER_TESTS=1 — set to 0 to run tasks CI smoke tests"
   fi
 
   if [ ! -d "$FRONTEND/node_modules" ]; then

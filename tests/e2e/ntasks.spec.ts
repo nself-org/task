@@ -1,22 +1,22 @@
 /**
- * nTasks demo app E2E smoke tests — T-0395
+ * nTasks app E2E smoke tests — T-0395
  *
- * 8 test scenarios for the nTasks reference app (nself/demo).
- * Requires the demo app to be running at DEMO_APP_URL.
+ * 8 test scenarios for the nTasks reference app (nself/tasks).
+ * Requires the tasks app to be running at TASKS_APP_URL.
  */
 
 import { test, expect } from '@playwright/test';
 
-const BASE = process.env.DEMO_APP_URL ?? 'http://localhost:3000';
+const BASE = process.env.TASKS_APP_URL ?? 'http://localhost:3000';
 
 test.use({ baseURL: BASE });
 
-const available = !!process.env.DEMO_APP_URL;
+const available = !!process.env.TASKS_APP_URL;
 
-test.describe('nTasks demo app', () => {
+test.describe('nTasks app', () => {
   // Scenario 1: App loads
   test('app loads with correct title', async ({ page }) => {
-    test.skip(!available, 'DEMO_APP_URL not set');
+    test.skip(!available, 'TASKS_APP_URL not set');
 
     await page.goto('/');
     await expect(page).toHaveTitle(/nTasks|Tasks|nself/i);
@@ -24,7 +24,7 @@ test.describe('nTasks demo app', () => {
 
   // Scenario 2: Login page
   test('login page is reachable', async ({ page }) => {
-    test.skip(!available, 'DEMO_APP_URL not set');
+    test.skip(!available, 'TASKS_APP_URL not set');
 
     const resp = await page.goto('/login');
     expect(resp?.status()).not.toBe(404);
@@ -35,7 +35,7 @@ test.describe('nTasks demo app', () => {
 
   // Scenario 3: Sign up with new account
   test('signup with new email succeeds', async ({ page }) => {
-    test.skip(!available, 'DEMO_APP_URL not set');
+    test.skip(!available, 'TASKS_APP_URL not set');
 
     await page.goto('/signup');
     const uniqueEmail = `e2e+${Date.now()}@demo.nself.local`;
@@ -55,11 +55,11 @@ test.describe('nTasks demo app', () => {
 
   // Scenario 4: Create a task
   test('authenticated user can create a task', async ({ page }) => {
-    test.skip(!available || !process.env.DEMO_TEST_EMAIL, 'No test credentials');
+    test.skip(!available || !process.env.TASKS_TEST_EMAIL, 'No test credentials');
 
     await page.goto('/login');
-    await page.fill('input[type="email"]', process.env.DEMO_TEST_EMAIL!);
-    await page.fill('input[type="password"]', process.env.DEMO_TEST_PASSWORD!);
+    await page.fill('input[type="email"]', process.env.TASKS_TEST_EMAIL!);
+    await page.fill('input[type="password"]', process.env.TASKS_TEST_PASSWORD!);
     await page.click('button[type="submit"]');
     await page.waitForURL(/dashboard|tasks/);
 
@@ -79,11 +79,11 @@ test.describe('nTasks demo app', () => {
 
   // Scenario 5: Mark task as complete
   test('task can be marked as complete', async ({ page }) => {
-    test.skip(!available || !process.env.DEMO_TEST_EMAIL, 'No test credentials');
+    test.skip(!available || !process.env.TASKS_TEST_EMAIL, 'No test credentials');
 
     await page.goto('/login');
-    await page.fill('input[type="email"]', process.env.DEMO_TEST_EMAIL!);
-    await page.fill('input[type="password"]', process.env.DEMO_TEST_PASSWORD!);
+    await page.fill('input[type="email"]', process.env.TASKS_TEST_EMAIL!);
+    await page.fill('input[type="password"]', process.env.TASKS_TEST_PASSWORD!);
     await page.click('button[type="submit"]');
     await page.waitForURL(/dashboard|tasks/);
 
@@ -96,7 +96,7 @@ test.describe('nTasks demo app', () => {
 
   // Scenario 6: Real-time update visible (if enabled)
   test('real-time sync indicator is present', async ({ page }) => {
-    test.skip(!available, 'DEMO_APP_URL not set');
+    test.skip(!available, 'TASKS_APP_URL not set');
 
     await page.goto('/');
     // Look for connection indicator — implementation varies
@@ -108,7 +108,7 @@ test.describe('nTasks demo app', () => {
 
   // Scenario 7: Navigation between views
   test('navigation between views works', async ({ page }) => {
-    test.skip(!available || !process.env.DEMO_TEST_EMAIL, 'No test credentials');
+    test.skip(!available || !process.env.TASKS_TEST_EMAIL, 'No test credentials');
 
     await page.goto('/');
     // Click each nav item and verify no 500 errors
@@ -127,7 +127,7 @@ test.describe('nTasks demo app', () => {
 
   // Scenario 8: Mobile viewport
   test('app is usable on mobile viewport', async ({ page }) => {
-    test.skip(!available, 'DEMO_APP_URL not set');
+    test.skip(!available, 'TASKS_APP_URL not set');
 
     await page.setViewportSize({ width: 390, height: 844 });
     await page.goto('/');

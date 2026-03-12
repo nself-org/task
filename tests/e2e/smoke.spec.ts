@@ -1,12 +1,12 @@
 /**
- * nTasks demo app — E2E smoke tests
+ * nTasks app — E2E smoke tests
  * T-0395
  *
  * 8 lightweight scenarios that verify the app is alive and structurally correct.
  * No credentials required. Each test skips gracefully when the app is not running.
  *
  * Run against a live instance:
- *   DEMO_URL=http://localhost:3002 pnpm test:e2e tests/e2e/smoke.spec.ts
+ *   TASKS_URL=http://localhost:3017 pnpm test:e2e tests/e2e/smoke.spec.ts
  */
 
 import { test, expect } from '@playwright/test';

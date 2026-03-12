@@ -1,6 +1,6 @@
 # Backend Configuration
 
-ɳDemo supports multiple backend providers through a single environment variable. By default, it uses **nSelf** (self-hosted stack), but can be switched to any supported provider for development in sandboxed environments.
+ɳTasks supports multiple backend providers through a single environment variable. By default, it uses **nSelf** (self-hosted stack), but can be switched to any supported provider for development in sandboxed environments.
 
 ## Supported Backends
 
@@ -36,7 +36,7 @@ When using AI assistants in sandboxed environments, include these instructions i
 ### For Bolt.new
 
 ```
-This project uses ɳDemo boilerplate with backend abstraction.
+This project uses ɳTasks boilerplate with backend abstraction.
 Current environment: Bolt.new sandbox
 Backend is set to: bolt (Supabase-compatible)
 Use the existing backend abstraction in lib/backend/ - do not import Supabase directly.
@@ -46,7 +46,7 @@ All auth, database, storage, and realtime operations should use the hooks and pr
 ### For Local Development with nSelf
 
 ```
-This project uses ɳDemo boilerplate with nSelf backend.
+This project uses ɳTasks boilerplate with nSelf backend.
 Backend is set to: nself (default)
 Use the existing backend abstraction in lib/backend/ - do not import services directly.
 All operations should use useAuth, useBackend, and related hooks.
@@ -57,7 +57,7 @@ All operations should use useAuth, useBackend, and related hooks.
 Add to your project instructions or `.cursorrules`:
 
 ```
-# ɳDemo Backend Abstraction
+# ɳTasks Backend Abstraction
 
 This project uses a backend abstraction layer. Never import backend SDKs directly.
 

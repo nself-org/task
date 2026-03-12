@@ -1,7 +1,7 @@
 import { TVListView } from '@/components/tv/tv-list-view';
 
 export const metadata = {
-  title: 'TV Mode - ɳDemo',
+  title: 'TV Mode - ɳTasks',
   description: 'Large-screen family chore board',
 };
 

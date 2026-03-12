@@ -247,13 +247,13 @@ services:
 
 ```bash
 # Build image
-docker build -t nself-demo .
+docker build -t nself-tasks .
 
 # Run container
 docker run -p 3000:3000 \
   -e NEXT_PUBLIC_BACKEND_PROVIDER=nself \
   -e NEXT_PUBLIC_ENVIRONMENT=production \
-  nself-demo
+  nself-tasks
 
 # Or use docker-compose
 docker-compose up -d
@@ -282,7 +282,7 @@ Deploy on your own server with PM2 or systemd.
 3. **Start with PM2**
 
    ```bash
-   pm2 start npm --name "nself-demo" -- start
+   pm2 start npm --name "nself-tasks" -- start
    pm2 save
    pm2 startup
    ```
@@ -297,7 +297,7 @@ Deploy on your own server with PM2 or systemd.
    NEXT_PUBLIC_NSELF_GRAPHQL_URL=https://api.yourdomain.com/v1/graphql
    EOF
 
-   pm2 restart nself-demo --update-env
+   pm2 restart nself-tasks --update-env
    ```
 
 #### Using systemd
@@ -305,7 +305,7 @@ Deploy on your own server with PM2 or systemd.
 1. **Create Service File**
 
    ```bash
-   sudo nano /etc/systemd/system/nself-demo.service
+   sudo nano /etc/systemd/system/nself-tasks.service
    ```
 
 2. **Service Configuration**
@@ -318,7 +318,7 @@ Deploy on your own server with PM2 or systemd.
    [Service]
    Type=simple
    User=www-data
-   WorkingDirectory=/var/www/nself-demo
+   WorkingDirectory=/var/www/nself-tasks
    Environment="NODE_ENV=production"
    Environment="NEXT_PUBLIC_BACKEND_PROVIDER=nself"
    Environment="NEXT_PUBLIC_ENVIRONMENT=production"
@@ -332,9 +332,9 @@ Deploy on your own server with PM2 or systemd.
 3. **Enable and Start**
    ```bash
    sudo systemctl daemon-reload
-   sudo systemctl enable nself-demo
-   sudo systemctl start nself-demo
-   sudo systemctl status nself-demo
+   sudo systemctl enable nself-tasks
+   sudo systemctl start nself-tasks
+   sudo systemctl status nself-tasks
    ```
 
 #### Nginx Configuration
@@ -481,8 +481,8 @@ netlify rollback
 ### Docker
 
 ```bash
-docker tag nself-demo:latest nself-demo:backup
-docker pull nself-demo:previous
+docker tag nself-tasks:latest nself-tasks:backup
+docker pull nself-tasks:previous
 docker-compose up -d
 ```
 
@@ -501,6 +501,6 @@ docker-compose up -d
 
 **Need Help?**
 
-- [GitHub Issues](https://github.com/nself-org/demo/issues)
+- [GitHub Issues](https://github.com/nself-org/tasks/issues)
 - [Documentation](./README.md)
 - [ɳSelf Docs](https://github.com/nself-org/cli)

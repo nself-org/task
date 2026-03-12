@@ -1,10 +1,10 @@
 apply plugin: 'com.android.application'
 
 android {
-    namespace = "org.nself.demo"
+    namespace = "org.nself.tasks"
     compileSdk = rootProject.ext.compileSdkVersion
     defaultConfig {
-        applicationId "org.nself.demo"
+        applicationId "org.nself.tasks"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1

@@ -1,15 +1,15 @@
 import { defineConfig, devices } from '@playwright/test';
 
 /**
- * nself-demo Playwright configuration
+ * nself-tasks Playwright configuration
  * T-0395
  *
- * Smoke tests run against the demo app at DEMO_URL (default: localhost:3002).
- * The frontend dev server runs on port 3002 inside the demo project.
+ * Smoke tests run against the tasks app at TASKS_URL (default: localhost:3017).
+ * The frontend dev server runs on port 3017 inside the tasks project.
  *
  * Usage:
- *   DEMO_URL=http://localhost:3002 pnpm test:e2e
- *   DEMO_URL=https://staging.demo.nself.org pnpm test:e2e
+ *   TASKS_URL=http://localhost:3017 pnpm test:e2e
+ *   TASKS_URL=https://tasks.nself.org pnpm test:e2e
  */
 export default defineConfig({
   testDir: './tests/e2e',
@@ -23,7 +23,7 @@ export default defineConfig({
   reporter: process.env.CI ? 'github' : 'list',
 
   use: {
-    baseURL: process.env.DEMO_URL || 'http://localhost:3002',
+    baseURL: process.env.TASKS_URL || 'http://localhost:3017',
 
     // Capture artifacts on failure
     trace: 'on-first-retry',

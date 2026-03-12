@@ -14,7 +14,7 @@ DATE=$(date +%Y%m%d-%H%M%S)
 RELEASE_NAME="v${VERSION}-${DATE}"
 
 echo -e "${BLUE}╔════════════════════════════════════════════════════════════════╗${NC}"
-echo -e "${BLUE}║           ɳDemo Multi-Platform Release Builder                ║${NC}"
+echo -e "${BLUE}║           ɳTasks Multi-Platform Release Builder                ║${NC}"
 echo -e "${BLUE}╚════════════════════════════════════════════════════════════════╝${NC}"
 echo ""
 echo -e "${GREEN}Version:${NC} ${RELEASE_NAME}"
@@ -37,12 +37,12 @@ if pnpm build; then
 
     # Create zip of out/ directory
     cd out
-    zip -r "../../.releases/web/nself-demo-web-${RELEASE_NAME}.zip" . > /dev/null
+    zip -r "../../.releases/web/nself-tasks-web-${RELEASE_NAME}.zip" . > /dev/null
     cd ..
 
     # Create tar.gz for Linux users
     cd out
-    tar -czf "../../.releases/web/nself-demo-web-${RELEASE_NAME}.tar.gz" . > /dev/null
+    tar -czf "../../.releases/web/nself-tasks-web-${RELEASE_NAME}.tar.gz" . > /dev/null
     cd ..
 
     BUILT+=("Web (Static)")
@@ -64,9 +64,9 @@ if command -v gradle &> /dev/null || [ -d "android" ]; then
         # Copy APK to releases
         APK_PATH="app/build/outputs/apk/release/app-release.apk"
         if [ -f "$APK_PATH" ]; then
-            cp "$APK_PATH" "../../.releases/android/nself-demo-${RELEASE_NAME}.apk"
+            cp "$APK_PATH" "../../.releases/android/nself-tasks-${RELEASE_NAME}.apk"
             # Also copy to TV directory (same APK works for both)
-            cp "$APK_PATH" "../../.releases/tv/android-tv/nself-demo-tv-${RELEASE_NAME}.apk"
+            cp "$APK_PATH" "../../.releases/tv/android-tv/nself-tasks-tv-${RELEASE_NAME}.apk"
             BUILT+=("Android (Mobile + TV)")
             echo -e "${GREEN}  → Saved to: .releases/android/ and .releases/tv/android-tv/${NC}"
         fi
@@ -114,26 +114,26 @@ if command -v cargo &> /dev/null && [ -d "platforms/desktop/tauri" ]; then
         if [[ "$OSTYPE" == "darwin"* ]]; then
             # macOS
             if [ -d "target/release/bundle/dmg" ]; then
-                cp target/release/bundle/dmg/*.dmg "../../../../.releases/macos/nself-demo-${RELEASE_NAME}.dmg" 2>/dev/null || true
+                cp target/release/bundle/dmg/*.dmg "../../../../.releases/macos/nself-tasks-${RELEASE_NAME}.dmg" 2>/dev/null || true
                 BUILT+=("macOS (DMG)")
             fi
             if [ -d "target/release/bundle/macos" ]; then
-                cp -r target/release/bundle/macos/*.app "../../../../.releases/macos/nself-demo-${RELEASE_NAME}.app" 2>/dev/null || true
+                cp -r target/release/bundle/macos/*.app "../../../../.releases/macos/nself-tasks-${RELEASE_NAME}.app" 2>/dev/null || true
             fi
         elif [[ "$OSTYPE" == "linux-gnu"* ]]; then
             # Linux
             if [ -d "target/release/bundle/appimage" ]; then
-                cp target/release/bundle/appimage/*.AppImage "../../../../.releases/linux/nself-demo-${RELEASE_NAME}.AppImage" 2>/dev/null || true
+                cp target/release/bundle/appimage/*.AppImage "../../../../.releases/linux/nself-tasks-${RELEASE_NAME}.AppImage" 2>/dev/null || true
                 BUILT+=("Linux (AppImage)")
             fi
             if [ -d "target/release/bundle/deb" ]; then
-                cp target/release/bundle/deb/*.deb "../../../../.releases/linux/nself-demo-${RELEASE_NAME}.deb" 2>/dev/null || true
+                cp target/release/bundle/deb/*.deb "../../../../.releases/linux/nself-tasks-${RELEASE_NAME}.deb" 2>/dev/null || true
                 BUILT+=("Linux (DEB)")
             fi
         elif [[ "$OSTYPE" == "msys" ]] || [[ "$OSTYPE" == "cygwin" ]]; then
             # Windows
             if [ -d "target/release/bundle/msi" ]; then
-                cp target/release/bundle/msi/*.msi "../../../../.releases/windows/nself-demo-${RELEASE_NAME}.msi" 2>/dev/null || true
+                cp target/release/bundle/msi/*.msi "../../../../.releases/windows/nself-tasks-${RELEASE_NAME}.msi" 2>/dev/null || true
                 BUILT+=("Windows (MSI)")
             fi
         fi
@@ -166,7 +166,7 @@ echo ""
 # =============================================================================
 echo -e "${YELLOW}[6/7] Generating Release Info...${NC}"
 cat > "$RELEASE_DIR/RELEASE-${RELEASE_NAME}.md" << EOF
-# ɳDemo Release ${RELEASE_NAME}
+# ɳTasks Release ${RELEASE_NAME}
 
 **Version**: ${VERSION}
 **Date**: $(date +"%Y-%m-%d %H:%M:%S")
@@ -199,28 +199,28 @@ cat >> "$RELEASE_DIR/RELEASE-${RELEASE_NAME}.md" << EOF
 
 ### Web
 \`\`\`bash
-unzip nself-demo-web-${RELEASE_NAME}.zip -d web
+unzip nself-tasks-web-${RELEASE_NAME}.zip -d web
 # Deploy to any static host
 \`\`\`
 
 ### Android
 \`\`\`bash
-adb install nself-demo-${RELEASE_NAME}.apk
+adb install nself-tasks-${RELEASE_NAME}.apk
 # Or transfer to device and install manually
 \`\`\`
 
 ### Android TV
 \`\`\`bash
 adb connect <tv-ip-address>
-adb install nself-demo-tv-${RELEASE_NAME}.apk
+adb install nself-tasks-tv-${RELEASE_NAME}.apk
 \`\`\`
 
 ### Desktop
 - **macOS**: Open the .dmg file and drag to Applications
 - **Windows**: Run the .msi installer
 - **Linux**:
-  - AppImage: \`chmod +x *.AppImage && ./nself-demo-*.AppImage\`
-  - DEB: \`sudo dpkg -i nself-demo-*.deb\`
+  - AppImage: \`chmod +x *.AppImage && ./nself-tasks-*.AppImage\`
+  - DEB: \`sudo dpkg -i nself-tasks-*.deb\`
 
 ---
 
@@ -240,8 +240,8 @@ See \`checksums-${RELEASE_NAME}.txt\` for SHA256 hashes of all release files.
 
 ---
 
-**Project**: ɳDemo - Universal Next.js Boilerplate
-**Repository**: https://github.com/nself-org/demo
+**Project**: ɳTasks - Universal Next.js Boilerplate
+**Repository**: https://github.com/nself-org/tasks
 **License**: MIT
 EOF
 

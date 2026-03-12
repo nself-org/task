@@ -1,4 +1,4 @@
-# ɳDemo
+# ɳTasks
 
 **The "code once, deploy everywhere" boilerplate for modern applications.**
 
@@ -85,7 +85,7 @@ The key insight: **your frontend code never imports backend SDKs directly.** Eve
 
 ```bash
 # 1. Clone the repo
-git clone https://github.com/nself-org/demo.git my-app
+git clone https://github.com/nself-org/tasks.git my-app
 cd my-app
 
 # 2. Start the backend (one command - auto-builds on first run!)
@@ -205,7 +205,7 @@ pnpm install && pnpm dev
 Using Supabase or Nhost? Skip the backend entirely:
 
 ```bash
-git clone https://github.com/nself-org/demo.git my-app
+git clone https://github.com/nself-org/tasks.git my-app
 cd my-app/frontend
 
 # Configure your backend
@@ -399,7 +399,7 @@ Open this repo in Bolt.new, Lovable, or any AI coding agent. The `.bolt/prompt`,
 ## Project Structure
 
 ```
-nself-demo/
+nself-tasks/
 ├── .ai/                              # AI agent workspace (gitignored)
 #   ├── agent-workspace/                       # AI agent files
 │   ├── agent-b/                        # Agent B files
@@ -746,7 +746,7 @@ The `.bolt/prompt` file contains instructions for Bolt. When you open this proje
 **What to tell Bolt:**
 
 ```
-This project uses the ɳDemo boilerplate with a backend abstraction layer.
+This project uses the ɳTasks boilerplate with a backend abstraction layer.
 Never import @supabase/supabase-js or any backend SDK directly.
 Use hooks from @/hooks and @/lib/providers for all operations.
 See .cursorrules for the full coding guide.
@@ -757,7 +757,7 @@ See .cursorrules for the full coding guide.
 Lovable works similarly. Import the repo and tell it:
 
 ```
-This is an ɳDemo boilerplate project. The backend is abstracted behind
+This is an ɳTasks boilerplate project. The backend is abstracted behind
 hooks and providers in lib/backend, lib/providers, and hooks/.
 Never use backend SDKs directly. Use useAuth(), useQuery(), useMutation(),
 useStorage(), and useRealtime() hooks.
@@ -769,7 +769,7 @@ Components use shadcn/ui, Tailwind CSS, and Lucide React icons.
 When using AI agents (via API, AI platforms, or AI Code):
 
 ```
-I'm working on an ɳDemo project. It has a backend abstraction layer.
+I'm working on an ɳTasks project. It has a backend abstraction layer.
 The key files are:
 - lib/backend/index.ts (backend factory)
 - lib/types/backend.ts (TypeScript interfaces)
@@ -1149,7 +1149,7 @@ When running ɳSelf locally, the Hasura Console at `http://localhost:8080/consol
 
 Contributions are welcome. Please read [CONTRIBUTING.md](.wiki/Contributing.md) before submitting PRs.
 
-For complete documentation, visit the [Wiki](https://github.com/nself-org/demo/wiki).
+For complete documentation, visit the [Wiki](https://github.com/nself-org/tasks/wiki).
 
 1. Fork the repository
 2. Create a feature branch (`git checkout -b feat/my-feature`)
@@ -1172,6 +1172,6 @@ Built by the [nself](https://nself.org) community · [GitHub](https://github.com
 Part of the **ɳSelf ecosystem**:
 
 - [ɳSelf CLI](https://github.com/nself-org/cli) - Self-hosted backend platform
-- [ɳDemo](https://github.com/nself-org/demo) - Application boilerplate (this repo)
+- [ɳTasks](https://github.com/nself-org/tasks) - Reference application (this repo)
 - [ɳChat](https://github.com/nself-org/chat) - Real-time chat application
 - [ɳAdmin](https://github.com/nself-org/admin) - Web admin dashboard

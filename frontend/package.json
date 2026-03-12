@@ -1,17 +1,17 @@
 {
-  "name": "nself-demo",
+  "name": "nself-tasks",
   "version": "0.1.0",
-  "description": "ɳDemo - Universal Next.js boilerplate with multi-backend support (ɳSelf, Supabase, Nhost)",
+  "description": "ɳTasks - Universal Next.js reference app with multi-backend support (ɳSelf, Supabase, Nhost)",
   "author": "nself-org",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/nself-org/demo"
+    "url": "https://github.com/nself-org/tasks"
   },
   "keywords": [
     "ɳself",
-    "ɳdemo",
-    "demo",
+    "ɳtasks",
+    "tasks",
     "nextjs",
     "react",
     "hasura",
@@ -52,8 +52,8 @@
     "desktop:build": "cd platforms/desktop/tauri && cargo tauri build",
     "release": "./scripts/release.sh",
     "release:all": "./scripts/release.sh",
-    "release:web": "pnpm build && cd out && zip -r ../../.releases/web/nself-demo-web-$(node -p \"require('../package.json').version\")-$(date +%Y%m%d).zip .",
-    "release:mobile": "pnpm build && pnpm dlx cap sync && cd android && ./gradlew assembleRelease && cp app/build/outputs/apk/release/app-release.apk ../../.releases/android/nself-demo-$(node -p \"require('../package.json').version\")-$(date +%Y%m%d).apk"
+    "release:web": "pnpm build && cd out && zip -r ../../.releases/web/nself-tasks-web-$(node -p \"require('../package.json').version\")-$(date +%Y%m%d).zip .",
+    "release:mobile": "pnpm build && pnpm dlx cap sync && cd android && ./gradlew assembleRelease && cp app/build/outputs/apk/release/app-release.apk ../../.releases/android/nself-tasks-$(node -p \"require('../package.json').version\")-$(date +%Y%m%d).apk"
   },
   "dependencies": {
     "@capacitor/android": "^8.1.0",
