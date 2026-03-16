@@ -27,8 +27,9 @@ export default function TVPage() {
   }, []);
 
   useEffect(() => {
-    window.addEventListener('keydown', handleKeyDown as EventListener);
-    return () => window.removeEventListener('keydown', handleKeyDown as EventListener);
+    const handler = (e: Event) => handleKeyDown(e as unknown as React.KeyboardEvent);
+    window.addEventListener('keydown', handler);
+    return () => window.removeEventListener('keydown', handler);
   }, [handleKeyDown]);
 
   return (
