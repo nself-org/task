@@ -1,5 +1,11 @@
 import { Capacitor } from '@capacitor/core';
 
+declare global {
+  interface Window {
+    __TAURI__?: unknown;
+  }
+}
+
 export const isDesktop = () =>
   typeof window !== 'undefined' &&
   window.__TAURI__ !== undefined;
