@@ -44,7 +44,7 @@ class NTasksApp extends ConsumerWidget {
       home: auth.when(
         data: (user) => user != null ? const HomeScreen() : const LoginScreen(),
         loading: () => const _SplashScreen(),
-        error: (_, __) => const LoginScreen(),
+        error: (_, _) => const LoginScreen(),
       ),
     );
   }

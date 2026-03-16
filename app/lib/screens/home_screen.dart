@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -9,78 +10,106 @@ import '../widgets/offline_banner.dart';
 import 'list_screen.dart';
 import 'settings_screen.dart';
 
-class HomeScreen extends ConsumerWidget {
+class HomeScreen extends ConsumerStatefulWidget {
   const HomeScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends ConsumerState<HomeScreen> {
+  final FocusNode _focusNode = FocusNode();
+
+  @override
+  void dispose() {
+    _focusNode.dispose();
+    super.dispose();
+  }
+
+  KeyEventResult _handleKeyEvent(FocusNode node, KeyEvent event) {
+    if (event is KeyDownEvent &&
+        event.logicalKey == LogicalKeyboardKey.keyN &&
+        HardwareKeyboard.instance.isControlPressed) {
+      _showNewListDialog(context, ref);
+      return KeyEventResult.handled;
+    }
+    return KeyEventResult.ignored;
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     final lists = ref.watch(listsProvider);
 
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(l10n.appTitle),
-        actions: [
-          Semantics(
-            label: l10n.settings,
-            child: IconButton(
-              icon: const Icon(Icons.settings_outlined),
-              tooltip: l10n.settings,
-              onPressed: () => Navigator.push(
-                context,
-                MaterialPageRoute<void>(builder: (_) => const SettingsScreen()),
-              ),
-            ),
-          ),
-          Semantics(
-            label: l10n.signOut,
-            child: IconButton(
-              icon: const Icon(Icons.logout),
-              tooltip: l10n.signOut,
-              onPressed: () => ref.read(authNotifierProvider.notifier).signOut(),
-            ),
-          ),
-        ],
-      ),
-      body: Column(
-        children: [
-          const OfflineBanner(),
-          Expanded(
-            child: lists.when(
-              data: (data) => data.isEmpty
-                  ? _EmptyListsState(onRefresh: () async => ref.invalidate(listsProvider))
-                  : RefreshIndicator(
-                      onRefresh: () async => ref.invalidate(listsProvider),
-                      child: ListView.builder(
-                        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                        itemCount: data.length,
-                        itemBuilder: (context, i) => _ListCard(list: data[i]),
-                      ),
-                    ),
-              loading: () => const Center(child: CircularProgressIndicator()),
-              error: (e, _) => Center(
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text(l10n.error),
-                    const SizedBox(height: 12),
-                    FilledButton.tonal(
-                      onPressed: () => ref.invalidate(listsProvider),
-                      child: Text(l10n.retry),
-                    ),
-                  ],
+    return Focus(
+      focusNode: _focusNode,
+      autofocus: true,
+      onKeyEvent: _handleKeyEvent,
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(l10n.appTitle),
+          actions: [
+            Semantics(
+              label: l10n.settings,
+              child: IconButton(
+                icon: const Icon(Icons.settings_outlined),
+                tooltip: l10n.settings,
+                onPressed: () => Navigator.push(
+                  context,
+                  MaterialPageRoute<void>(builder: (_) => const SettingsScreen()),
                 ),
               ),
             ),
+            Semantics(
+              label: l10n.signOut,
+              child: IconButton(
+                icon: const Icon(Icons.logout),
+                tooltip: l10n.signOut,
+                onPressed: () => ref.read(authNotifierProvider.notifier).signOut(),
+              ),
+            ),
+          ],
+        ),
+        body: Column(
+          children: [
+            const OfflineBanner(),
+            Expanded(
+              child: lists.when(
+                data: (data) => data.isEmpty
+                    ? _EmptyListsState(onRefresh: () async => ref.invalidate(listsProvider))
+                    : RefreshIndicator(
+                        onRefresh: () async => ref.invalidate(listsProvider),
+                        child: ListView.builder(
+                          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                          itemCount: data.length,
+                          itemBuilder: (context, i) => _ListCard(list: data[i]),
+                        ),
+                      ),
+                loading: () => const Center(child: CircularProgressIndicator()),
+                error: (e, _) => Center(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(l10n.error),
+                      const SizedBox(height: 12),
+                      FilledButton.tonal(
+                        onPressed: () => ref.invalidate(listsProvider),
+                        child: Text(l10n.retry),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+        floatingActionButton: Semantics(
+          label: l10n.newList,
+          child: FloatingActionButton.extended(
+            onPressed: () => _showNewListDialog(context, ref),
+            icon: const Icon(Icons.add),
+            label: Text(l10n.newList),
           ),
-        ],
-      ),
-      floatingActionButton: Semantics(
-        label: l10n.newList,
-        child: FloatingActionButton.extended(
-          onPressed: () => _showNewListDialog(context, ref),
-          icon: const Icon(Icons.add),
-          label: Text(l10n.newList),
         ),
       ),
     );
