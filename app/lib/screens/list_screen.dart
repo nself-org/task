@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../l10n/app_localizations.dart';
 
@@ -8,46 +9,91 @@ import '../providers/tasks_provider.dart';
 import '../widgets/offline_banner.dart';
 import 'task_detail_screen.dart';
 
-class ListScreen extends ConsumerWidget {
+class ListScreen extends ConsumerStatefulWidget {
   final String listId;
   final String listTitle;
 
   const ListScreen({super.key, required this.listId, required this.listTitle});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final l10n = AppLocalizations.of(context)!;
-    final tasks = ref.watch(tasksProvider(listId));
+  ConsumerState<ListScreen> createState() => _ListScreenState();
+}
 
-    return Scaffold(
-      appBar: AppBar(title: Text(listTitle)),
-      body: Column(
-        children: [
-          const OfflineBanner(),
-          Expanded(
-            child: tasks.when(
-              data: (data) => data.isEmpty
-                  ? _EmptyTasksState(
-                      onAddTask: () => _showNewTaskDialog(context, ref),
-                      onRefresh: () async => ref.invalidate(tasksProvider(listId)),
-                    )
-                  : RefreshIndicator(
-                      onRefresh: () async => ref.invalidate(tasksProvider(listId)),
-                      child: ListView.builder(
-                        itemCount: data.length,
-                        itemBuilder: (_, i) =>
-                            _TaskItem(task: data[i], listId: listId),
+class _ListScreenState extends ConsumerState<ListScreen> {
+  final FocusNode _focusNode = FocusNode();
+
+  @override
+  void dispose() {
+    _focusNode.dispose();
+    super.dispose();
+  }
+
+  KeyEventResult _handleKeyEvent(FocusNode node, KeyEvent event) {
+    if (event is! KeyDownEvent) return KeyEventResult.ignored;
+    final ctrl = HardwareKeyboard.instance.isControlPressed;
+    if (!ctrl) return KeyEventResult.ignored;
+
+    if (event.logicalKey == LogicalKeyboardKey.keyN) {
+      _showNewTaskDialog(context, ref);
+      return KeyEventResult.handled;
+    }
+
+    if (event.logicalKey == LogicalKeyboardKey.keyW) {
+      // Mark the first incomplete task as complete (archive/close it).
+      final tasks = ref.read(tasksProvider(widget.listId));
+      tasks.whenData((data) async {
+        final incomplete = data.where((t) => !t.completed).toList();
+        if (incomplete.isNotEmpty) {
+          final service = ref.read(backendServiceProvider);
+          await service.toggleTask(incomplete.first.id, true);
+          ref.invalidate(tasksProvider(widget.listId));
+        }
+      });
+      return KeyEventResult.handled;
+    }
+
+    return KeyEventResult.ignored;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+    final tasks = ref.watch(tasksProvider(widget.listId));
+
+    return Focus(
+      focusNode: _focusNode,
+      autofocus: true,
+      onKeyEvent: _handleKeyEvent,
+      child: Scaffold(
+        appBar: AppBar(title: Text(widget.listTitle)),
+        body: Column(
+          children: [
+            const OfflineBanner(),
+            Expanded(
+              child: tasks.when(
+                data: (data) => data.isEmpty
+                    ? _EmptyTasksState(
+                        onAddTask: () => _showNewTaskDialog(context, ref),
+                        onRefresh: () async => ref.invalidate(tasksProvider(widget.listId)),
+                      )
+                    : RefreshIndicator(
+                        onRefresh: () async => ref.invalidate(tasksProvider(widget.listId)),
+                        child: ListView.builder(
+                          itemCount: data.length,
+                          itemBuilder: (_, i) =>
+                              _TaskItem(task: data[i], listId: widget.listId),
+                        ),
                       ),
-                    ),
-              loading: () => const Center(child: CircularProgressIndicator()),
-              error: (e, _) => Center(child: Text('${l10n.error}: $e')),
+                loading: () => const Center(child: CircularProgressIndicator()),
+                error: (e, _) => Center(child: Text('${l10n.error}: $e')),
+              ),
             ),
-          ),
-        ],
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () => _showNewTaskDialog(context, ref),
-        child: const Icon(Icons.add),
+          ],
+        ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () => _showNewTaskDialog(context, ref),
+          child: const Icon(Icons.add),
+        ),
       ),
     );
   }
@@ -75,8 +121,8 @@ class ListScreen extends ConsumerWidget {
               if (ctrl.text.trim().isNotEmpty) {
                 Navigator.pop(ctx);
                 final service = ref.read(backendServiceProvider);
-                await service.createTask(listId, ctrl.text.trim());
-                ref.invalidate(tasksProvider(listId));
+                await service.createTask(widget.listId, ctrl.text.trim());
+                ref.invalidate(tasksProvider(widget.listId));
               }
             },
             child: Text(l10n.save),

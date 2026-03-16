@@ -87,7 +87,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
     final email = auth.when(
       data: (user) => user?['email'] as String? ?? '',
       loading: () => '',
-      error: (_, __) => '',
+      error: (_, _) => '',
     );
 
     return Scaffold(
