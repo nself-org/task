@@ -492,7 +492,7 @@ nself-tasks/
 │   └── postcss.config.js             # PostCSS config
 │
 ├── .gitignore                        # Git ignore patterns
-├── LICENSE                           # nself.org Personal Use License
+├── LICENSE                           # MIT License
 └── README.md                         # This file
 │   ├── tauri.conf.json               # Window size, permissions, bundle ID
 │   └── src/main.rs                   # Tauri entry point
