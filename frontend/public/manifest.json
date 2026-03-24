@@ -1,6 +1,6 @@
 {
-  "name": "ɳTasks - Collaborative Todo Lists",
-  "short_name": "ɳTasks",
+  "name": "ɳTask - Collaborative Todo Lists",
+  "short_name": "ɳTask",
   "description": "Production-ready todo app with real-time collaboration, offline support, and cross-platform capabilities",
   "start_url": "/",
   "display": "standalone",

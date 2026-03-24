@@ -28,7 +28,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '22'
+          node-version: '20'
           cache: 'pnpm'
           cache-dependency-path: frontend/pnpm-lock.yaml
 
@@ -75,7 +75,7 @@ jobs:
             -archivePath ${{ runner.temp }}/ntasks.xcarchive \
             archive \
             CODE_SIGN_STYLE=Manual \
-            PROVISIONING_PROFILE_SPECIFIER="ɳTasks AppStore"
+            PROVISIONING_PROFILE_SPECIFIER="ɳTask AppStore"
 
       - name: Export IPA
         working-directory: ${{ runner.temp }}

@@ -25,7 +25,7 @@
      - Internet (for real-time sync)
 
 4. **Launch**
-   - Open ɳTasks from your app drawer
+   - Open ɳTask from your app drawer
    - Sign in with your account
 
 ## Features
@@ -45,7 +45,7 @@
 - Clear Downloads app cache
 
 **Camera not working**
-- Grant camera permission in Settings → Apps → ɳTasks → Permissions
+- Grant camera permission in Settings → Apps → ɳTask → Permissions
 - Restart the app
 
 **Sync not working**

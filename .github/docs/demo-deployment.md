@@ -2,11 +2,11 @@
 
 ## Overview
 
-demo.nself.org hosts a live instance of ɳTasks connected to the nself web backend.
+demo.nself.org hosts a live instance of ɳTask connected to the nself web backend.
 
 ## Architecture
 
-- **Frontend**: Vercel (ɳTasks Next.js app)
+- **Frontend**: Vercel (ɳTask Next.js app)
 - **Backend**: nself on `api.nself.org` (shared with nself.org)
 - **DNS**: Cloudflare — `demo.nself.org` → Vercel
 

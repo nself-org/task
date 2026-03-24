@@ -33,7 +33,7 @@ export const storage = {
   },
 };
 
-/** Keys used by ɳTasks */
+/** Keys used by ɳTask */
 export const StorageKey = {
   AUTH_TOKEN: 'auth_token',
   AUTH_REFRESH: 'auth_refresh',

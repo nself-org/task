@@ -1,6 +1,6 @@
 # Getting Started
 
-Get ɳTasks boilerplate running on your machine in minutes.
+Get ɳTask boilerplate running on your machine in minutes.
 
 ---
 

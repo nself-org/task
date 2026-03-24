@@ -1,4 +1,4 @@
-# ɳTasks
+# ɳTask
 
 **The "code once, deploy everywhere" boilerplate for modern applications.**
 
@@ -746,7 +746,7 @@ The `.bolt/prompt` file contains instructions for Bolt. When you open this proje
 **What to tell Bolt:**
 
 ```
-This project uses the ɳTasks boilerplate with a backend abstraction layer.
+This project uses the ɳTask boilerplate with a backend abstraction layer.
 Never import @supabase/supabase-js or any backend SDK directly.
 Use hooks from @/hooks and @/lib/providers for all operations.
 See .cursorrules for the full coding guide.
@@ -757,7 +757,7 @@ See .cursorrules for the full coding guide.
 Lovable works similarly. Import the repo and tell it:
 
 ```
-This is an ɳTasks boilerplate project. The backend is abstracted behind
+This is an ɳTask boilerplate project. The backend is abstracted behind
 hooks and providers in lib/backend, lib/providers, and hooks/.
 Never use backend SDKs directly. Use useAuth(), useQuery(), useMutation(),
 useStorage(), and useRealtime() hooks.
@@ -769,7 +769,7 @@ Components use shadcn/ui, Tailwind CSS, and Lucide React icons.
 When using AI agents (via API, AI platforms, or AI Code):
 
 ```
-I'm working on an ɳTasks project. It has a backend abstraction layer.
+I'm working on an ɳTask project. It has a backend abstraction layer.
 The key files are:
 - lib/backend/index.ts (backend factory)
 - lib/types/backend.ts (TypeScript interfaces)
@@ -1172,6 +1172,6 @@ Built by the [nself](https://nself.org) community · [GitHub](https://github.com
 Part of the **ɳSelf ecosystem**:
 
 - [ɳSelf CLI](https://github.com/nself-org/cli) - Self-hosted backend platform
-- [ɳTasks](https://github.com/nself-org/tasks) - Reference application (this repo)
+- [ɳTask](https://github.com/nself-org/tasks) - Reference application (this repo)
 - [ɳChat](https://github.com/nself-org/chat) - Real-time chat application
 - [ɳAdmin](https://github.com/nself-org/admin) - Web admin dashboard

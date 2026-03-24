@@ -1,9 +1,9 @@
-# ɳTasks Android — Play Store Metadata
+# ɳTask Android — Play Store Metadata
 
 ## App Information
 
 - **Package name:** org.nself.tasks
-- **App name:** ɳTasks
+- **App name:** ɳTask
 - **Developer name:** nself
 - **Category:** Productivity
 - **Price:** Free
@@ -15,10 +15,10 @@
 Privacy-first task manager for your self-hosted backend.
 
 ## Full description (4000 chars)
-ɳTasks is a task manager that works with your own self-hosted backend — complete control, no subscriptions, no vendor lock-in.
+ɳTask is a task manager that works with your own self-hosted backend — complete control, no subscriptions, no vendor lock-in.
 
 **Your data, your rules**
-Connect ɳTasks to your own nself server, Supabase instance, or Nhost project. Your tasks stay on infrastructure you own and control.
+Connect ɳTask to your own nself server, Supabase instance, or Nhost project. Your tasks stay on infrastructure you own and control.
 
 **Android-native features**
 - Biometric authentication (fingerprint + face unlock)
@@ -29,7 +29,7 @@ Connect ɳTasks to your own nself server, Supabase instance, or Nhost project. Y
 - Full offline support
 
 **Works everywhere**
-ɳTasks syncs across Android, iOS, web, and desktop. Start a task on your phone, check it off from your laptop.
+ɳTask syncs across Android, iOS, web, and desktop. Start a task on your phone, check it off from your laptop.
 
 **Open source**
 MIT-licensed. Source code at github.com/nself-org/tasks.

@@ -7,7 +7,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
-        <string>ɳTasks</string>
+        <string>ɳTask</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -48,9 +48,9 @@
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<true/>
 	<key>NSCameraUsageDescription</key>
-	<string>ɳTasks uses your camera to attach photos to tasks.</string>
+	<string>ɳTask uses your camera to attach photos to tasks.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>ɳTasks uses your photo library to attach images to tasks.</string>
+	<string>ɳTask uses your photo library to attach images to tasks.</string>
 	<key>NSFaceIDUsageDescription</key>
 	<string>Use Face ID to sign in quickly and securely.</string>
 	<key>NSUserNotificationAlertStyle</key>

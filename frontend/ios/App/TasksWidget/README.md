@@ -1,4 +1,4 @@
-# ɳTasks Widget
+# ɳTask Widget
 
 Home screen widget showing upcoming tasks. Supports small (task count), medium (top 3 tasks), and large (top 6 tasks) sizes.
 

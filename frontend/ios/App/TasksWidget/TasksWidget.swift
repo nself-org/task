@@ -85,7 +85,7 @@ struct SmallWidgetView: View {
             HStack {
                 Image(systemName: "checkmark.circle.fill")
                     .foregroundColor(Color(red: 0.39, green: 0.40, blue: 0.95))
-                Text("ɳTasks")
+                Text("ɳTask")
                     .font(.caption.bold())
                     .foregroundColor(.primary)
             }
@@ -110,7 +110,7 @@ struct MediumWidgetView: View {
             HStack {
                 Image(systemName: "checkmark.circle.fill")
                     .foregroundColor(Color(red: 0.39, green: 0.40, blue: 0.95))
-                Text("ɳTasks")
+                Text("ɳTask")
                     .font(.caption.bold())
                 Spacer()
                 Text("\(entry.tasks.filter { !$0.completed }.count) remaining")
@@ -147,7 +147,7 @@ struct LargeWidgetView: View {
             HStack {
                 Image(systemName: "checkmark.circle.fill")
                     .foregroundColor(Color(red: 0.39, green: 0.40, blue: 0.95))
-                Text("ɳTasks")
+                Text("ɳTask")
                     .font(.subheadline.bold())
                 Spacer()
                 Text("\(entry.tasks.filter { !$0.completed }.count)/\(entry.tasks.count)")
@@ -193,7 +193,7 @@ struct TasksWidget: Widget {
         StaticConfiguration(kind: kind, provider: TasksProvider()) { entry in
             TasksWidgetEntryView(entry: entry)
         }
-        .configurationDisplayName("ɳTasks")
+        .configurationDisplayName("ɳTask")
         .description("See your upcoming tasks at a glance.")
         .supportedFamilies([.systemSmall, .systemMedium, .systemLarge])
     }

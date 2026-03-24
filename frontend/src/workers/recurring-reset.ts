@@ -16,8 +16,43 @@ import { Tables } from '@/lib/utils/tables';
 let intervalId: NodeJS.Timeout | null = null;
 let lastResetDate: string | null = null;
 
+const DAY_NAMES = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
+
 /**
- * Reset all daily recurring todos
+ * Determine if a recurring task should reset today based on its recurrence rule.
+ * Supported formats:
+ *   - "daily" — every day
+ *   - "weekly:mon,wed,fri" — specific days of the week
+ *   - "monthly:15" — specific day of month (boundary-safe: 31 on Feb → last day)
+ */
+function shouldResetToday(pattern: string, rule: string, now: Date): boolean {
+  if (pattern === 'daily') return true;
+
+  if (pattern === 'weekly') {
+    const parts = rule.split(':');
+    if (parts.length < 2) return false;
+    const days = parts[1].toLowerCase().split(',').map(d => d.trim());
+    const todayName = DAY_NAMES[now.getDay()];
+    return days.includes(todayName);
+  }
+
+  if (pattern === 'monthly') {
+    const parts = rule.split(':');
+    if (parts.length < 2) return false;
+    const targetDay = parseInt(parts[1], 10);
+    if (isNaN(targetDay)) return false;
+    const todayDay = now.getDate();
+    const lastDayOfMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0).getDate();
+    // If target is 31 but month only has 28 days, trigger on last day
+    if (targetDay > lastDayOfMonth) return todayDay === lastDayOfMonth;
+    return todayDay === targetDay;
+  }
+
+  return false;
+}
+
+/**
+ * Reset all recurring todos (daily, weekly, monthly)
  */
 async function resetRecurringTodos() {
   try {
@@ -48,13 +83,12 @@ async function resetRecurringTodos() {
         // Parse recurrence rule
         const [pattern] = todo.recurrence_rule.split(':');
 
-        // Only handle daily recurring for now
-        if (pattern === 'daily') {
-          // Check if instance already exists for today
+        const shouldReset = shouldResetToday(pattern, todo.recurrence_rule, now);
+
+        if (shouldReset) {
           const instance = await todoService.getRecurringInstance(todo.id, today);
 
           if (!instance) {
-            // Create new instance for today (uncompleted)
             await getBackend().db.insert(Tables.RECURRING_INSTANCES, {
               parent_todo_id: todo.id,
               instance_date: today,
@@ -66,10 +100,6 @@ async function resetRecurringTodos() {
             console.log('[RecurringReset] Reset:', todo.title);
           }
         }
-
-        // TODO: Add weekly/monthly support
-        // For weekly: check if today matches the specified days
-        // For monthly: check if today matches the specified dates
       }
     }
 

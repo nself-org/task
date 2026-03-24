@@ -99,7 +99,7 @@ function formatExport(tasks: unknown[], format: 'json' | 'csv' | 'markdown'): st
   }
 
   // Markdown
-  const lines = ['# ɳTasks Export', '', `Exported: ${new Date().toLocaleString()}`, ''];
+  const lines = ['# ɳTask Export', '', `Exported: ${new Date().toLocaleString()}`, ''];
   for (const t of tasks as Record<string, unknown>[]) {
     const check = t.completed ? 'x' : ' ';
     lines.push(`- [${check}] ${t.title ?? 'Untitled'}`);

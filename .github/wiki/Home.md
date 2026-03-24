@@ -1,8 +1,8 @@
-# Welcome to ɳTasks
+# Welcome to ɳTask
 
 **The production-ready, AI-friendly boilerplate for modern web applications.**
 
-ɳTasks is a complete Next.js reference app with multi-backend support, designed to accelerate your development whether you're coding by hand or using AI tools like Bolt.new, Lovable, Cursor, or Copilot.
+ɳTask is a complete Next.js reference app with multi-backend support, designed to accelerate your development whether you're coding by hand or using AI tools like Bolt.new, Lovable, Cursor, or Copilot.
 
 ---
 

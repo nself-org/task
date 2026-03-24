@@ -1,7 +1,7 @@
 {
-  "name": "nself-tasks",
+  "name": "nself-task",
   "version": "0.1.0",
-  "description": "ɳTasks - Universal Next.js reference app with multi-backend support (ɳSelf, Supabase, Nhost)",
+  "description": "ɳTask - Universal Next.js reference app with multi-backend support (ɳSelf, Supabase, Nhost)",
   "author": "nself-org",
   "license": "MIT",
   "repository": {

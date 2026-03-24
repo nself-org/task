@@ -1,6 +1,6 @@
-# ɳTasks Share Extension
+# ɳTask Share Extension
 
-This directory contains the source files for the ɳTasks iOS Share Extension.
+This directory contains the source files for the ɳTask iOS Share Extension.
 
 ## Setup in Xcode
 
@@ -14,7 +14,7 @@ The extension target must be added manually in Xcode:
 
 ## What it does
 
-Accepts URLs and text from other apps (Safari, Mail, etc.) and opens ɳTasks
+Accepts URLs and text from other apps (Safari, Mail, etc.) and opens ɳTask
 with a deep link to create a new task with the shared content pre-filled.
 
 ## Deep link format

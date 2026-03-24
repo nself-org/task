@@ -1,6 +1,6 @@
-# ɳTasks Releases
+# ɳTask Releases
 
-This directory contains all production builds for ɳTasks across all platforms.
+This directory contains all production builds for ɳTask across all platforms.
 
 ---
 

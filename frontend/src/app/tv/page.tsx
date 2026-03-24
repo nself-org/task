@@ -50,7 +50,7 @@ function TVEmptyState() {
     <div className="flex flex-col items-center justify-center min-h-[50vh] gap-6">
       <div className="text-8xl text-indigo-400 opacity-30">✓</div>
       <p className="text-2xl text-white/50">No tasks yet</p>
-      <p className="text-lg text-white/30">Open ɳTasks on your phone to add tasks</p>
+      <p className="text-lg text-white/30">Open ɳTask on your phone to add tasks</p>
     </div>
   );
 }

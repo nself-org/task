@@ -1,8 +1,8 @@
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Download ɳTasks',
-  description: 'Download ɳTasks for macOS, Windows, Linux, iOS, and Android.',
+  title: 'Download ɳTask',
+  description: 'Download ɳTask for macOS, Windows, Linux, iOS, and Android.',
 };
 
 interface DownloadPlatform {
@@ -98,7 +98,7 @@ const platforms: DownloadPlatform[] = [
     icon: '🌐',
     description: 'Any browser. No install needed.',
     primary: {
-      label: 'Open ɳTasks',
+      label: 'Open ɳTask',
       href: '/',
     },
   },
@@ -110,7 +110,7 @@ export default function DownloadPage() {
       <div className="max-w-5xl mx-auto px-6 py-20">
         <div className="text-center mb-16">
           <div className="text-6xl font-bold text-indigo-400 mb-4">ɳ</div>
-          <h1 className="text-4xl font-bold mb-4">Download ɳTasks</h1>
+          <h1 className="text-4xl font-bold mb-4">Download ɳTask</h1>
           <p className="text-lg text-white/60 max-w-xl mx-auto">
             Available on every platform. Your tasks, everywhere.
           </p>
@@ -125,7 +125,7 @@ export default function DownloadPage() {
         <div className="mt-20 text-center">
           <h2 className="text-2xl font-bold mb-4">Self-hosted</h2>
           <p className="text-white/60 mb-6 max-w-lg mx-auto">
-            ɳTasks connects to any nself backend you control. No cloud account needed.
+            ɳTask connects to any nself backend you control. No cloud account needed.
           </p>
           <a
             href="https://docs.nself.org/tasks/setup"

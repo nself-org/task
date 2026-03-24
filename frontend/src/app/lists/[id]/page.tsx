@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { ListPageContent } from './content';
 
 export const metadata: Metadata = {
-  title: 'List | ɳTasks',
+  title: 'List | ɳTask',
   description: 'Collaborative todo lists with real-time updates',
 };
 

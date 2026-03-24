@@ -36,7 +36,7 @@ pub fn run() {
 }
 
 fn setup_tray<R: Runtime>(app: &tauri::App<R>) -> tauri::Result<()> {
-    let quit = MenuItem::with_id(app, "quit", "Quit ɳTasks", true, Some("CmdOrCtrl+Q"))?;
+    let quit = MenuItem::with_id(app, "quit", "Quit ɳTask", true, Some("CmdOrCtrl+Q"))?;
     let show = MenuItem::with_id(app, "show", "Show Window", true, None::<&str>)?;
     let new_task = MenuItem::with_id(app, "new_task", "New Task", true, Some("CmdOrCtrl+N"))?;
     let separator = PredefinedMenuItem::separator(app)?;

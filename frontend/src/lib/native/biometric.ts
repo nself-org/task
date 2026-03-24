@@ -24,11 +24,11 @@ export async function authenticateWithBiometry(reason?: string): Promise<boolean
 
   try {
     await BiometricAuth.authenticate({
-      reason: reason ?? 'Authenticate to access ɳTasks',
+      reason: reason ?? 'Authenticate to access ɳTask',
       cancelTitle: 'Cancel',
       allowDeviceCredential: true,
       iosFallbackTitle: 'Use Passcode',
-      androidTitle: 'ɳTasks Authentication',
+      androidTitle: 'ɳTask Authentication',
       androidSubtitle: 'Sign in securely',
       androidConfirmationRequired: false,
     });

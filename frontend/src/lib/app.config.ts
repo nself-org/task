@@ -1,5 +1,5 @@
 export const appConfig = {
-  name: process.env.NEXT_PUBLIC_APP_NAME || 'ɳTasks',
+  name: process.env.NEXT_PUBLIC_APP_NAME || 'ɳTask',
   tagline: process.env.NEXT_PUBLIC_APP_TAGLINE || 'Your application tagline',
   description: process.env.NEXT_PUBLIC_APP_DESCRIPTION || 'A production-ready reference app showcasing ɳSelf backend platform',
   url: process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000',
@@ -44,8 +44,8 @@ export const appConfig = {
   },
 
   seo: {
-    titleTemplate: '%s | ɳTasks',
-    defaultTitle: 'ɳTasks',
+    titleTemplate: '%s | ɳTask',
+    defaultTitle: 'ɳTask',
     keywords: ['ɳself', 'ɳtasks', 'task manager', 'nextjs', 'react', 'hasura', 'postgres', 'graphql', 'realtime'],
     author: '',
   },

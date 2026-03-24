@@ -1,4 +1,4 @@
-# ɳTasks TV App
+# ɳTask TV App
 
 **Large-screen family chore board optimized for Android TV, Apple TV, and smart TVs**
 

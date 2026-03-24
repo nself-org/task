@@ -1,6 +1,6 @@
-# ɳTasks iOS UI Tests
+# ɳTask iOS UI Tests
 
-XCTest UI test suite for the ɳTasks iOS app.
+XCTest UI test suite for the ɳTask iOS app.
 
 ## Setup in Xcode
 
