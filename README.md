@@ -85,7 +85,7 @@ The key insight: **your frontend code never imports backend SDKs directly.** Eve
 
 ```bash
 # 1. Clone the repo
-git clone https://github.com/nself-org/tasks.git my-app
+git clone https://github.com/nself-org/task.git my-app
 cd my-app
 
 # 2. Start the backend (one command - auto-builds on first run!)
@@ -205,7 +205,7 @@ pnpm install && pnpm dev
 Using Supabase or Nhost? Skip the backend entirely:
 
 ```bash
-git clone https://github.com/nself-org/tasks.git my-app
+git clone https://github.com/nself-org/task.git my-app
 cd my-app/frontend
 
 # Configure your backend

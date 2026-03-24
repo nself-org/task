@@ -9,7 +9,7 @@ import { defineConfig, devices } from '@playwright/test';
  *
  * Usage:
  *   TASKS_URL=http://localhost:3017 pnpm test:e2e
- *   TASKS_URL=https://tasks.nself.org pnpm test:e2e
+ *   TASKS_URL=https://task.nself.org pnpm test:e2e
  */
 export default defineConfig({
   testDir: './tests/e2e',

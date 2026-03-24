@@ -47,7 +47,7 @@ tasks,todo,productivity,self-hosted,privacy,open source,nself,lists,reminders,of
 https://docs.nself.org/tasks
 
 ## Marketing URL
-https://tasks.nself.org
+https://task.nself.org
 
 ## Privacy Policy URL
 https://nself.org/privacy

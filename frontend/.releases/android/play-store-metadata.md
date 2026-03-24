@@ -51,4 +51,4 @@ MIT-licensed. Source code at github.com/nself-org/tasks.
 https://nself.org/privacy
 
 ## Website
-https://tasks.nself.org
+https://task.nself.org
