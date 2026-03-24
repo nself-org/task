@@ -1,6 +1,6 @@
 {
   "@@locale": "en",
-  "appTitle": "ɳTasks",
+  "appTitle": "ɳTask",
   "@appTitle": { "description": "The name of the application" },
   "loading": "Loading...",
   "error": "Something went wrong",
@@ -58,7 +58,7 @@
   "addTag": "Add tag",
   "tasks": "tasks",
   "task": "task",
-  "about": "About ɳTasks",
+  "about": "About ɳTask",
   "aboutDescription": "Self-hosted task management powered by nSelf.",
   "appVersion": "Version",
   "editServerUrl": "Edit server URL",

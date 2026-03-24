@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-    <string name="app_name">ɳTasks</string>
-    <string name="title_activity_main">ɳTasks</string>
+    <string name="app_name">ɳTask</string>
+    <string name="title_activity_main">ɳTask</string>
     <string name="package_name">org.nself.tasks</string>
     <string name="custom_url_scheme">org.nself.tasks</string>
 </resources>

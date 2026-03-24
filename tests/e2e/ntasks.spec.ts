@@ -1,7 +1,7 @@
 /**
- * nTasks app E2E smoke tests — T-0395
+ * nTask app E2E smoke tests — T-0395
  *
- * 8 test scenarios for the nTasks reference app (nself/tasks).
+ * 8 test scenarios for the nTask reference app (nself/task).
  * Requires the tasks app to be running at TASKS_APP_URL.
  */
 
@@ -13,13 +13,13 @@ test.use({ baseURL: BASE });
 
 const available = !!process.env.TASKS_APP_URL;
 
-test.describe('nTasks app', () => {
+test.describe('nTask app', () => {
   // Scenario 1: App loads
   test('app loads with correct title', async ({ page }) => {
     test.skip(!available, 'TASKS_APP_URL not set');
 
     await page.goto('/');
-    await expect(page).toHaveTitle(/nTasks|Tasks|nself/i);
+    await expect(page).toHaveTitle(/nTask|Tasks|nself/i);
   });
 
   // Scenario 2: Login page

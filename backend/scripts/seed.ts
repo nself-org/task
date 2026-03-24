@@ -38,7 +38,7 @@ const SAMPLE_LISTS: Record<string, { title: string; description: string; color: 
 const SAMPLE_TODOS: Record<string, Record<string, { title: string; completed: boolean }[]>> = {
   'owner@nself.org': {
     'Getting Started': [
-      { title: 'Welcome to ɳTasks - Explore the features!', completed: true },
+      { title: 'Welcome to ɳTask - Explore the features!', completed: true },
       { title: 'Try creating a new list', completed: false },
       { title: 'Test real-time collaboration', completed: false },
     ],

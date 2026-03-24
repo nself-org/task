@@ -14,7 +14,7 @@ DATE=$(date +%Y%m%d-%H%M%S)
 RELEASE_NAME="v${VERSION}-${DATE}"
 
 echo -e "${BLUE}╔════════════════════════════════════════════════════════════════╗${NC}"
-echo -e "${BLUE}║           ɳTasks Multi-Platform Release Builder                ║${NC}"
+echo -e "${BLUE}║           ɳTask Multi-Platform Release Builder                 ║${NC}"
 echo -e "${BLUE}╚════════════════════════════════════════════════════════════════╝${NC}"
 echo ""
 echo -e "${GREEN}Version:${NC} ${RELEASE_NAME}"
@@ -166,7 +166,7 @@ echo ""
 # =============================================================================
 echo -e "${YELLOW}[6/7] Generating Release Info...${NC}"
 cat > "$RELEASE_DIR/RELEASE-${RELEASE_NAME}.md" << EOF
-# ɳTasks Release ${RELEASE_NAME}
+# ɳTask Release ${RELEASE_NAME}
 
 **Version**: ${VERSION}
 **Date**: $(date +"%Y-%m-%d %H:%M:%S")
@@ -240,7 +240,7 @@ See \`checksums-${RELEASE_NAME}.txt\` for SHA256 hashes of all release files.
 
 ---
 
-**Project**: ɳTasks - Universal Next.js Boilerplate
+**Project**: ɳTask - Universal Next.js Boilerplate
 **Repository**: https://github.com/nself-org/tasks
 **License**: MIT
 EOF

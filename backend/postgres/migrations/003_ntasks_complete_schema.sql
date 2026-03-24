@@ -1,4 +1,4 @@
--- Migration 003: Complete ɳTasks schema
+-- Migration 003: Complete ɳTask schema
 --
 -- The base schema in init.sql already covers:
 --   - app_todos advanced columns (due_date, priority, tags, notes, reminder_time,

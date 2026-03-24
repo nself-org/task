@@ -1,11 +1,13 @@
 /**
- * Recurring Task Reset Worker
+ * Recurring Task Reset Worker (Client-side fallback)
  *
  * Resets recurring todos at 3:00 AM daily.
  * For daily recurring tasks, creates a new instance for the current day.
  *
- * Note: In production, this would typically run server-side as a cron job.
- * This client-side implementation is for demonstration and works if the app is open.
+ * The primary implementation is server-side via pg_cron (see migration 008).
+ * This client-side worker serves as a fallback for when the app is open but
+ * the server-side cron has not yet run (e.g., self-hosted instances without
+ * pg_cron, or users in timezones ahead of UTC).
  */
 
 import { todoService } from '@/lib/services/todos';

@@ -1,14 +1,14 @@
-App Name: nTasks
+App Name: nTask
 Short Description: The ultimate open-source collaborative task manager.
 
 Full Description:
-nTasks is a production-ready demonstration of the nSelf backend stack. Create collaborative to-do lists, attach geolocation reminders, and instantly sync changes across all your devices using real-time WebSockets.
+nTask is a production-ready demonstration of the nSelf backend stack. Create collaborative to-do lists, attach geolocation reminders, and instantly sync changes across all your devices using real-time WebSockets.
 
 Features:
 - Live Collaboration: See who's viewing or editing your lists in real-time.
 - Smart Sorting: Sort by priority, due date, manually arranged position, or creation time.
 - Geolocation Reminders: Automatically notifies you when approaching physical locations tied to a list.
-- Powerful Integrations: nTasks fully supports AI generation, natural language dates, and attachments up to 10MB per task.
+- Powerful Integrations: nTask fully supports AI generation, natural language dates, and attachments up to 10MB per task.
 - Offline Ready: Works perfectly without network access and syncs when reconnected.
 
 Category: Productivity

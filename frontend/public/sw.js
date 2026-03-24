@@ -1,4 +1,4 @@
-// Service Worker for ɳTasks - Offline-first PWA
+// Service Worker for ɳTask - Offline-first PWA
 const CACHE_NAME = 'nself-tasks-v1';
 const RUNTIME_CACHE = 'nself-tasks-runtime';
 
@@ -82,7 +82,7 @@ self.addEventListener('push', (event) => {
     badge: '/badge-72.png',
     data: { url: data.url || '/', ...data.data },
   };
-  event.waitUntil(self.registration.showNotification(data.title || 'ɳTasks', options));
+  event.waitUntil(self.registration.showNotification(data.title || 'ɳTask', options));
 });
 
 // Notification click

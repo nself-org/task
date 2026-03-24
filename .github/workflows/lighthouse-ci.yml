@@ -34,12 +34,11 @@ jobs:
         working-directory: frontend
         run: pnpm install --frozen-lockfile
 
-      - name: Build (static export for Lighthouse)
+      - name: Build (server mode for Lighthouse)
         working-directory: frontend
         env:
           NEXT_PUBLIC_BACKEND_PROVIDER: nself
           NEXT_PUBLIC_HASURA_URL: http://localhost:8080/v1/graphql
-          CAPACITOR_BUILD: 'true'
         run: pnpm build
 
       - name: Run Lighthouse CI

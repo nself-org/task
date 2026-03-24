@@ -1,4 +1,4 @@
--- Migration 004: Row-Level Security for ɳTasks
+-- Migration 004: Row-Level Security for ɳTask
 --
 -- Most RLS policies were defined inline in init.sql (app_todos, app_profiles,
 -- app_lists, app_list_shares, app_list_presence, app_list_members,

@@ -279,18 +279,83 @@ export class GeolocationService {
 
   // --- Geocoding Helpers ---
 
+  /**
+   * Geocode an address string to coordinates using OpenStreetMap Nominatim.
+   * Nominatim usage policy: max 1 request/second, meaningful User-Agent.
+   * https://operations.osmfoundation.org/policies/nominatim/
+   */
   async geocodeAddress(address: string): Promise<{ lat: number; lng: number } | null> {
-    // Note: This requires a geocoding API like Google Maps, Mapbox, or Nominatim
-    // For now, this is a placeholder. Implement with your preferred geocoding service.
-    console.warn('Geocoding not implemented. Use a geocoding API like Google Maps or Mapbox.');
-    return null;
+    if (!address || !address.trim()) return null;
+
+    try {
+      const params = new URLSearchParams({
+        q: address.trim(),
+        format: 'json',
+        limit: '1',
+      });
+
+      const response = await fetch(
+        `https://nominatim.openstreetmap.org/search?${params.toString()}`,
+        {
+          headers: {
+            'User-Agent': 'nTask/1.0 (https://nself.org)',
+          },
+        }
+      );
+
+      if (!response.ok) {
+        console.error('Nominatim geocode request failed:', response.status);
+        return null;
+      }
+
+      const results = await response.json();
+      if (!results || results.length === 0) return null;
+
+      return {
+        lat: parseFloat(results[0].lat),
+        lng: parseFloat(results[0].lon),
+      };
+    } catch (error) {
+      console.error('Geocoding error:', error instanceof Error ? error.message : 'Unknown error');
+      return null;
+    }
   }
 
+  /**
+   * Reverse geocode coordinates to a human-readable address using OpenStreetMap Nominatim.
+   */
   async reverseGeocode(lat: number, lng: number): Promise<string | null> {
-    // Note: This requires a reverse geocoding API
-    // For now, this is a placeholder.
-    console.warn('Reverse geocoding not implemented. Use a geocoding API like Google Maps or Mapbox.');
-    return null;
+    try {
+      const params = new URLSearchParams({
+        lat: lat.toString(),
+        lon: lng.toString(),
+        format: 'json',
+        zoom: '18',
+        addressdetails: '1',
+      });
+
+      const response = await fetch(
+        `https://nominatim.openstreetmap.org/reverse?${params.toString()}`,
+        {
+          headers: {
+            'User-Agent': 'nTask/1.0 (https://nself.org)',
+          },
+        }
+      );
+
+      if (!response.ok) {
+        console.error('Nominatim reverse geocode request failed:', response.status);
+        return null;
+      }
+
+      const result = await response.json();
+      if (!result || !result.display_name) return null;
+
+      return result.display_name;
+    } catch (error) {
+      console.error('Reverse geocoding error:', error instanceof Error ? error.message : 'Unknown error');
+      return null;
+    }
   }
 
   // --- Testing Helpers ---

@@ -149,7 +149,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
           _SectionHeader(label: l10n.about),
           ListTile(
             leading: const Icon(Icons.info_outline),
-            title: const Text('ɳTasks'),
+            title: const Text('ɳTask'),
             subtitle: Text(l10n.aboutDescription),
           ),
           ListTile(

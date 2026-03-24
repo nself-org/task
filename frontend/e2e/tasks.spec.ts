@@ -46,6 +46,6 @@ test.describe('Task Management', () => {
 
   test('page title is correct', async ({ page }) => {
     await page.goto('/');
-    await expect(page).toHaveTitle(/ɳTasks|nTasks|Tasks/i);
+    await expect(page).toHaveTitle(/ɳTask|nTask|Tasks/i);
   });
 });

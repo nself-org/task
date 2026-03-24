@@ -1,7 +1,10 @@
 {
   "ci": {
     "collect": {
-      "staticDistDir": "./out",
+      "startServerCommand": "pnpm start",
+      "startServerReadyPattern": "Ready",
+      "startServerReadyTimeout": 30000,
+      "url": ["http://localhost:3000/"],
       "numberOfRuns": 3
     },
     "assert": {

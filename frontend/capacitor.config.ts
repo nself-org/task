@@ -2,7 +2,7 @@ import { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
   appId: 'org.nself.tasks',
-  appName: 'ɳTasks',
+  appName: 'ɳTask',
   webDir: 'out',
   server: {
     androidScheme: 'https',

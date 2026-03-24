@@ -1,7 +1,7 @@
 #!/usr/bin/env bats
 # T-0395 — tasks/ CI smoke tests
 #
-# nself-tasks (ɳTasks) is a Next.js app with multi-backend support.
+# nself-task (ɳTask) is a Next.js app with multi-backend support.
 # These bats tests cover the static/static CI tier: type-check, build,
 # and env file validation.
 #
@@ -54,7 +54,7 @@ setup() {
 # Scenario 4 — Realtime plugin env var present in .env.example
 #
 # NEXT_PUBLIC_NSELF_REALTIME_URL is set by the nSelf realtime plugin
-# and is required for real-time todo updates in the nTasks demo.
+# and is required for real-time todo updates in the nTask demo.
 # ---------------------------------------------------------------------------
 @test "NEXT_PUBLIC_NSELF_REALTIME_URL is present in env/.env.example" {
   [ -f "$ENV_EXAMPLE" ] || {

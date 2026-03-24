@@ -97,7 +97,7 @@ abstract class AppLocalizations {
   /// The name of the application
   ///
   /// In en, this message translates to:
-  /// **'ɳTasks'**
+  /// **'ɳTask'**
   String get appTitle;
 
   /// No description provided for @loading.
@@ -439,7 +439,7 @@ abstract class AppLocalizations {
   /// No description provided for @about.
   ///
   /// In en, this message translates to:
-  /// **'About ɳTasks'**
+  /// **'About ɳTask'**
   String get about;
 
   /// No description provided for @aboutDescription.

@@ -15,7 +15,7 @@ class NTasksApp extends ConsumerWidget {
     final auth = ref.watch(authStateProvider);
 
     return MaterialApp(
-      title: 'ɳTasks',
+      title: 'ɳTask',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(

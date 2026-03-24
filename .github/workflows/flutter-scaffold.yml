@@ -1,0 +1,68 @@
+name: Flutter Scaffold Platforms
+
+on:
+  workflow_dispatch:
+    inputs:
+      platforms:
+        description: 'Comma-separated platforms to scaffold (ios,android,macos,linux,web,windows)'
+        required: false
+        default: 'ios,android,macos,linux'
+        type: string
+      flutter_version:
+        description: 'Flutter version'
+        required: false
+        default: '3.29.x'
+        type: string
+
+jobs:
+  scaffold:
+    name: Scaffold platform directories
+    runs-on: macos-latest
+    permissions:
+      contents: write
+    defaults:
+      run:
+        working-directory: app
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: ${{ inputs.flutter_version }}
+          channel: 'stable'
+          cache: true
+
+      - name: Scaffold platforms
+        run: |
+          # Convert comma-separated to space-separated for flutter create
+          PLATFORMS=$(echo "${{ inputs.platforms }}" | tr ',' ',')
+          echo "Scaffolding platforms: $PLATFORMS"
+          flutter create --platforms=$PLATFORMS .
+
+      - name: Verify platform directories
+        run: |
+          for platform in $(echo "${{ inputs.platforms }}" | tr ',' ' '); do
+            if [ -d "$platform" ]; then
+              echo "Created: $platform/"
+            else
+              echo "WARNING: $platform/ was not created"
+            fi
+          done
+
+      - name: Generate localizations
+        run: flutter gen-l10n || true
+
+      - name: Run analysis
+        run: flutter analyze || true
+
+      - name: Commit scaffolded platforms
+        run: |
+          cd ..
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add app/
+          git diff --cached --quiet && echo "No changes to commit" && exit 0
+          git commit -m "feat(app): scaffold platform directories (${{ inputs.platforms }})"
+          git push

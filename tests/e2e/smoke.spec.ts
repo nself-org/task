@@ -1,5 +1,5 @@
 /**
- * nTasks app — E2E smoke tests
+ * nTask app — E2E smoke tests
  * T-0395
  *
  * 8 lightweight scenarios that verify the app is alive and structurally correct.
