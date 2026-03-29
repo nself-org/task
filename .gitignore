@@ -151,3 +151,4 @@ _backup*
 .windsurf/
 .gemini/
 .codeium/
+local.properties
