@@ -1,40 +1,13 @@
 name: Security Scan
 
+# Disabled: CodeQL JS/TS scanning removed — repo is now Flutter (Dart).
+# CodeQL does not support Dart. Re-enable if native platform code is added.
 on:
-  push:
-    branches: [main]
-  pull_request:
-    branches: [main]
-  schedule:
-    - cron: '0 0 * * 0'
+  workflow_dispatch:
 
 jobs:
-  codeql:
-    name: CodeQL Analysis
+  placeholder:
+    name: Security Scan (disabled)
     runs-on: ubuntu-latest
-    permissions:
-      actions: read
-      contents: read
-      security-events: write
-
-    strategy:
-      fail-fast: false
-      matrix:
-        language: ['javascript', 'typescript']
-
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Initialize CodeQL
-        uses: github/codeql-action/init@v3
-        with:
-          languages: ${{ matrix.language }}
-
-      - name: Autobuild
-        uses: github/codeql-action/autobuild@v3
-
-      - name: Perform CodeQL Analysis
-        uses: github/codeql-action/analyze@v3
-        with:
-          category: "/language:${{matrix.language}}"
+      - run: echo "CodeQL not applicable to Dart/Flutter. Re-enable when native code is added."
