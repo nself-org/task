@@ -159,6 +159,18 @@ clean: ## Remove all containers and volumes (DESTRUCTIVE - deletes all data)
 	$(COMPOSE) --profile dev down -v
 	@echo "All data removed."
 
+# ---------------------------------------------------------------------------
+# Tests
+# ---------------------------------------------------------------------------
+
+.PHONY: test
+test: ## Run the backend smoke-test suite (full up, health, CRUD, teardown)
+	./test/smoke.sh
+
+.PHONY: test-keep-up
+test-keep-up: ## Run smoke tests but leave the stack running on success
+	SMOKE_KEEP_UP=1 ./test/smoke.sh
+
 .PHONY: help
 help: ## Show this help
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-20s\033[0m %s\n", $$1, $$2}'
