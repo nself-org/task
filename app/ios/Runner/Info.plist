@@ -7,7 +7,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
-	<string>ɳTasks</string>
+	<string>ɳTask</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -15,7 +15,13 @@
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
-	<string>ɳTasks</string>
+	<string>ɳTask</string>
+	<key>NSUserNotificationUsageDescription</key>
+	<string>ɳTask sends local notifications to remind you of tasks with due dates or location triggers.</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>ɳTask uses your location, only while the app is open, to attach place reminders to tasks.</string>
+	<key>NSCalendarsUsageDescription</key>
+	<string>ɳTask can export tasks with due dates to your calendar when you opt in.</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
