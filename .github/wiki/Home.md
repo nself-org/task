@@ -108,7 +108,7 @@ For the full ecosystem inventory of 87 plugins (25 free + 62 pro), see the [cli 
 
 ## Resources
 
-- **GitHub:** [nself-org/task](https://github.com/nself-org/ntask)
+- **GitHub:** [nself-org/ntask](https://github.com/nself-org/ntask)
 - **Issues:** [Report a bug](https://github.com/nself-org/ntask/issues)
 - **Discussions:** [Q&A](https://github.com/nself-org/ntask/discussions)
 - **License:** [MIT](https://github.com/nself-org/ntask/blob/main/LICENSE)
