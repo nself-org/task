@@ -1,6 +1,6 @@
 # ɳTasks
 
-> Self-hosted task management reference app. Flutter client over a Postgres + Hasura + Auth backend. Version 1.0.0+1.
+> Self-hosted task management reference app. Flutter client over a Postgres + Hasura + Auth backend. Version 1.0.9+1.
 
 ## Quick Start
 

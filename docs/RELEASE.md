@@ -9,7 +9,7 @@ automation lands, every release is produced manually from a clean checkout.
 ## Versioning
 
 - Source of truth: `app/pubspec.yaml` `version:` line (`<semver>+<build>`)
-- Current: `1.0.0+1`
+- Current: `1.0.9+1`
 - Bump `+build` on every store submission even if semver is unchanged, so each
   upload has a unique build number
 - Update the version badge in `README.md` when shipping a new semver
