@@ -65,7 +65,13 @@ class _ListScreenState extends ConsumerState<ListScreen> {
       autofocus: true,
       onKeyEvent: _handleKeyEvent,
       child: Scaffold(
-        appBar: AppBar(title: Text(widget.listTitle)),
+        appBar: AppBar(
+          title: Semantics(
+            header: true,
+            label: widget.listTitle,
+            child: Text(widget.listTitle),
+          ),
+        ),
         body: Column(
           children: [
             const OfflineBanner(),
@@ -90,9 +96,14 @@ class _ListScreenState extends ConsumerState<ListScreen> {
             ),
           ],
         ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () => _showNewTaskDialog(context, ref),
-          child: const Icon(Icons.add),
+        floatingActionButton: Semantics(
+          button: true,
+          label: l10n.newTask,
+          child: FloatingActionButton(
+            onPressed: () => _showNewTaskDialog(context, ref),
+            tooltip: l10n.newTask,
+            child: const Icon(Icons.add),
+          ),
         ),
       ),
     );

@@ -118,27 +118,43 @@ class _TaskDetailScreenState extends ConsumerState<TaskDetailScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(l10n.task),
+        title: Semantics(
+          header: true,
+          label: l10n.task,
+          child: Text(l10n.task),
+        ),
         actions: [
           if (_saving)
-            const Padding(
-              padding: EdgeInsets.all(16),
-              child: SizedBox(
-                width: 20,
-                height: 20,
-                child: CircularProgressIndicator(strokeWidth: 2),
+            Padding(
+              padding: const EdgeInsets.all(16),
+              child: Semantics(
+                label: l10n.loading,
+                liveRegion: true,
+                child: const SizedBox(
+                  width: 20,
+                  height: 20,
+                  child: CircularProgressIndicator(strokeWidth: 2),
+                ),
               ),
             )
           else
-            IconButton(
-              icon: const Icon(Icons.check),
-              tooltip: l10n.save,
-              onPressed: _save,
+            Semantics(
+              button: true,
+              label: l10n.save,
+              child: IconButton(
+                icon: const Icon(Icons.check),
+                tooltip: l10n.save,
+                onPressed: _save,
+              ),
             ),
-          IconButton(
-            icon: const Icon(Icons.delete_outline),
-            tooltip: l10n.deleteTask,
-            onPressed: _delete,
+          Semantics(
+            button: true,
+            label: l10n.deleteTask,
+            child: IconButton(
+              icon: const Icon(Icons.delete_outline),
+              tooltip: l10n.deleteTask,
+              onPressed: _delete,
+            ),
           ),
         ],
       ),

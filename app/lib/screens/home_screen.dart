@@ -47,7 +47,11 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
       onKeyEvent: _handleKeyEvent,
       child: Scaffold(
         appBar: AppBar(
-          title: Text(l10n.appTitle),
+          title: Semantics(
+            header: true,
+            label: l10n.appTitle,
+            child: Text(l10n.appTitle),
+          ),
           actions: [
             Semantics(
               label: l10n.settings,
