@@ -5,7 +5,7 @@
 ## Quick Start
 
 ```bash
-git clone https://github.com/nself-org/task.git my-tasks
+git clone https://github.com/nself-org/ntask.git my-tasks
 cd my-tasks/backend && cp .env.example .env && make up
 cd ../app && flutter run
 ```
@@ -108,9 +108,9 @@ For the full ecosystem inventory of 87 plugins (25 free + 62 pro), see the [cli 
 
 ## Resources
 
-- **GitHub:** [nself-org/task](https://github.com/nself-org/task)
-- **Issues:** [Report a bug](https://github.com/nself-org/task/issues)
-- **Discussions:** [Q&A](https://github.com/nself-org/task/discussions)
-- **License:** [MIT](https://github.com/nself-org/task/blob/main/LICENSE)
+- **GitHub:** [nself-org/task](https://github.com/nself-org/ntask)
+- **Issues:** [Report a bug](https://github.com/nself-org/ntask/issues)
+- **Discussions:** [Q&A](https://github.com/nself-org/ntask/discussions)
+- **License:** [MIT](https://github.com/nself-org/ntask/blob/main/LICENSE)
 - **Marketing site:** [task.nself.org](https://task.nself.org) (web/task)
 - **Ecosystem docs:** [docs.nself.org](https://docs.nself.org)

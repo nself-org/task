@@ -91,4 +91,4 @@ Common backend issues and fixes. The backend is a Docker Compose stack driven by
 - [Backend Architecture](Backend-Architecture): services, ports, data flow
 - [Database Schema](Database-Schema): schema reference
 - [Deployment](Deployment): staging and production deployment
-- [github.com/nself-org/task/issues](https://github.com/nself-org/task/issues): open an issue
+- [github.com/nself-org/ntask/issues](https://github.com/nself-org/ntask/issues): open an issue

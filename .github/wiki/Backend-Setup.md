@@ -156,4 +156,4 @@ If you already use the nSelf CLI elsewhere, you can substitute `nself start` aga
 
 ## Need help?
 
-Open an issue at [github.com/nself-org/task/issues](https://github.com/nself-org/task/issues).
+Open an issue at [github.com/nself-org/ntask/issues](https://github.com/nself-org/ntask/issues).

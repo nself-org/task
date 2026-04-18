@@ -13,7 +13,7 @@
 ## Setup
 
 ```bash
-git clone https://github.com/nself-org/task
+git clone https://github.com/nself-org/ntask
 cd task
 ```
 

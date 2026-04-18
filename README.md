@@ -4,9 +4,9 @@ Self-hosted task management reference app. Flutter client over a Postgres + Hasu
 
 The "any-stack" reference app in the nSelf ecosystem: backend runs on raw Docker Compose, not the nSelf CLI.
 
-[![Version](https://img.shields.io/badge/version-1.0.9%2B1-blue.svg)](https://github.com/nself-org/task/releases)
+[![Version](https://img.shields.io/badge/version-1.0.9%2B1-blue.svg)](https://github.com/nself-org/ntask/releases)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
-[![Build](https://github.com/nself-org/task/actions/workflows/test.yml/badge.svg)](https://github.com/nself-org/task/actions/workflows/test.yml)
+[![Build](https://github.com/nself-org/ntask/actions/workflows/test.yml/badge.svg)](https://github.com/nself-org/ntask/actions/workflows/test.yml)
 <!-- VERSION_BADGE -->
 
 ## Description
@@ -18,7 +18,7 @@ Unlike the other Type C reference apps (`chat`, `claw`, `ntv`) that use the nSel
 ## Quick Start
 
 ```bash
-git clone https://github.com/nself-org/task.git my-tasks
+git clone https://github.com/nself-org/ntask.git my-tasks
 cd my-tasks/backend && cp .env.example .env && make up
 cd ../app && flutter run
 ```
@@ -29,7 +29,7 @@ The backend exposes Hasura at `http://localhost:8080`, Auth at `http://localhost
 
 ɳTasks ships 35+ task-management capabilities (lists, tags, recurring tasks, sharing, real-time presence, calendar/today/overdue views, attachments, smart notifications, PWA install). The full inventory lives in the wiki:
 
-- See the [Features wiki page](https://github.com/nself-org/task/wiki/Features) for the complete capability list with status, configuration, and usage notes.
+- See the [Features wiki page](https://github.com/nself-org/ntask/wiki/Features) for the complete capability list with status, configuration, and usage notes.
 
 ## Installation
 
@@ -94,7 +94,7 @@ cd app && flutter test integration_test/        # integration tests
 
 Flutter app talks to a Docker Compose backend (PostgreSQL 16, Hasura GraphQL Engine, Hasura Auth, Hasura Storage over MinIO, Mailpit for dev email, Traefik for staging/prod HTTPS). The app uses Hasura GraphQL as the only backend boundary; no direct Postgres access.
 
-See the [Backend Architecture wiki page](https://github.com/nself-org/task/wiki/Backend-Architecture) for the full deep-dive.
+See the [Backend Architecture wiki page](https://github.com/nself-org/ntask/wiki/Backend-Architecture) for the full deep-dive.
 
 ## Platform Support
 
@@ -129,18 +129,18 @@ There is no separate Swift, Kotlin, React Native, or Next.js frontend: Flutter i
 
 ## Documentation
 
-- [Home](https://github.com/nself-org/task/wiki/Home)
-- [Getting Started](https://github.com/nself-org/task/wiki/Getting-Started)
-- [Backend Setup](https://github.com/nself-org/task/wiki/Backend-Setup)
-- [Backend Architecture](https://github.com/nself-org/task/wiki/Backend-Architecture)
-- [Database Schema](https://github.com/nself-org/task/wiki/Database-Schema)
-- [Features](https://github.com/nself-org/task/wiki/Features)
-- [Deployment](https://github.com/nself-org/task/wiki/Deployment)
-- [Security](https://github.com/nself-org/task/wiki/Security)
+- [Home](https://github.com/nself-org/ntask/wiki/Home)
+- [Getting Started](https://github.com/nself-org/ntask/wiki/Getting-Started)
+- [Backend Setup](https://github.com/nself-org/ntask/wiki/Backend-Setup)
+- [Backend Architecture](https://github.com/nself-org/ntask/wiki/Backend-Architecture)
+- [Database Schema](https://github.com/nself-org/ntask/wiki/Database-Schema)
+- [Features](https://github.com/nself-org/ntask/wiki/Features)
+- [Deployment](https://github.com/nself-org/ntask/wiki/Deployment)
+- [Security](https://github.com/nself-org/ntask/wiki/Security)
 
 ## Contributing
 
-See [Contributing](https://github.com/nself-org/task/wiki/Contributing) for the contributor guide.
+See [Contributing](https://github.com/nself-org/ntask/wiki/Contributing) for the contributor guide.
 
 ## License
 
@@ -150,7 +150,7 @@ MIT, see [LICENSE](LICENSE).
 
 - [cli](https://github.com/nself-org/cli): the nSelf CLI (not required for this repo, but the wider ecosystem entry point)
 - [admin](https://github.com/nself-org/admin): local GUI companion for the CLI
-- [chat](https://github.com/nself-org/chat): open-source chat reference app (uses nSelf CLI)
-- [claw](https://github.com/nself-org/claw): open-source AI assistant reference app (uses nSelf CLI + pro plugins)
+- [chat](https://github.com/nself-org/nchat): open-source chat reference app (uses nSelf CLI)
+- [claw](https://github.com/nself-org/nclaw): open-source AI assistant reference app (uses nSelf CLI + pro plugins)
 - [ntv](https://github.com/nself-org/ntv): open-source media player reference app (uses nSelf CLI + nMedia bundle)
 - [web](https://github.com/nself-org/web): `nself.org` marketing + docs + cloud (private; hosts the free demo at `task.nself.org`)

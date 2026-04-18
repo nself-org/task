@@ -187,7 +187,7 @@ Most feature configuration is in the Flutter app settings (per-user preferences)
 
 ## Known Issues
 
-None currently tracked. Report issues at [github.com/nself-org/task/issues](https://github.com/nself-org/task/issues).
+None currently tracked. Report issues at [github.com/nself-org/ntask/issues](https://github.com/nself-org/ntask/issues).
 
 ## Troubleshooting
 
