@@ -1,141 +1,116 @@
-# Welcome to ɳTask
+# ɳTasks
 
-**The production-ready, AI-friendly boilerplate for modern web applications.**
+> Self-hosted task management reference app. Flutter client over a Postgres + Hasura + Auth backend. Version 1.0.0+1.
 
-ɳTask is a complete Next.js reference app with multi-backend support, designed to accelerate your development whether you're coding by hand or using AI tools like Bolt.new, Lovable, Cursor, or Copilot.
-
----
-
-## 🚀 Quick Start
-
-Get up and running in 3 commands:
+## Quick Start
 
 ```bash
-git clone https://github.com/nself-org/tasks.git my-app
-cd my-app
-cd backend && make up          # Start self-hosted backend
-cd .. && npm install && npm run dev  # Start frontend
+git clone https://github.com/nself-org/task.git my-tasks
+cd my-tasks/backend && cp .env.example .env && make up
+cd ../app && flutter run
 ```
 
-Open [http://localhost:3000](http://localhost:3000) — your app is live!
+The Flutter app launches against the local backend. Open the Hasura console at `http://localhost:8080/console`.
 
----
+## Contents
 
-## 📚 What's Included
+- [Getting Started](#getting-started)
+- [Core Stack](#core-stack)
+- [Features](#features)
+- [Commands](#commands)
+- [Configuration](#configuration)
+- [Plugins](#plugins)
+- [Guides](#guides)
+- [Architecture](#architecture)
+- [Security](#security)
+- [Brand](#brand)
+- [Contributing](#contributing)
+- [Resources](#resources)
 
-This boilerplate provides everything you need out of the box:
+## Getting Started
 
-### **Frontend**
+- [Getting-Started](Getting-Started): install prerequisites and first run
+- [Quickstart-Guide](Quickstart-Guide): short version for experienced devs
+- [Backend-Setup](Backend-Setup): start the Docker Compose backend
+- [Backend-Troubleshooting](Backend-Troubleshooting): fixes for common backend issues
 
-- ⚡ Next.js 13 with App Router
-- 🎨 Tailwind CSS + shadcn/ui components
-- 🔐 Authentication with protected routes
-- 📝 Complete todo app with sharing
-- 🌓 Dark mode support
-- 📱 Responsive design
+## Core Stack
 
-### **Backend**
+The backend is a self-contained Docker Compose stack (no nSelf CLI required: `task/` is the "any-stack" reference app):
 
-- 🐘 PostgreSQL database
-- 🚀 Hasura GraphQL Engine
-- 🔑 JWT authentication
-- 📦 S3-compatible storage
-- 🔄 Real-time subscriptions
-- 🐳 Docker Compose deployment
+- **PostgreSQL 16**: database
+- **Hasura GraphQL Engine**: instant GraphQL API
+- **Hasura Auth**: JWT authentication
+- **Hasura Storage**: S3-compatible upload/download
+- **MinIO**: object storage backend
+- **Mailpit**: dev email capture
+- **Traefik**: HTTPS reverse proxy (staging and production only)
 
-### **Multi-Backend Support**
+Other Type C apps in the ecosystem (`chat`, `claw`, `ntv`) use the nSelf CLI; this repo demonstrates the same pattern as plain Docker Compose.
 
-Switch backends with one environment variable:
+See [Backend-Architecture](Backend-Architecture) for the full service map.
 
-- **nSelf** - Self-hosted (Docker)
-- **Supabase** - Managed PostgreSQL + Auth
-- **Nhost** - Managed Hasura + Auth
-- **Bolt** - Bolt.new managed
+## Features
 
----
+- [Features](Features): full capability inventory (35+ features)
+- Categories: List Management, Advanced Todos, Real-Time Collaboration, Sharing, Search and Filtering, Sorting, Bulk Operations, Smart Views, Attachments, Notifications, User Preferences, PWA, Cross-Platform Targets
 
-## 📖 Documentation
+## Commands
 
-### Getting Started
+`task/` is operated via `make` targets, not nSelf CLI commands:
 
-- **[Getting Started](Getting-Started)** - Installation and first steps
-- **[Quickstart Guide](Quickstart-Guide)** - Get running in 5 minutes (Bolt.new users)
-- **[Backend Setup](Backend-Setup)** - Start your self-hosted backend
+```bash
+make up | make down | make restart
+make logs | make status | make health
+make psql | make migrate | make metadata-apply
+make backup | make restore FILE=...
+make staging-up | make prod-up
+```
 
-### Core Concepts
+Full list and descriptions: [Backend-Setup](Backend-Setup).
 
-- **[Backend Architecture](Backend-Architecture)** - How the backend works
-- **[Database Schema](Database-Schema)** - Tables and relationships
+For nSelf CLI commands across the wider ecosystem, see the [cli wiki](https://github.com/nself-org/cli/wiki).
 
-### Guides & Reference
+## Configuration
 
-- **[Deployment](Deployment)** - Deploy to production
-- **[Developer Tools](Developer-Tools)** - Testing, debugging, and development
-- **[Security](Security)** - Security best practices and guidelines
-- **[Contributing](Contributing)** - How to contribute to the project
-- **[Changelog](Changelog)** - Version history and updates
+- [Backend-Setup](Backend-Setup): `.env` reference and required variables
+- See `backend/.env.example` for the full env template
 
----
+## Plugins
 
-## 🤖 Built for AI
+`task/` is free-plugins-only by design (per F03, F12). It does not install nSelf pro plugins (ai, claw, mux, livekit, etc.). The free capabilities used here are auth and storage, both delivered as standard Hasura services.
 
-This boilerplate is optimized for AI-assisted development:
+For the full ecosystem inventory of 87 plugins (25 free + 62 pro), see the [cli wiki](https://github.com/nself-org/cli/wiki).
 
-- **Clear architecture** - AI tools understand the structure instantly
-- **Backend abstraction** - Switch providers without rewriting code
-- **Type-safe** - TypeScript everywhere for better AI suggestions
-- **Component library** - shadcn/ui components AI tools know well
-- **Documentation** - Comprehensive docs help AI understand your intent
+## Guides
 
-Works great with:
+- [Deployment](Deployment): staging and production deployment
+- [Monorepo-Setup](Monorepo-Setup): placing this repo inside a larger workspace
+- [Developer-Tools](Developer-Tools): testing, debugging, dev tooling
 
-- Bolt.new / Lovable
-- Cursor / Copilot
-- AI Code
-- Any AI coding assistant
+## Architecture
 
----
+- [Backend-Architecture](Backend-Architecture): services, ports, data flow
+- [Database-Schema](Database-Schema): table reference
 
-## 💡 Example Application
+## Security
 
-The boilerplate includes a complete todo application demonstrating:
+- [Security](Security): security best practices
 
-- ✅ CRUD operations (Create, Read, Update, Delete)
-- 🔓 Public/private visibility toggle
-- 📧 Share todos by email with view/edit permissions
-- 🔗 Shareable public links
-- 🔄 Real-time updates (with WebSocket backends)
-- 🎨 Modern UI with Tailwind + shadcn/ui
+## Brand
 
-**Use this as a reference** - See how authentication, database operations, and sharing work, then build your own features following the same patterns.
+ɳTasks shares the nSelf brand identity.
 
----
+## Contributing
 
-## 🎯 What to Do Next
+- [Contributing](Contributing): contributor guide
+- [Changelog](Changelog): version history
 
-1. **[Get Started](Getting-Started)** - Follow the installation guide
-2. **[Explore the Example](Database-Schema)** - See how todos work
-3. **[Customize](Customization)** - Replace the example with your app
-4. **[Deploy](Deployment)** - Ship to production
+## Resources
 
----
-
-## 🆘 Need Help?
-
-- 📖 **[Documentation](Home)** - You're here!
-- 🐛 **[Issues](https://github.com/nself-org/tasks/issues)** - Report bugs or request features
-- 💬 **[Discussions](https://github.com/nself-org/tasks/discussions)** - Ask questions
-- 📝 **[Changelog](Changelog)** - See what's new
-
----
-
-**Ready to build something amazing?** [Get Started →](Getting-Started)
-
----
-
-## Project Resources
-
-- [Changelog](Changelog.md) — Version history and release notes
-- [Contributing](Contributing.md) — How to contribute to this project
-- [Security](Security.md) — Security best practices and guidelines
-- [License](LICENSE.md) — Licensing terms and conditions
+- **GitHub:** [nself-org/task](https://github.com/nself-org/task)
+- **Issues:** [Report a bug](https://github.com/nself-org/task/issues)
+- **Discussions:** [Q&A](https://github.com/nself-org/task/discussions)
+- **License:** [MIT](https://github.com/nself-org/task/blob/main/LICENSE)
+- **Marketing site:** [task.nself.org](https://task.nself.org) (web/task)
+- **Ecosystem docs:** [docs.nself.org](https://docs.nself.org)

@@ -1,6 +1,6 @@
 # Development Tools
 
-ɳApp includes a comprehensive development environment detection system with built-in developer tools for faster iteration and testing.
+ɳTasks includes a development environment detection system with built-in developer tools for faster iteration and testing.
 
 ## Environment Detection
 

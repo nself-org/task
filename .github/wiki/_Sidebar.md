@@ -1,42 +1,59 @@
-## 📚 Documentation
-
-**[🏠 Home](Home)**
+### [[Home]]
 
 ---
 
-### Getting Started
-- [Getting Started](Getting-Started)
-- [Backend Setup](Backend-Setup)
-- [Frontend Setup](Frontend-Setup)
+**Getting Started**
 
-### Core Concepts
-- [Architecture](Architecture)
-- [Database Schema](Database-Schema)
-- [Authentication](Authentication)
-- [Backend Abstraction](Backend-Abstraction)
-
-### Features
-- [Todo Example](Todo-Example)
-- [User Profiles](User-Profiles)
-- [Sharing System](Sharing-System)
-- [Real-time Updates](Realtime-Updates)
-
-### Advanced
-- [Deployment](Deployment)
-- [Environment Variables](Environment-Variables)
-- [Customization](Customization)
-- [AI Development](AI-Development)
-
-### Reference
-- [API Reference](API-Reference)
-- [Components](Components)
-- [Database Tables](Database-Tables)
-- [Troubleshooting](Troubleshooting)
+- [[Getting-Started]]
+- [[Quickstart-Guide]]
+- [[Backend-Setup]]
+- [[Backend-Troubleshooting]]
 
 ---
 
-### Resources
-- [📝 Changelog](https://github.com/nself-org/tasks/blob/main/CHANGELOG.md)
-- [🐛 Issues](https://github.com/nself-org/tasks/issues)
-- [💬 Discussions](https://github.com/nself-org/tasks/discussions)
-- [⭐ Star on GitHub](https://github.com/nself-org/tasks)
+**Features**
+
+- [[Features]]
+
+---
+
+**Backend**
+
+- [[Backend-Setup]]
+- [[Backend-Architecture]]
+- [[Backend-Troubleshooting]]
+- [[Database-Schema]]
+
+---
+
+**Architecture**
+
+- [[Backend-Architecture]]
+- [[Database-Schema]]
+
+---
+
+**Deployment**
+
+- [[Deployment]]
+- [[Monorepo-Setup]]
+
+---
+
+**Reference**
+
+- [[Developer-Tools]]
+- [[Security]]
+- [[Contributing]]
+- [[Changelog]]
+- [[LICENSE]]
+
+---
+
+**External**
+
+- [GitHub](https://github.com/nself-org/task)
+- [Issues](https://github.com/nself-org/task/issues)
+- [Discussions](https://github.com/nself-org/task/discussions)
+- [task.nself.org](https://task.nself.org)
+- [docs.nself.org](https://docs.nself.org)

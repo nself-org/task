@@ -1,227 +1,159 @@
 # Backend Setup
 
-Complete guide to setting up and configuring your backend.
+Step-by-step setup for the ɳTasks backend. The backend is a self-contained Docker Compose stack driven by a Makefile.
 
----
+## Prerequisites
 
-## Self-Hosted Backend (nSelf)
+- Docker 20+ with Docker Compose v2
+- GNU Make
+- (Optional) Hasura CLI for migration management
+- Free ports: 5432, 8080, 4000, 8484, 9000, 9001, 8025
 
-The self-hosted option gives you complete control and runs entirely on your machine using Docker.
+## What You Get
 
-### What You Get
+- **PostgreSQL 16**: database
+- **Hasura GraphQL Engine**: instant GraphQL API + console
+- **Hasura Auth**: email + password JWT authentication
+- **Hasura Storage**: S3-compatible upload and download API
+- **MinIO**: object storage backend
+- **Mailpit**: dev email capture (UI at `http://localhost:8025`)
+- **Traefik**: HTTPS reverse proxy (only for staging and production profiles)
 
-- **PostgreSQL 16** - Your database
-- **Hasura GraphQL Engine** - Instant GraphQL API
-- **Hasura Auth** - Email/password + OAuth
-- **Hasura Storage** - S3-compatible file storage
-- **MinIO** - Object storage (S3-compatible)
-- **Mailhog** - Email testing (development only)
-- **Traefik** - Reverse proxy (staging/production)
+## Steps
 
-### Start the Backend
+### 1. Configure environment
 
 ```bash
 cd backend
-
-# Create environment file
 cp .env.example .env
-
-# Start all services
-make up
-
-# Check status
-make health
 ```
 
-Services will be available at:
-- GraphQL API: http://localhost:8080/v1/graphql
-- Hasura Console: http://localhost:8080/console
-- Auth API: http://localhost:4000
-- Storage API: http://localhost:8484
-- MinIO Console: http://localhost:9001
-- Mailhog UI: http://localhost:8025
+Edit `.env` and set:
+- `POSTGRES_PASSWORD`: strong password for Postgres
+- `HASURA_GRAPHQL_ADMIN_SECRET`: required to access the Hasura console
+- `HASURA_GRAPHQL_JWT_SECRET`: JSON object with key + algorithm (see `.env.example` for the format)
+- Auth provider secrets (Google, GitHub, etc.) if you want OAuth
 
-### Useful Commands
+### 2. Start the stack
 
 ```bash
-# Start backend
 make up
-
-# Stop backend
-make down
-
-# View logs
-make logs
-
-# Restart all services
-make restart
-
-# Check health
-make health
-
-# Access PostgreSQL shell
-make psql
 ```
 
-### Database Initialization
+This brings up Postgres, Hasura, Auth, Storage, MinIO, and Mailpit. First run pulls images and runs `postgres/init.sql` to create extensions, schemas, and application tables.
 
-On first start, `postgres/init.sql` runs automatically and creates:
-- Required extensions (uuid-ossp, pgcrypto, citext)
-- Schemas (auth, storage, public)
-- Application tables (app_profiles, app_todos, app_todo_shares)
-- Indexes for performance
-- Triggers for updated_at timestamps
+### 3. Verify health
+
+```bash
+make health
+```
+
+Expected output: all four checks (Postgres, Hasura, Auth, Storage) report OK.
+
+### 4. Apply Hasura migrations
+
+```bash
+make migrate
+```
+
+Applies pending Hasura migrations from `backend/hasura/migrations/`. Run `make migrate-status` to see migration state.
+
+### 5. Apply Hasura metadata
+
+```bash
+make metadata-apply
+```
+
+Applies tracked tables, relationships, permissions, and remote schemas from `backend/hasura/metadata/`.
+
+### 6. (Optional) Seed sample data
+
+```bash
+make seed
+```
+
+Runs the seed script from the app side to populate sample lists and todos for local testing.
+
+## Useful Commands
+
+```bash
+make up                  # start the stack
+make down                # stop the stack
+make restart             # restart everything
+make logs                # tail logs from all services
+make logs-hasura         # tail Hasura logs only
+make logs-auth           # tail Auth logs only
+make status              # docker compose ps
+make health              # health endpoint check
+make psql                # open a Postgres shell
+make console             # open Hasura console (requires hasura-cli on host)
+make migrate             # apply pending migrations
+make migrate-status      # show migration state
+make metadata-apply      # apply Hasura metadata
+make metadata-export     # export current metadata
+make backup              # dump Postgres to ./backups/backup-<timestamp>.sql
+make restore FILE=...    # restore from a backup file
+make staging-up          # start staging stack (Traefik HTTPS)
+make staging-down        # stop staging stack
+make prod-up             # start production stack
+make prod-down           # stop production stack
+make clean               # destroy containers + volumes (DESTRUCTIVE)
+```
+
+## Service Endpoints (local dev)
+
+| Service | URL |
+|---------|-----|
+| Hasura GraphQL | `http://localhost:8080/v1/graphql` |
+| Hasura Console | `http://localhost:8080/console` |
+| Auth API | `http://localhost:4000` |
+| Storage API | `http://localhost:8484` |
+| MinIO Console | `http://localhost:9001` |
+| Mailpit UI | `http://localhost:8025` |
+| PostgreSQL | `localhost:5432` |
+
+## Database Initialization
+
+On first start, `backend/postgres/init.sql` runs automatically and creates:
+
+- Required extensions (`uuid-ossp`, `pgcrypto`, `citext`)
+- Schemas (`auth`, `storage`, `public`)
+- Application tables (lists, todos, shares, presence, attachments)
+- Indexes for query performance
+- Triggers for `updated_at` timestamps
 - Auto-profile creation on user signup
 
-### Hasura Console
+If you change `init.sql` after the first run, you must `make clean` and `make up` again, or run the new statements via `make psql`.
 
-Access at http://localhost:8080/console
+## Hasura Console
 
-Use it to:
-- Explore your GraphQL schema
-- Run queries and mutations
-- Test subscriptions
-- Manage permissions
-- View database structure
-- Create migrations
+Visit `http://localhost:8080/console`. Use your `HASURA_GRAPHQL_ADMIN_SECRET` to authenticate.
 
----
+The console gives you:
 
-## Managed Backend (Supabase)
+- Visual table editor and relationship builder
+- GraphQL playground with schema explorer
+- Permission manager (per role, per table, per operation)
+- Migration tools (track tables, save migrations)
+- Metadata management
 
-Use Supabase for a fully managed backend.
+## App Connection
 
-### Setup Steps
+The Flutter app under `app/` reads its backend endpoint from environment configuration. For local dev, the defaults match the Docker Compose ports above. Override via the app's environment file when running against staging or production.
 
-1. **Create Project**
-   - Go to [supabase.com](https://supabase.com)
-   - Click "New Project"
-   - Choose organization, name, region, password
+For full app setup, see the root README under "App Setup".
 
-2. **Get Credentials**
-   - Go to Project Settings > API
-   - Copy **Project URL** and **anon/public key**
+## Alternative for nSelf CLI Users
 
-3. **Configure Frontend**
-   ```bash
-   # In .env
-   NEXT_PUBLIC_BACKEND_PROVIDER=supabase
-   NEXT_PUBLIC_SUPABASE_URL=https://xxxxx.supabase.co
-   NEXT_PUBLIC_SUPABASE_ANON_KEY=your_anon_key_here
-   ```
-
-4. **Run Migrations**
-   ```bash
-   # Install Supabase CLI
-   pnpm install -g supabase
-
-   # Link project
-   supabase link --project-ref your_project_ref
-
-   # Apply migrations
-   supabase db push
-   ```
-
-Migrations are in `supabase/migrations/` and create the same schema as nSelf.
-
----
-
-## Managed Backend (Nhost)
-
-Use Nhost for Hasura + Auth managed for you.
-
-### Setup Steps
-
-1. **Create Project**
-   - Go to [nhost.io](https://nhost.io)
-   - Click "Create Project"
-   - Choose region and plan
-
-2. **Get Configuration**
-   - Go to project dashboard
-   - Copy all service URLs:
-     - Backend URL
-     - GraphQL URL
-     - Auth URL
-     - Storage URL
-     - Functions URL
-
-3. **Configure Frontend**
-   ```bash
-   # In .env
-   NEXT_PUBLIC_BACKEND_PROVIDER=nhost
-   NEXT_PUBLIC_NHOST_SUBDOMAIN=your-subdomain
-   NEXT_PUBLIC_NHOST_REGION=us-east-1
-   NEXT_PUBLIC_NHOST_BACKEND_URL=https://xxx.nhost.run
-   NEXT_PUBLIC_NHOST_GRAPHQL_URL=https://xxx.hasura.nhost.run/v1/graphql
-   NEXT_PUBLIC_NHOST_AUTH_URL=https://xxx.auth.nhost.run/v1
-   NEXT_PUBLIC_NHOST_STORAGE_URL=https://xxx.storage.nhost.run/v1
-   ```
-
-4. **Apply Database Schema**
-   - Use Nhost Console to run `backend/postgres/init.sql`
-   - Or use Hasura migrations via CLI
-
----
-
-## Environment Configuration
-
-### Required Variables
-
-For **nSelf** (default):
-```bash
-NEXT_PUBLIC_BACKEND_PROVIDER=nself
-NEXT_PUBLIC_NSELF_GRAPHQL_URL=http://localhost:8080/v1/graphql
-NEXT_PUBLIC_NSELF_GRAPHQL_WS_URL=ws://localhost:8080/v1/graphql
-NEXT_PUBLIC_NSELF_AUTH_URL=http://localhost:4000
-NEXT_PUBLIC_NSELF_STORAGE_URL=http://localhost:8484
-```
-
-For **Supabase**:
-```bash
-NEXT_PUBLIC_BACKEND_PROVIDER=supabase
-NEXT_PUBLIC_SUPABASE_URL=https://xxxxx.supabase.co
-NEXT_PUBLIC_SUPABASE_ANON_KEY=your_anon_key
-```
-
-For **Nhost**:
-```bash
-NEXT_PUBLIC_BACKEND_PROVIDER=nhost
-NEXT_PUBLIC_NHOST_SUBDOMAIN=your-subdomain
-NEXT_PUBLIC_NHOST_REGION=us-east-1
-# ... (other Nhost URLs)
-```
-
-See [Environment Variables](Environment-Variables) for complete reference.
-
----
-
-## Switching Backends
-
-To switch between backends, just change one environment variable:
-
-```bash
-# Use self-hosted
-NEXT_PUBLIC_BACKEND_PROVIDER=nself
-
-# Use Supabase
-NEXT_PUBLIC_BACKEND_PROVIDER=supabase
-
-# Use Nhost
-NEXT_PUBLIC_BACKEND_PROVIDER=nhost
-```
-
-Restart your dev server, and the app works with the new backend. No code changes needed!
-
----
+If you already use the nSelf CLI elsewhere, you can substitute `nself start` against a generated config. The canonical, supported path for this repo, however, is `make up` against the included Compose files, since `task/` is the "any-stack" reference app and does not require the CLI.
 
 ## Next Steps
 
-- [Database Schema](Database-Schema) - Understand your data structure
-- [Authentication](Authentication) - How auth works
-- [Frontend Setup](Frontend-Setup) - Configure the frontend
-- [Deployment](Deployment) - Deploy to production
+- [Backend Architecture](Backend-Architecture): services, ports, and data flow
+- [Database Schema](Database-Schema): table reference
+- [Deployment](Deployment): staging and production deploy
+- [Features](Features): full app feature inventory
 
----
+## Need help?
 
-**Need help?** Check [Troubleshooting](Troubleshooting) or [open an issue](https://github.com/nself-org/tasks/issues).
+Open an issue at [github.com/nself-org/task/issues](https://github.com/nself-org/task/issues).

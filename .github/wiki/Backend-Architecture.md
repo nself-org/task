@@ -1,184 +1,132 @@
-# Backend Configuration
+# Backend Architecture
 
-ɳTask supports multiple backend providers through a single environment variable. By default, it uses **nSelf** (self-hosted stack), but can be switched to any supported provider for development in sandboxed environments.
+The ɳTasks backend is a self-contained Docker Compose stack. It runs PostgreSQL 16, Hasura GraphQL Engine, Hasura Auth, Hasura Storage over MinIO, Mailpit (dev email), and Traefik (HTTPS for staging and production).
 
-## Supported Backends
+## Why Docker Compose, Not the nSelf CLI
 
-| Provider | Value      | Description                                                |
-| -------- | ---------- | ---------------------------------------------------------- |
-| nSelf    | `nself`    | Self-hosted stack (Hasura + custom services) - **DEFAULT** |
-| Supabase | `supabase` | Supabase cloud or self-hosted                              |
-| Bolt     | `bolt`     | Bolt.new sandbox (Supabase-compatible)                     |
-| Nhost    | `nhost`    | Nhost cloud (Hasura-based)                                 |
+`task/` is the "any-stack" reference app. Other Type C apps in the nSelf ecosystem (`chat`, `claw`, `ntv`) use the `nself` CLI; this repo demonstrates the same Postgres + Hasura + Auth pattern as plain Docker Compose so a developer can fork, study, or operate the components directly.
 
-## Quick Switch
+The other reference apps cover the `nself start` flow. `task/` covers the manual flow.
 
-Set the `NEXT_PUBLIC_BACKEND_PROVIDER` environment variable:
+## Service Diagram
+
+```
++------------------------------------------------------------+
+|              ɳTasks Flutter App (app/)                     |
+|         GraphQL over HTTP/WS to Hasura endpoint            |
++----------------------------+-------------------------------+
+                             |
+                             v
++------------------------------------------------------------+
+|       Backend Docker Compose stack (backend/)              |
+|                                                            |
+|  +---------+  +-------+  +----------+  +----------------+  |
+|  | Hasura  |  | Auth  |  | Storage  |  | Mailpit (dev)  |  |
+|  | GraphQL |  | (JWT) |  | (S3 API) |  +----------------+  |
+|  | (8080)  |  | (4000)|  | (8484)   |                      |
+|  +----+----+  +---+---+  +----+-----+                      |
+|       |           |           |                            |
+|       |           v           v                            |
+|       |     +---------------------+                        |
+|       |     |  PostgreSQL 16      |                        |
+|       +---->|  schemas: auth,     |                        |
+|             |  storage, public    |                        |
+|             +---------------------+                        |
+|                                                            |
+|       +-----------------+                                  |
+|       |  MinIO (9000)   | <- backs Hasura Storage          |
+|       +-----------------+                                  |
+|                                                            |
+|       +-----------------+                                  |
+|       | Traefik (80/443)| (staging/prod profiles)          |
+|       +-----------------+                                  |
++------------------------------------------------------------+
+```
+
+## Services
+
+| Service | Image | Default port | Purpose |
+|---------|-------|--------------|---------|
+| postgres | `postgres:16` | 5432 | Database |
+| graphql-engine | `hasura/graphql-engine` | 8080 | GraphQL API + console |
+| auth | `nhost/hasura-auth` | 4000 | JWT signup, signin, password reset |
+| storage | `nhost/hasura-storage` | 8484 | S3-compatible upload, download, signed URLs |
+| minio | `minio/minio` | 9000, 9001 | Object storage backend + admin UI |
+| mailpit | `axllent/mailpit` | 8025 | Dev email capture (UI on 8025, SMTP on 1025) |
+| traefik | `traefik` | 80, 443 | HTTPS reverse proxy (staging/prod profiles) |
+
+## Compose Files
+
+| File | Purpose |
+|------|---------|
+| `backend/docker-compose.yml` | Local dev (the `--profile dev` set is started by `make up`) |
+| `backend/docker-compose.staging.yml` | Staging overlay (Traefik HTTPS) |
+| `backend/docker-compose.production.yml` | Production overlay (HTTPS, backups, resource limits) |
+| `backend/docker-compose.app.yml` | Optional app overlay (containerized app) |
+| `backend/docker-compose.override.yml` | Local override layer |
+
+The Makefile chains the right files for you:
 
 ```bash
-# Default (nSelf)
-NEXT_PUBLIC_BACKEND_PROVIDER=nself
-
-# Supabase
-NEXT_PUBLIC_BACKEND_PROVIDER=supabase
-
-# Bolt.new sandbox
-NEXT_PUBLIC_BACKEND_PROVIDER=bolt
-
-# Nhost
-NEXT_PUBLIC_BACKEND_PROVIDER=nhost
+cd backend && make up           # local dev
+cd backend && make staging-up   # staging
+cd backend && make prod-up      # production
 ```
 
-## Vibe Coding Instructions
+## Data Flow (Typical Request)
 
-When using AI assistants in sandboxed environments, include these instructions in your prompt:
+1. The Flutter app reads its JWT from secure storage.
+2. The app sends a GraphQL query, mutation, or subscription to `http://localhost:8080/v1/graphql` (dev) or the equivalent staging/prod URL.
+3. Hasura validates the JWT against `HASURA_GRAPHQL_JWT_SECRET`, applies row-level permissions, and queries Postgres.
+4. For file uploads, the app calls `storage` (port 8484), which writes to MinIO.
+5. For auth flows, the app calls `auth` (port 4000), which writes to the Postgres `auth` schema.
+6. Outbound emails go to Mailpit in dev (UI at `http://localhost:8025`); staging/prod uses real SMTP.
 
-### For Bolt.new
+## Database Schema
 
-```
-This project uses ɳTask boilerplate with backend abstraction.
-Current environment: Bolt.new sandbox
-Backend is set to: bolt (Supabase-compatible)
-Use the existing backend abstraction in lib/backend/ - do not import Supabase directly.
-All auth, database, storage, and realtime operations should use the hooks and providers.
-```
+Three application schemas plus Hasura/Auth/Storage system schemas:
 
-### For Local Development with nSelf
+- `auth` schema: managed by `hasura-auth` (users, refresh tokens, providers)
+- `storage` schema: managed by `hasura-storage` (files, virus scan state)
+- `public` schema: ɳTasks application tables (lists, todos, shares, presence, attachments)
 
-```
-This project uses ɳTask boilerplate with nSelf backend.
-Backend is set to: nself (default)
-Use the existing backend abstraction in lib/backend/ - do not import services directly.
-All operations should use useAuth, useBackend, and related hooks.
-```
+See [Database Schema](Database-Schema) for table-level detail.
 
-### For Cursor / Copilot / Other AI Tools
+## Environments
 
-Add to your project instructions or `.cursorrules`:
+| Environment | Compose chain | Trigger | TLS |
+|-------------|---------------|---------|-----|
+| Local | `docker-compose.yml` | `make up` | None (HTTP localhost) |
+| Staging | `docker-compose.yml + docker-compose.staging.yml` | `make staging-up` | Traefik + Let's Encrypt |
+| Production | `docker-compose.yml + docker-compose.production.yml` | `make prod-up` | Traefik + Let's Encrypt + backups + resource limits |
 
-```
-# ɳTask Backend Abstraction
+The hosted free demo at `task.nself.org` runs the same stack via `web/backend`.
 
-This project uses a backend abstraction layer. Never import backend SDKs directly.
+## Plugin Set
 
-ALWAYS USE:
-- useAuth() for authentication (signIn, signUp, signOut, user state)
-- useBackend() for database, storage, realtime, functions
-- toast() from sonner for notifications
+`task/` is free-plugins-only by design (per F03, F12). It does not install nSelf pro plugins (ai, claw, mux, livekit, etc.). The free capabilities relevant to this app live in:
 
-NEVER USE:
-- Direct @supabase/supabase-js imports in components
-- Direct Nhost SDK imports
-- Custom fetch calls to auth endpoints
+- `plugins/storage` (covered by Hasura Storage + MinIO directly here)
+- `plugins/auth` (covered by `hasura-auth` directly here)
 
-The backend provider is configured via NEXT_PUBLIC_BACKEND_PROVIDER env var.
-```
+For the full free plugin inventory, see [F03-PLUGIN-INVENTORY-FREE](https://github.com/nself-org/cli/wiki) in the cli wiki.
 
-## Provider-Specific Configuration
+## App ↔ Backend Connection
 
-### nSelf (Default)
+The Flutter app picks its endpoint at build time:
 
-The nSelf backend stack lives in the `backend/` directory. See [`backend/README.md`](backend/README.md) for full setup instructions.
+| Build target | Default endpoint |
+|--------------|------------------|
+| Web | `http://localhost:8080/v1/graphql` |
+| macOS / Linux / Windows desktop | `http://localhost:8080/v1/graphql` |
+| iOS / Android (simulator/emulator) | host machine IP at `:8080` (configurable) |
 
-```bash
-# Start the backend
-cd backend && make up
+Override via the app's environment configuration. See [Backend Setup](Backend-Setup) for the full env var reference.
 
-# Frontend .env
-NEXT_PUBLIC_BACKEND_PROVIDER=nself
-NEXT_PUBLIC_NSELF_GRAPHQL_URL=http://localhost:8080/v1/graphql
-NEXT_PUBLIC_NSELF_GRAPHQL_WS_URL=ws://localhost:8080/v1/graphql
-NEXT_PUBLIC_NSELF_AUTH_URL=http://localhost:4000
-NEXT_PUBLIC_NSELF_STORAGE_URL=http://localhost:8484
-NEXT_PUBLIC_NSELF_FUNCTIONS_URL=http://localhost:3010
-```
+## Related
 
-For staging/production, replace localhost URLs with your domain subdomains:
-
-```env
-NEXT_PUBLIC_NSELF_GRAPHQL_URL=https://api.yourdomain.com/v1/graphql
-NEXT_PUBLIC_NSELF_GRAPHQL_WS_URL=wss://api.yourdomain.com/v1/graphql
-NEXT_PUBLIC_NSELF_AUTH_URL=https://auth.yourdomain.com
-NEXT_PUBLIC_NSELF_STORAGE_URL=https://storage.yourdomain.com
-NEXT_PUBLIC_NSELF_FUNCTIONS_URL=https://functions.yourdomain.com
-```
-
-### Supabase
-
-```env
-NEXT_PUBLIC_BACKEND_PROVIDER=supabase
-NEXT_PUBLIC_SUPABASE_URL=https://your-project.supabase.co
-NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
-```
-
-### Bolt.new
-
-```env
-NEXT_PUBLIC_BACKEND_PROVIDER=bolt
-# Bolt automatically provides SUPABASE_URL and SUPABASE_ANON_KEY
-```
-
-### Nhost
-
-```env
-NEXT_PUBLIC_BACKEND_PROVIDER=nhost
-NEXT_PUBLIC_NHOST_SUBDOMAIN=your-subdomain
-NEXT_PUBLIC_NHOST_REGION=your-region
-```
-
-## Architecture
-
-```
-lib/backend/
-├── index.ts          # Factory: creates client based on provider
-├── supabase/         # Supabase adapter (also used for Bolt)
-│   ├── auth.ts
-│   ├── database.ts
-│   ├── storage.ts
-│   ├── realtime.ts
-│   └── functions.ts
-├── nhost/            # Nhost adapter
-│   └── ...
-└── nself/            # nSelf adapter
-    └── ...
-
-lib/providers/
-├── auth-provider.tsx   # React context for auth state
-├── backend-provider.tsx # React context for backend client
-└── ...
-
-lib/types/
-└── backend.ts         # Shared interfaces for all adapters
-```
-
-## Usage in Components
-
-```tsx
-import { useAuth, useBackend } from '@/lib/providers';
-
-function MyComponent() {
-  const { user, signIn, signOut } = useAuth();
-  const { db, storage, realtime } = useBackend();
-
-  // Database query
-  const { data } = await db.query('todos', { where: { user_id: user?.id } });
-
-  // File upload
-  const { url } = await storage.upload('avatars', `${user.id}.png`, file);
-
-  // Realtime subscription
-  const channel = realtime.channel('todos');
-  channel.on('INSERT', payload => console.log(payload));
-  channel.subscribe();
-}
-```
-
-## Switching Backends
-
-To switch from one backend to another:
-
-1. Update `NEXT_PUBLIC_BACKEND_PROVIDER` in `.env`
-2. Add the required environment variables for the new provider
-3. Restart the dev server
-
-No code changes required - the abstraction layer handles everything.
+- [Backend Setup](Backend-Setup): operator setup walkthrough
+- [Database Schema](Database-Schema): schema reference
+- [Deployment](Deployment): staging and production deploy
+- [Features](Features): full app feature inventory
+- [Home](Home): wiki home

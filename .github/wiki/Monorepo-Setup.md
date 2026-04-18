@@ -1,6 +1,6 @@
 # Monorepo Setup
 
-This boilerplate is designed to work seamlessly in monorepo scenarios where multiple apps share a single backend.
+This boilerplate fits monorepo scenarios where multiple apps share a single backend.
 
 ---
 

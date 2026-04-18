@@ -16,7 +16,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Database migrations for profiles and todos
 - Real-time subscriptions
 - Offline-first architecture with IndexedDB caching
-- Comprehensive UI component library (shadcn/ui)
+- UI component library (shadcn/ui)
 - Development tools and faux-signin mode
 - Testing infrastructure (Vitest + Playwright)
 - CI/CD workflows (GitHub Actions)
