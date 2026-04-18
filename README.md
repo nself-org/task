@@ -1,6 +1,7 @@
-# ɳTasks
+# ɳTask
 
 Self-hosted task management reference app. Flutter client over a Postgres + Hasura + Auth backend.
+The "any-stack" reference app in the nSelf ecosystem: backend runs on raw Docker Compose, not the nSelf CLI.
 
 [![Version](https://img.shields.io/badge/version-1.0.0%2B1-blue.svg)](https://github.com/nself-org/task/releases)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
