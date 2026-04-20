@@ -21,6 +21,7 @@ jobs:
         uses: Andrew-Chen-Wang/github-wiki-action@v4
         with:
           path: .github/wiki/
+          strategy: init
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GH_MAIL: ${{ github.actor }}@users.noreply.github.com

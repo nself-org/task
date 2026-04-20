@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- ci: switch sync-wiki workflow to `strategy: init` to initialize wiki repo when missing (S26 T04)
+
 ### Added
 
 - Initial release of ɳApp boilerplate
