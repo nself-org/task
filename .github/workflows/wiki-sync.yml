@@ -24,7 +24,7 @@ jobs:
         # initialized (visit https://github.com/nself-org/ntask/wiki and save),
         # remove this flag — the wiki will then stay in sync automatically.
         continue-on-error: true
-        uses: Andrew-Chen-Wang/github-wiki-action@v4
+        uses: Andrew-Chen-Wang/github-wiki-action@v5
         with:
           path: .github/wiki/
           strategy: init
