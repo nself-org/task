@@ -1,17 +1,20 @@
 import 'dart:convert';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
+import 'package:nself_auth_sdk/nself_auth_sdk.dart';
 
 import '../models/task_list.dart';
 import '../models/task.dart';
 
-/// Backend service — communicates with the nSelf backend (Hasura GraphQL + Nhost Auth).
-/// Server URL is configured by the user (self-hosted nSelf instance).
+/// Backend service — communicates with the nSelf backend (Hasura GraphQL).
+///
+/// Authentication tokens are managed by [NSelfAuth] (nself_auth_sdk).
+/// This class retains server-URL persistence and GraphQL + password-reset
+/// helpers. Token read/write/sign-in/sign-out have been removed; use
+/// [NSelfAuth] directly via [AuthNotifier].
 class BackendService {
   static const _storage = FlutterSecureStorage();
-  static const _serverUrlKey = 'server_url';
-  static const _accessTokenKey = 'access_token';
-  static const _refreshTokenKey = 'refresh_token';
+  static const _serverUrlKey = 'ntask_server_url';
 
   // ── Server URL ─────────────────────────────────────────────────────────────
 
@@ -20,27 +23,12 @@ class BackendService {
   Future<void> setServerUrl(String url) =>
       _storage.write(key: _serverUrlKey, value: url.trimRight().replaceAll(RegExp(r'/$'), ''));
 
-  // ── Auth ────────────────────────────────────────────────────────────────────
+  // ── Auth helpers (thin wrappers — SDK owns the tokens) ────────────────────
 
-  Future<String?> getAccessToken() => _storage.read(key: _accessTokenKey);
+  /// Returns the current valid access token via the SDK (auto-refreshes).
+  Future<String?> getAccessToken() => NSelfAuth.getAccessToken();
 
-  Future<Map<String, dynamic>?> signIn(String serverUrl, String email, String password) async {
-    final uri = Uri.parse('$serverUrl/v1/auth/signin/email-password');
-    final response = await http.post(
-      uri,
-      headers: {'Content-Type': 'application/json'},
-      body: jsonEncode({'email': email, 'password': password}),
-    );
-    if (response.statusCode != 200) return null;
-    final data = jsonDecode(response.body) as Map<String, dynamic>;
-    final session = data['session'] as Map<String, dynamic>?;
-    if (session == null) return null;
-    await _storage.write(key: _accessTokenKey, value: session['accessToken'] as String);
-    await _storage.write(key: _refreshTokenKey, value: session['refreshToken'] as String);
-    await setServerUrl(serverUrl);
-    return data['user'] as Map<String, dynamic>?;
-  }
-
+  /// Send a password-reset email. Does not require authentication.
   Future<bool> requestPasswordReset(String serverUrl, String email) async {
     final uri = Uri.parse('$serverUrl/v1/auth/email/send-password-reset-email');
     try {
@@ -53,23 +41,6 @@ class BackendService {
     } catch (_) {
       return false;
     }
-  }
-
-  Future<void> signOut() async {
-    await _storage.delete(key: _accessTokenKey);
-    await _storage.delete(key: _refreshTokenKey);
-  }
-
-  Future<Map<String, dynamic>?> getCurrentUser() async {
-    final serverUrl = await getServerUrl();
-    final token = await getAccessToken();
-    if (serverUrl == null || token == null) return null;
-    final response = await http.get(
-      Uri.parse('$serverUrl/v1/auth/user'),
-      headers: {'Authorization': 'Bearer $token'},
-    );
-    if (response.statusCode != 200) return null;
-    return jsonDecode(response.body) as Map<String, dynamic>;
   }
 
   // ── GraphQL ─────────────────────────────────────────────────────────────────

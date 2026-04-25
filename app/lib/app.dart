@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'l10n/app_localizations.dart';
+import 'theme/brand_colors.dart';
 
 import 'providers/auth_provider.dart';
 import 'screens/login_screen.dart';
@@ -19,7 +20,7 @@ class NTasksApp extends ConsumerWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(
-          seedColor: const Color(0xFF6366F1),
+          seedColor: NselfBrandColors.primary,
           brightness: Brightness.light,
         ),
         useMaterial3: true,
@@ -27,7 +28,7 @@ class NTasksApp extends ConsumerWidget {
       ),
       darkTheme: ThemeData(
         colorScheme: ColorScheme.fromSeed(
-          seedColor: const Color(0xFF6366F1),
+          seedColor: NselfBrandColors.primary,
           brightness: Brightness.dark,
         ),
         useMaterial3: true,
@@ -42,7 +43,7 @@ class NTasksApp extends ConsumerWidget {
       ],
       supportedLocales: const [Locale('en')],
       home: auth.when(
-        data: (user) => user != null ? const HomeScreen() : const LoginScreen(),
+        data: (loggedIn) => loggedIn ? const HomeScreen() : const LoginScreen(),
         loading: () => const _SplashScreen(),
         error: (_, _) => const LoginScreen(),
       ),

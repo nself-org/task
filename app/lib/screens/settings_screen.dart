@@ -83,12 +83,8 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     final theme = Theme.of(context);
-    final auth = ref.watch(authStateProvider);
-    final email = auth.when(
-      data: (user) => user?['email'] as String? ?? '',
-      loading: () => '',
-      error: (_, _) => '',
-    );
+    final currentUser = ref.watch(currentUserProvider);
+    final email = currentUser?.email ?? '';
 
     return Scaffold(
       appBar: AppBar(title: Text(l10n.settings)),
