@@ -41,7 +41,16 @@ class NTasksApp extends ConsumerWidget {
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
       ],
-      supportedLocales: const [Locale('en')],
+      // P96 S233: l10n — en + es, fr, de, ja, zh, ar stubs.
+      supportedLocales: const [
+        Locale('en'),
+        Locale('es'),
+        Locale('fr'),
+        Locale('de'),
+        Locale('ja'),
+        Locale('zh'),
+        Locale('ar'),
+      ],
       home: auth.when(
         data: (loggedIn) => loggedIn ? const HomeScreen() : const LoginScreen(),
         loading: () => const _SplashScreen(),

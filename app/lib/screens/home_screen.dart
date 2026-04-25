@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../l10n/app_localizations.dart';
+import '../theme/brand_colors.dart';
 
 import '../models/task_list.dart';
 import '../providers/auth_provider.dart';
@@ -164,7 +165,7 @@ class _ListCard extends ConsumerWidget {
     try {
       return Color(int.parse(hex.replaceFirst('#', '0xFF')));
     } catch (_) {
-      return const Color(0xFF6366F1);
+      return NselfBrandColors.primary;
     }
   }
 
