@@ -1,0 +1,18 @@
+# gitleaks false positives — test/example/documentation only
+# These are dev-only values and placeholders, not real secrets.
+
+# backend/docker-compose.override.yml — test JWT keys (dummy 0123456789... pattern)
+1c7af61f67fe68e192d33693002665848c823dc7:backend/docker-compose.override.yml:generic-api-key:7
+1c7af61f67fe68e192d33693002665848c823dc7:backend/docker-compose.override.yml:generic-api-key:13
+
+# backend/.env.example — test AUTH_JWT_SECRET with dummy key
+4c95322795869ad939ef81101003c2958d7d21a7:backend/.env.example:generic-api-key:33
+
+# backend/README.md — documentation example placeholder YOUR_JWT_TOKEN
+4c95322795869ad939ef81101003c2958d7d21a7:backend/README.md:curl-auth-header:448
+
+# lib/backend/supabase/client.ts — test JWT token in code
+4c95322795869ad939ef81101003c2958d7d21a7:lib/backend/supabase/client.ts:jwt:8
+
+# lib/supabase.ts — test JWT token in code
+4c95322795869ad939ef81101003c2958d7d21a7:lib/supabase.ts:jwt:4
