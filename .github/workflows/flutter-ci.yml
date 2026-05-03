@@ -8,6 +8,9 @@ on:
     branches: [main]
     paths: ['app/**']
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 jobs:
   analyze:
     name: Analyze
