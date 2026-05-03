@@ -1,43 +1,42 @@
 # =============================================================================
-# nSelf Backend - Makefile
+# ɳTasks Backend — Makefile
 #
 # Quick commands for managing the backend stack.
 #
-# Usage:
-#   make up        - Start all services
-#   make down      - Stop all services
-#   make logs      - View logs
-#   make status    - Show service status
-#   make console   - Open Hasura Console
-#   make psql      - Connect to PostgreSQL
-#   make migrate   - Apply Hasura migrations
-#   make seed      - Seed the database
-#   make backup    - Create a database backup
-#   make restore   - Restore from backup
-#   make clean     - Remove all data (DESTRUCTIVE)
+# nSelf-First: backend starts via nself CLI, not docker compose directly.
+#   make up        — alias for `nself start` (nSelf-First)
+#   make down      — alias for `nself stop`
+#   make build     — alias for `nself build`
+#
+# Legacy docker compose commands are preserved for reference apps forking
+# this codebase without the nSelf CLI.
 # =============================================================================
 
+NSELF = nself
 COMPOSE = docker compose
 COMPOSE_STAGING = docker compose -f docker-compose.yml -f docker-compose.staging.yml
 COMPOSE_PROD = docker compose -f docker-compose.yml -f docker-compose.production.yml
 
-# Default values (override via .env)
+# Default values (override via .env.dev)
 POSTGRES_USER ?= postgres
-POSTGRES_PASSWORD ?= postgres
-POSTGRES_DB ?= nself
+POSTGRES_DB ?= ntask
 HASURA_ADMIN_SECRET ?= nself-admin-secret
 
 # ---------------------------------------------------------------------------
-# Local Development
+# Local Development — nSelf-First (preferred)
 # ---------------------------------------------------------------------------
 
+.PHONY: build
+build: ## Build the nSelf stack (generates docker-compose.yml + nginx + SSL)
+	$(NSELF) build
+
 .PHONY: up
-up: ## Start all services (local development)
-	$(COMPOSE) --profile dev up -d
+up: ## Start the backend stack (nSelf-First; wraps `nself start`)
+	$(NSELF) start
 
 .PHONY: down
-down: ## Stop all services
-	$(COMPOSE) --profile dev down
+down: ## Stop all services (wraps `nself stop`)
+	$(NSELF) stop
 
 .PHONY: restart
 restart: down up ## Restart all services

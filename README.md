@@ -1,8 +1,6 @@
 # ɳTasks
 
-Self-hosted task management reference app. Flutter client over a Postgres + Hasura + Auth backend.
-
-The "any-stack" reference app in the nSelf ecosystem: backend runs on raw Docker Compose, not the nSelf CLI.
+Self-hosted task management reference app. Flutter client over a Postgres + Hasura + Auth backend, managed by the nSelf CLI.
 
 [![Version](https://img.shields.io/github/v/release/nself-org/ntask?label=version)](https://github.com/nself-org/task/releases)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
@@ -11,15 +9,18 @@ The "any-stack" reference app in the nSelf ecosystem: backend runs on raw Docker
 
 ## Description
 
-**ɳTasks** is the "any-stack" reference app in the nSelf ecosystem. The Flutter client connects to a self-hosted backend running PostgreSQL 16, Hasura GraphQL Engine, Hasura Auth, Hasura Storage, and MinIO, all orchestrated as plain Docker Compose under `backend/`.
+**ɳTasks** is a reference app in the nSelf ecosystem. The Flutter client connects to a self-hosted backend running PostgreSQL 16, Hasura GraphQL Engine, Hasura Auth, Hasura Storage, and MinIO, orchestrated under `backend/` by the nSelf CLI.
 
-Unlike the other Type C reference apps (`chat`, `claw`, `ntv`) that use the nSelf CLI, `task/` ships its backend as raw `docker compose` so developers can fork, study, or operate the components without depending on the CLI. Use it as a starting point for your own self-hosted task tracker, or as a learning surface for the nSelf primitives.
+Like the other Type C reference apps (`nchat`, `nclaw`, `ntv`), ɳTasks uses the nSelf CLI as its backend entry point. `make up` delegates to `nself start`; `make down` delegates to `nself stop`.
 
 ## Quick Start
 
 ```bash
-git clone https://github.com/nself-org/task.git my-tasks
-cd my-tasks/backend && cp .env.example .env && make up
+git clone https://github.com/nself-org/ntask.git my-tasks
+cd my-tasks/backend
+cp .env.example .env.dev   # customize secrets
+nself build                # generate docker-compose.yml + nginx + SSL
+nself start                # start the stack  (or: make up)
 cd ../app && flutter run
 ```
 
@@ -36,6 +37,7 @@ The backend exposes Hasura at `http://localhost:8080`, Auth at `http://localhost
 ### Prerequisites
 
 - Flutter 3.7+ ([install guide](https://docs.flutter.dev/get-started/install))
+- nSelf CLI v1.0.9+ ([install guide](https://docs.nself.org/getting-started))
 - Docker 20+ with Docker Compose v2
 - GNU Make
 - (Optional) Hasura CLI for migration management
@@ -44,14 +46,13 @@ The backend exposes Hasura at `http://localhost:8080`, Auth at `http://localhost
 
 ```bash
 cd backend
-cp .env.example .env       # set passwords + secrets
-make up                    # start the stack
+cp .env.example .env.dev   # fill in project secrets
+nself build                # generates docker-compose.yml, nginx config, SSL certs
+nself start                # start the stack  (or: make up)
 make health                # verify all services are healthy
 ```
 
-Stop with `make down`. View logs with `make logs`. Open a Postgres shell with `make psql`.
-
-> **Alternative for nSelf CLI users:** if you already use nSelf, you can substitute `nself start` against a generated config. The canonical, supported path for `task/` is `make up`.
+Stop with `nself stop` (or `make down`). View logs with `make logs`. Open a Postgres shell with `make psql`.
 
 ### App Setup
 
@@ -75,14 +76,14 @@ flutter build windows      # Windows desktop
 ## Usage
 
 ```bash
-cd backend && make up              # start backend
+cd backend && nself start          # start backend (or: make up)
 cd app && flutter run -d chrome    # run app in Chrome
 ```
 
 ```bash
 cd backend && make migrate         # apply pending Hasura migrations
 cd backend && make backup          # create a Postgres backup to ./backups/
-cd backend && make staging-up      # bring up staging stack with Traefik HTTPS
+cd backend && nself start --env staging   # bring up staging stack
 ```
 
 ```bash
@@ -125,7 +126,7 @@ There is no separate Swift, Kotlin, React Native, or Next.js frontend: Flutter i
 | Storage | Hasura Storage over MinIO (S3-compatible) |
 | Dev email | Mailpit |
 | HTTPS (staging/prod) | Traefik with Let's Encrypt |
-| Orchestration | Docker Compose + Makefile |
+| Orchestration | nSelf CLI + Docker Compose + Makefile |
 
 ## Documentation
 

@@ -1,20 +1,25 @@
 # =============================================================================
-# ɳTask repo-level Makefile
+# ɳTasks repo-level Makefile
 #
-# Thin wrapper over backend/Makefile + app (Flutter) commands. The backend
-# Makefile is the canonical surface; this one exists so that running `make up`
-# or `make test` from the repo root "just works".
+# Thin wrapper over backend/Makefile + app (Flutter) commands.
+#
+# nSelf-First: `make up` delegates to `nself start` via backend/Makefile.
+# Run `make build` once before first `make up` (generates docker-compose.yml).
 # =============================================================================
 
 BACKEND := backend
 APP     := app
 
+.PHONY: build
+build: ## Build the nSelf backend stack (run once before first `make up`)
+	$(MAKE) -C $(BACKEND) build
+
 .PHONY: up
-up: ## Start the backend stack (delegates to backend/Makefile)
+up: ## Start the backend stack via nself start (nSelf-First)
 	$(MAKE) -C $(BACKEND) up
 
 .PHONY: down
-down: ## Stop the backend stack
+down: ## Stop the backend stack via nself stop
 	$(MAKE) -C $(BACKEND) down
 
 .PHONY: restart
